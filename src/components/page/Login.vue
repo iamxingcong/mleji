@@ -40,7 +40,7 @@ export default {
           type: 'warning'
         })
       } else {
-        window.location.href = '#/ManagePanel'
+        this.$router.push('ManagePanel')
       }
     }
   }

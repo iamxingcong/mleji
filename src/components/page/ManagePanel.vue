@@ -33,7 +33,7 @@ export default {
   }
   #aside{
     min-height: 100%;
-    background-color: #666;
+    background-color: rgba(51, 51, 51, 1);
     color: #CCCCCC;
   }
 </style>

@@ -4,6 +4,16 @@
         <i class='site_logo' :style='{backgroundImage:`url(${img})`}'></i>
         <span class='stitle'>版权管理系统</span>
       </div>
+      <el-menu
+          default-active="1-1"
+          class="el-menu-vertical-demo"
+          background-color="#324157"
+          text-color="#bfcbd9"
+          active-text-color="#20a0ff"
+      >
+        <el-menu-item index="1-1">选项1</el-menu-item>
+        <el-menu-item index="1-2">选项2</el-menu-item>
+      </el-menu>
   </div>
 </template>
 <script>

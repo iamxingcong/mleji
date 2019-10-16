@@ -13,7 +13,7 @@
 
         <el-button type='text'>消息</el-button>
         <el-button type='text'>账户设置</el-button>
-        <el-button type='text'>退出</el-button>
+        <el-button type='text' v-on:click="loginout">退出</el-button>
       </div>
     </el-row>
   </div>
@@ -26,6 +26,11 @@ export default {
     return {
       user: 'admin',
       search: ''
+    }
+  },
+  methods: {
+    loginout: function () {
+      this.$router.push('/')
     }
   }
 }
