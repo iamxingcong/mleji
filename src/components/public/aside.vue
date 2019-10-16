@@ -32,7 +32,7 @@ export default {
     return {
       img: require('../../assets/icons/logo.png'),
       index: '',
-      route: ''
+      route: null
     }
   },
   methods: {
@@ -40,7 +40,7 @@ export default {
       this.$router.push('ManagePanel')
     },
     select: function (route) {
-      console.log(route)
+      console.log(route.meta)
     }
   }
 }
