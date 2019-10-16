@@ -1,20 +1,20 @@
 <template>
-  <div id="aside">
-      <div class="site_title">
-        <i class="site_logo" :style="{backgroundImage:`url(${img})`}"></i>
-        <span class="stitle">版权管理系统</span>
+  <div id='aside'>
+      <div class='site_title'>
+        <i class='site_logo' :style='{backgroundImage:`url(${img})`}'></i>
+        <span class='stitle'>版权管理系统</span>
       </div>
   </div>
 </template>
 <script>
 export default {
-  name: "Aside",
+  name: 'Aside',
   data () {
     return {
       img: require('../../assets/icons/logo.png')
     }
   }
-};
+}
 </script>
 <style scoped>
   .site_title{

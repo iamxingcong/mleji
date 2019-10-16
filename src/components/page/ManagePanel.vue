@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-aside width="200px">
+    <el-aside width='200px'>
       <Aside />
     </el-aside>
     <el-container>
@@ -12,20 +12,20 @@
   </el-container>
 </template>
 <script>
-import Header from "../public/header.vue";
-import Aside from "../public/aside.vue"
+import Header from '../public/header.vue'
+import Aside from '../public/aside.vue'
 export default {
-  name: "ManagePanel",
+  name: 'ManagePanel',
   components: {
     Header,
     Aside
   },
-  data() {
+  data () {
     return {
-      msg: "CMusic Copyright版权曲库管理系统"
-    };
+      msg: 'CMusic Copyright版权曲库管理系统'
+    }
   }
-};
+}
 </script>
 <style scoped>
   .el-header{

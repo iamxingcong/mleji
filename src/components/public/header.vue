@@ -1,19 +1,19 @@
 <template>
-  <div class="header">
+  <div class='header'>
     <el-row>
-      <div class="search200">
+      <div class='search200'>
         <el-input
-          placeholder="请输入搜索内容"
-          suffix-icon="el-icon-search"
-          v-model="search">
+          placeholder='请输入搜索内容'
+          suffix-icon='el-icon-search'
+          v-model='search'>
         </el-input>
       </div>
-      <div class="btngroup">
-        <span class="text">{{user}}</span>
+      <div class='btngroup'>
+        <span class='text'>{{user}}</span>
 
-        <el-button type="text">消息</el-button>
-        <el-button type="text">账户设置</el-button>
-        <el-button type="text">退出</el-button>
+        <el-button type='text'>消息</el-button>
+        <el-button type='text'>账户设置</el-button>
+        <el-button type='text'>退出</el-button>
       </div>
     </el-row>
   </div>
@@ -21,14 +21,14 @@
 
 <script>
 export default {
-  name: "Header",
-  data() {
+  name: 'Header',
+  data () {
     return {
       user: 'admin',
-      search: ""
-    };
+      search: ''
+    }
   }
-};
+}
 </script>
 <style scoped>
   .search200{
