@@ -31,12 +31,8 @@ export default {
     return {
       msg: 'CMusic Copyright版权曲库管理系统'
     }
-  },
-  computed: {
-    defaultActive: function () {
-      return this.$route.path.replace('/', '')
-    }
   }
+
 }
 </script>
 <style scoped>

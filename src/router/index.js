@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Login from '@/components/page/Login'
 import ManagePanel from '@/components/page/ManagePanel'
 import UserManage from '@/components/page/UserManage'
+import home from '@/components/page/home'
 
 Vue.use(Router)
 
@@ -15,11 +16,16 @@ export default new Router({
     },
     {
       path: '/ManagePanel',
-      name: '',
       component: ManagePanel,
+      name: '',
       children: [
         {
           path: '',
+          component: home,
+          meta: []
+        },
+        {
+          path: '/UserManage',
           component: UserManage,
           meta: ['用户管理', '管理']
 
