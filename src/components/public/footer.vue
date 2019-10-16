@@ -11,13 +11,10 @@ export default {
 </script>
 <style scoped>
   #footer{
-    position: absolute;
     bottom: 10px;
     text-align: center;
     display: block;
-    width: 400px;
-    left: 50%;
-    margin-left: -200px;
+    margin: 0px auto;
   }
   #footer span{
     display: block;

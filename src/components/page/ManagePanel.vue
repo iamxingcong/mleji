@@ -7,7 +7,9 @@
       <el-header>
         <Header />
       </el-header>
-      <el-main>Main</el-main>
+      <el-main>
+        <router-view />
+      </el-main>
       <el-footer>
         <Footer />
       </el-footer>
@@ -28,6 +30,11 @@ export default {
   data () {
     return {
       msg: 'CMusic Copyright版权曲库管理系统'
+    }
+  },
+  computed: {
+    defaultActive: function () {
+      return this.$route.path.replace('/', '')
     }
   }
 }

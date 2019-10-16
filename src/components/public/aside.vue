@@ -1,19 +1,26 @@
 <template>
   <div id='aside'>
-      <div class='site_title'>
-        <i class='site_logo' :style='{backgroundImage:`url(${img})`}'></i>
-        <span class='stitle'>版权管理系统</span>
-      </div>
-      <el-menu
-          default-active="1-1"
-          class="el-menu-vertical-demo"
-          background-color="#324157"
-          text-color="#bfcbd9"
-          active-text-color="#20a0ff"
-      >
-        <el-menu-item index="1-1">选项1</el-menu-item>
-        <el-menu-item index="1-2">选项2</el-menu-item>
-      </el-menu>
+    <div class='site_title'>
+      <i class='site_logo' :style='{ backgroundImage: `url(${img})` }'></i>
+      <span class='stitle'>版权管理系统</span>
+    </div>
+    <el-menu
+      class='el-menu-vertical-demo'
+      background-color='#324157'
+      text-color='#bfcbd9'
+      active-text-color='#20a0ff'
+      :default-active='this.$router.path'
+      router
+    >
+      <el-menu-item index='UserManage'> 用户管理 </el-menu-item>
+      <el-menu-item index='2-2'> 请求管理 </el-menu-item>
+      <el-menu-item index='3-3'> 音乐管理 </el-menu-item>
+      <el-menu-item index='4-4'> 授权管理 </el-menu-item>
+      <el-menu-item index='5-5'> 收益管理 </el-menu-item>
+      <el-menu-item index='6-6'> 数据统计 </el-menu-item>
+      <el-menu-item index='7-7'> 权限管理 </el-menu-item>
+      <el-menu-item index='8-8'> 通知管理 </el-menu-item>
+    </el-menu>
   </div>
 </template>
 <script>
@@ -27,26 +34,25 @@ export default {
 }
 </script>
 <style scoped>
-  .site_title{
-    height: 70px;
-    line-height: 70px;
-  }
-  .site_logo{
-
-    width: 40px;
-    height: 40px;
-    margin-left: 15px;
-    margin-top: 14px;
-    margin-right: 5px;
-    background-size: contain;
-
-  }
-  .site_title i, .site_title span{
-    display: block;
-    float: left;
-  }
-  .stitle{
-    font-size: 18px;
-    font-weight: 700;
-  }
+.site_title {
+  height: 70px;
+  line-height: 70px;
+}
+.site_logo {
+  width: 40px;
+  height: 40px;
+  margin-left: 15px;
+  margin-top: 14px;
+  margin-right: 5px;
+  background-size: contain;
+}
+.site_title i,
+.site_title span {
+  display: block;
+  float: left;
+}
+.stitle {
+  font-size: 18px;
+  font-weight: 700;
+}
 </style>
