@@ -11,6 +11,8 @@
       active-text-color='#20a0ff'
       :default-active='this.$router.path'
       router
+      @select="select"
+
     >
       <el-menu-item index='UserManage'> 用户管理 </el-menu-item>
       <el-menu-item index='RequestManage'> 请求管理 </el-menu-item>
@@ -28,12 +30,17 @@ export default {
   name: 'Aside',
   data () {
     return {
-      img: require('../../assets/icons/logo.png')
+      img: require('../../assets/icons/logo.png'),
+      index: '',
+      route: ''
     }
   },
   methods: {
     defaultpg: function () {
       this.$router.push('ManagePanel')
+    },
+    select: function (route) {
+      console.log(route)
     }
   }
 }
