@@ -1,6 +1,6 @@
 <template>
   <div id='aside'>
-    <div class='site_title'>
+    <div class='site_title' v-on:click="defaultpg">
       <i class='site_logo' :style='{ backgroundImage: `url(${img})` }'></i>
       <span class='stitle'>版权管理系统</span>
     </div>
@@ -13,13 +13,13 @@
       router
     >
       <el-menu-item index='UserManage'> 用户管理 </el-menu-item>
-      <el-menu-item index='2-2'> 请求管理 </el-menu-item>
-      <el-menu-item index='3-3'> 音乐管理 </el-menu-item>
-      <el-menu-item index='4-4'> 授权管理 </el-menu-item>
-      <el-menu-item index='5-5'> 收益管理 </el-menu-item>
-      <el-menu-item index='6-6'> 数据统计 </el-menu-item>
-      <el-menu-item index='7-7'> 权限管理 </el-menu-item>
-      <el-menu-item index='8-8'> 通知管理 </el-menu-item>
+      <el-menu-item index='RequestManage'> 请求管理 </el-menu-item>
+      <el-menu-item index='MusicManage'> 音乐管理 </el-menu-item>
+      <el-menu-item index='AuthorizeManage'> 授权管理 </el-menu-item>
+      <el-menu-item index='ProfitManage'> 收益管理 </el-menu-item>
+      <el-menu-item index='DataManage'> 数据统计 </el-menu-item>
+      <el-menu-item index='PermissionManage'> 权限管理 </el-menu-item>
+      <el-menu-item index='NoticeManage'> 通知管理 </el-menu-item>
     </el-menu>
   </div>
 </template>
@@ -29,6 +29,11 @@ export default {
   data () {
     return {
       img: require('../../assets/icons/logo.png')
+    }
+  },
+  methods: {
+    defaultpg: function () {
+      this.$router.push('ManagePanel')
     }
   }
 }
