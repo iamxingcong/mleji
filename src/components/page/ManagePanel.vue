@@ -8,17 +8,22 @@
         <Header />
       </el-header>
       <el-main>Main</el-main>
+      <el-footer>
+        <Footer />
+      </el-footer>
     </el-container>
   </el-container>
 </template>
 <script>
 import Header from '../public/header.vue'
 import Aside from '../public/aside.vue'
+import Footer from '../public/footer.vue'
 export default {
   name: 'ManagePanel',
   components: {
     Header,
-    Aside
+    Aside,
+    Footer
   },
   data () {
     return {

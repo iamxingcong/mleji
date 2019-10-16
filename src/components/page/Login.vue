@@ -1,29 +1,34 @@
 <template>
-  <div class='login_wrap'>
-    <div id='bg_icons'   :style='{backgroundImage:`url(${img})`}'></div>
-    <span class='login_title'>{{ msg }}</span>
-    <div class='login_form'>
-      <el-input placeholder='请输入用户名称' v-model='user'>
-        <i slot='prefix' class='el-input__icon el-icon-user'></i>
-      </el-input>
-      <el-input placeholder='请输入登录密码' v-model='pass'>
-        <i slot='prefix' class='el-input__icon el-icon-lock'></i>
-      </el-input>
-
-      <el-row>
-        <el-button type='primary' size='medium' v-on:click='login'>登录</el-button>
-      </el-row>
-
-      <el-row>
-        <el-button type='text'>忘记密码</el-button>
-      </el-row>
+  <div id='big_wrap'>
+    <div class='login_wrap'>
+      <div id='bg_icons' :style='{ backgroundImage: `url(${img})` }'></div>
+      <span class='login_title'>{{ msg }}</span>
+      <div class='login_form'>
+        <el-input placeholder='请输入用户名称' v-model='user'>
+          <i slot='prefix' class='el-input__icon el-icon-user'></i>
+        </el-input>
+        <el-input placeholder='请输入登录密码' v-model='pass'>
+          <i slot='prefix' class='el-input__icon el-icon-lock'></i>
+        </el-input>
+        <el-row>
+          <el-button type='primary' size='medium' v-on:click='login'>登录</el-button>
+        </el-row>
+        <el-row>
+          <el-button type='text'>忘记密码</el-button>
+        </el-row>
+      </div>
     </div>
+    <Footer />
   </div>
 </template>
 
 <script>
+import Footer from '../public/footer.vue'
 export default {
   name: 'Login',
+  components: {
+    Footer
+  },
   data () {
     return {
       msg: 'CMusic Copyright版权曲库管理系统',
@@ -46,7 +51,6 @@ export default {
   }
 }
 </script>
-
 <!-- Add 'scoped' attribute to limit CSS to this component only -->
 <style scoped>
 #bg_icons {
