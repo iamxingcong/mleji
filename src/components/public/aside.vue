@@ -72,14 +72,14 @@ export default {
 </script>
 <style scoped>
 .site_title {
-  height: 70px;
-  line-height: 70px;
+  height: 60px;
+  line-height: 60px;
 }
 .site_logo {
   width: 40px;
   height: 40px;
   margin-left: 15px;
-  margin-top: 14px;
+  margin-top: 10px;
   margin-right: 5px;
   background-size: contain;
 }

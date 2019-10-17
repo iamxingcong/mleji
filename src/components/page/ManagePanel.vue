@@ -37,7 +37,7 @@ export default {
 </script>
 <style scoped>
   .el-header{
-    border-bottom: 1px solid #e2e2e2;
+    box-shadow: 0px 2px 2px #e2e2e2;
   }
   #aside{
     min-height: 100%;
