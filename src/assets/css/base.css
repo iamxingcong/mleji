@@ -45,14 +45,29 @@
 .ranks .el-tabs__item{
   height: 70px !important;
   line-height: 70px !important;
+  color: #999;
 }
-
+.ranks .el-tabs__item.is-active{
+  color: #409EFF;
+}
 .ranks .el-tabs{
   float: left;
+  width: 100%;
+  position: absolute;
+  top: 0px;
 }
 .ranks .el-date-editor{
-  margin-top: 15px;
+  margin-top: 22px;
 }
 .ranks .el-tabs__nav-wrap::after {
   height: 0px !important;
+}
+.ranks .el-date-editor--timerange.el-input__inner{
+  width: 200px !important;
+  float: right;
+  margin-right: 15px;
+  z-index: 999;
+}
+.ranks .el-tabs__nav-scroll {
+  padding-left: 120px;
 }

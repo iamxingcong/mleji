@@ -21,24 +21,25 @@
       <el-row>
         <span class="titles">播放排行</span>
 
-          <el-date-picker
+           <el-time-picker
+            is-range
+            size="mini"
             v-model="times"
-            type="datetime"
-            placeholder="选择日期时间"
-            align="right"
-            :picker-options="pickerOptions">
-          </el-date-picker>
-
+            range-separator="至"
+            start-placeholder="开始时间"
+            end-placeholder="结束时间"
+            placeholder="选择时间范围">
+          </el-time-picker>
+        </el-row>
         <el-tabs v-model="activeName" @tab-click="handleClick">
           <el-tab-pane label="总计" name="first">
-            <h1>发发发发的撒啊发</h1>
+            <MusicList />
           </el-tab-pane>
           <el-tab-pane label="昨天" name="second">昨天fsf</el-tab-pane>
           <el-tab-pane label="今天" name="third">今天sff</el-tab-pane>
 
         </el-tabs>
 
-      </el-row>
     </div>
 
     <div class="ranks">
@@ -47,6 +48,7 @@
   </div>
 </template>
 <script>
+import MusicList from './subcompo/MusicList.vue'
 var stactic = [
   {'name': '用户数量', 'number': 200, 'class': 'ca'},
   {'name': 'vip用户数量', 'number': 15, 'class': 'cb'},
@@ -64,30 +66,11 @@ export default {
       input: '',
       statics: [],
       activeName: 'first',
-      pickerOptions: {
-        shortcuts: [{
-          text: '今天',
-          onClick (picker) {
-            picker.$emit('pick', new Date())
-          }
-        }, {
-          text: '昨天',
-          onClick (picker) {
-            const date = new Date()
-            date.setTime(date.getTime() - 3600 * 1000 * 24)
-            picker.$emit('pick', date)
-          }
-        }, {
-          text: '一周前',
-          onClick (picker) {
-            const date = new Date()
-            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
-            picker.$emit('pick', date)
-          }
-        }]
-      },
       times: ''
     }
+  },
+  components: {
+    MusicList
   },
   created () {
     this.statics = stactic
@@ -169,20 +152,22 @@ export default {
   }
   .ranks{
     width: calc(50% - 17px);
+    min-width: 520px;
     float: left;
-    min-height: 400px;
+    min-height: 640px;
     margin-right: 15px;
     border: 1px solid #e2e2e2;
     background: #fff;
     border-radius: 2px;
     position: relative;
+    margin-bottom: 15px;
   }
   .titles{
     height: 70px;
     line-height: 70px;
     color: #666;
     font-weight: 700;
-    padding: 0px 15px;
+    padding: 0px 35px 0px 15px;
     overflow: hidden;
     margin-bottom: -1px;
     position: relative;
