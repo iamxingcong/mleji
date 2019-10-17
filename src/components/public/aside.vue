@@ -14,10 +14,16 @@
       @select="select"
 
     >
-      <el-menu-item index='DataManage'> 数据统计 </el-menu-item>
+      <el-menu-item index='DataManage'>
+        <i class="el-icon-pie-chart"></i>
+        <span slot="title">数据统计</span>
+      </el-menu-item>
 
       <el-submenu index="2">
-        <template slot="title">音乐</template>
+        <template slot="title">
+           <i class="el-icon-headset"></i>
+          <span>音乐</span>
+        </template>
         <el-menu-item index="MusicManage">音乐管理</el-menu-item>
         <el-menu-item index="MusicFilter">音乐筛选列表</el-menu-item>
         <el-menu-item index="MusicDetail">音乐详情</el-menu-item>
@@ -25,7 +31,17 @@
         <el-menu-item index="AlbumDetail">专辑详情</el-menu-item>
       </el-submenu>
 
-      <el-menu-item index='UserManage'> 用户管理 </el-menu-item>
+       <el-submenu index="3">
+        <template slot="title">
+           <i class="el-icon-user"></i>
+          <span>用户</span>
+        </template>
+        <el-menu-item index="UserManage">用户管理</el-menu-item>
+        <el-menu-item index="ProjectDetail">项目详情</el-menu-item>
+        <el-menu-item index="AddUser">新增用户</el-menu-item>
+        <el-menu-item index="LoginLog">登录日志</el-menu-item>
+      </el-submenu>
+
       <el-menu-item index='RequestManage'> 请求管理 </el-menu-item>
 
       <el-menu-item index='AuthorizeManage'> 授权管理 </el-menu-item>
