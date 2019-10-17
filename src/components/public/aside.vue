@@ -14,12 +14,22 @@
       @select="select"
 
     >
+      <el-menu-item index='DataManage'> 数据统计 </el-menu-item>
+
+      <el-submenu index="2">
+        <template slot="title">音乐</template>
+        <el-menu-item index="MusicManage">音乐管理</el-menu-item>
+        <el-menu-item index="MusicFilter">音乐筛选列表</el-menu-item>
+        <el-menu-item index="MusicDetail">音乐详情</el-menu-item>
+        <el-menu-item index="BrandDetail">厂牌详情</el-menu-item>
+        <el-menu-item index="AlbumDetail">专辑详情</el-menu-item>
+      </el-submenu>
+
       <el-menu-item index='UserManage'> 用户管理 </el-menu-item>
       <el-menu-item index='RequestManage'> 请求管理 </el-menu-item>
-      <el-menu-item index='MusicManage'> 音乐管理 </el-menu-item>
+
       <el-menu-item index='AuthorizeManage'> 授权管理 </el-menu-item>
       <el-menu-item index='ProfitManage'> 收益管理 </el-menu-item>
-      <el-menu-item index='DataManage'> 数据统计 </el-menu-item>
       <el-menu-item index='PermissionManage'> 权限管理 </el-menu-item>
       <el-menu-item index='NoticeManage'> 通知管理 </el-menu-item>
     </el-menu>
@@ -31,16 +41,15 @@ export default {
   data () {
     return {
       img: require('../../assets/icons/logo.png'),
-      index: '',
-      route: null
+      index: ''
     }
   },
   methods: {
     defaultpg: function () {
       this.$router.push('ManagePanel')
     },
-    select: function (route) {
-      console.log(route.meta)
+    select: function (index) {
+      console.log(index)
     }
   }
 }
@@ -67,4 +76,5 @@ export default {
   font-size: 18px;
   font-weight: 700;
 }
+
 </style>

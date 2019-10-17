@@ -17,3 +17,25 @@
 .el-menu{
 	border-right: none !important;
 }
+.search200  .el-input__inner{
+  border-radius: 35px !important;
+  width: 200px;
+  padding: 0px 40px 0px 15px;
+  height: 35px;
+  line-height: 35px;
+}
+
+.search200 .el-input-group__append{
+    background-color: #fff !important;
+    border: none !important;
+    position: absolute;
+    right: 30px;
+    top: 1px;
+    height: 33px !important;
+    padding: 0px;
+    line-height: 33px;
+    z-index: 9299;
+}
+.el-submenu__title, .el-menu-item{
+  text-align: left !important;
+}
