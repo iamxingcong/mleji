@@ -42,3 +42,17 @@
 .el-main, .el-footer{
   background-color: rgba(249, 249, 249, 1);
 }
+.ranks .el-tabs__item{
+  height: 70px !important;
+  line-height: 70px !important;
+}
+
+.ranks .el-tabs{
+  float: left;
+}
+.ranks .el-date-editor{
+  margin-top: 15px;
+}
+.ranks .el-tabs__nav-wrap::after {
+  height: 0px !important;
+}

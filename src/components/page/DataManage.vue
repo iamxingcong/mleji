@@ -18,7 +18,27 @@
     </div>
 
     <div class="ranks">
+      <el-row>
+        <span class="titles">播放排行</span>
 
+          <el-date-picker
+            v-model="times"
+            type="datetime"
+            placeholder="选择日期时间"
+            align="right"
+            :picker-options="pickerOptions">
+          </el-date-picker>
+
+        <el-tabs v-model="activeName" @tab-click="handleClick">
+          <el-tab-pane label="总计" name="first">
+            <h1>发发发发的撒啊发</h1>
+          </el-tab-pane>
+          <el-tab-pane label="昨天" name="second">昨天fsf</el-tab-pane>
+          <el-tab-pane label="今天" name="third">今天sff</el-tab-pane>
+
+        </el-tabs>
+
+      </el-row>
     </div>
 
     <div class="ranks">
@@ -42,11 +62,40 @@ export default {
   data () {
     return {
       input: '',
-      statics: []
+      statics: [],
+      activeName: 'first',
+      pickerOptions: {
+        shortcuts: [{
+          text: '今天',
+          onClick (picker) {
+            picker.$emit('pick', new Date())
+          }
+        }, {
+          text: '昨天',
+          onClick (picker) {
+            const date = new Date()
+            date.setTime(date.getTime() - 3600 * 1000 * 24)
+            picker.$emit('pick', date)
+          }
+        }, {
+          text: '一周前',
+          onClick (picker) {
+            const date = new Date()
+            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
+            picker.$emit('pick', date)
+          }
+        }]
+      },
+      times: ''
     }
   },
   created () {
     this.statics = stactic
+  },
+  methods: {
+    handleClick (tab, event) {
+      console.log(tab, event)
+    }
   }
 }
 </script>
@@ -119,12 +168,35 @@ export default {
     background-color: rgba(255, 153, 102, 1);
   }
   .ranks{
-        width: calc(50% - 17px);
+    width: calc(50% - 17px);
     float: left;
     min-height: 400px;
     margin-right: 15px;
     border: 1px solid #e2e2e2;
     background: #fff;
     border-radius: 2px;
+    position: relative;
   }
+  .titles{
+    height: 70px;
+    line-height: 70px;
+    color: #666;
+    font-weight: 700;
+    padding: 0px 15px;
+    overflow: hidden;
+    margin-bottom: -1px;
+    position: relative;
+  }
+
+  .ranks:after{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 70px;
+    width: 100%;
+    height: 1px;
+    background-color: #E4E7ED;
+    z-index: 1;
+  }
+
 </style>
