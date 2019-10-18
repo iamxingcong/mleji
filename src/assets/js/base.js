@@ -1,1 +1,2 @@
-console.log("base.js");
+
+console.log('引入 base')

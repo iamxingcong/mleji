@@ -21,34 +21,75 @@
       <el-row>
         <span class="titles">播放排行</span>
 
-           <el-time-picker
-            is-range
-            size="mini"
-            v-model="times"
-            range-separator="至"
-            start-placeholder="开始时间"
-            end-placeholder="结束时间"
-            placeholder="选择时间范围">
-          </el-time-picker>
-        </el-row>
-        <el-tabs v-model="activeName" @tab-click="handleClick">
-          <el-tab-pane label="总计" name="first">
-            <MusicList />
-          </el-tab-pane>
-          <el-tab-pane label="昨天" name="second">昨天fsf</el-tab-pane>
-          <el-tab-pane label="今天" name="third">今天sff</el-tab-pane>
+          <el-time-picker
+          is-range
+          size="mini"
+          v-model="times"
+          range-separator="至"
+          start-placeholder="开始时间"
+          end-placeholder="结束时间"
+          placeholder="选择时间范围">
+        </el-time-picker>
+      </el-row>
+      <el-tabs v-model="activeName" @tab-click="handleClick">
+        <el-tab-pane label="总计" name="first">
+          <MusicList />
+        </el-tab-pane>
+        <el-tab-pane label="昨天" name="second">
+          <MusicList />
+        </el-tab-pane>
+        <el-tab-pane label="今天" name="third">
+          <MusicList />
+        </el-tab-pane>
 
-        </el-tabs>
-
+      </el-tabs>
+      <div id="btm_btn" class="f10">
+        <el-button size="small" round>下载全部播放数据</el-button>
+      </div>
     </div>
 
     <div class="ranks">
+      <el-row>
+        <span class="titles">下载排行</span>
 
+          <el-time-picker
+          is-range
+          size="mini"
+          v-model="timesd"
+          range-separator="至"
+          start-placeholder="开始时间"
+          end-placeholder="结束时间"
+          placeholder="选择时间范围">
+        </el-time-picker>
+      </el-row>
+      <el-tabs v-model="activeNames" @tab-click="handleClickd">
+        <el-tab-pane label="总计" name="first">
+          <DownloadList />
+        </el-tab-pane>
+        <el-tab-pane label="昨天" name="second">
+          <DownloadList />
+        </el-tab-pane>
+        <el-tab-pane label="今天" name="third">
+          <DownloadList />
+        </el-tab-pane>
+
+      </el-tabs>
+      <div id="btm_btn" class="f10">
+        <el-button size="small" round>下载全部下载数据</el-button>
+      </div>
     </div>
+
+    <div id="pieChart">
+      <el-row>
+        <span>用户选择最多的5个标签</span>
+      </el-row>
+    </div>
+
   </div>
 </template>
 <script>
 import MusicList from './subcompo/MusicList.vue'
+import DownloadList from './subcompo/DownloadList.vue'
 var stactic = [
   {'name': '用户数量', 'number': 200, 'class': 'ca'},
   {'name': 'vip用户数量', 'number': 15, 'class': 'cb'},
@@ -66,11 +107,14 @@ export default {
       input: '',
       statics: [],
       activeName: 'first',
-      times: ''
+      activeNames: 'first',
+      times: '',
+      timesd: ''
     }
   },
   components: {
-    MusicList
+    MusicList,
+    DownloadList
   },
   created () {
     this.statics = stactic
@@ -78,110 +122,12 @@ export default {
   methods: {
     handleClick (tab, event) {
       console.log(tab, event)
+    },
+    handleClickd (tab, event) {
+      console.log(tab, event)
     }
   }
 }
+
 </script>
-<style scoped>
-
-  .el-row span, .el-row .el-button--primary{
-    display: block;
-    float: left;
-  }
-  .wd400{
-    width: 400px;
-    margin-right: 10px;
-  }
-  .el-row .el-button--text{
-    float: right;
-    margin-right: 20px;
-    color: #999;
-    height: 30px;
-    line-height: 30px;
-    padding: 0px 20px;
-    border: 1px solid   rgba(228, 228, 228, 1);
-    margin-top: 4.8px;
-  }
-   .el-row .el-button--text:hover{
-    background-color: rgba(242, 242, 242, 1);
-  }
-  #DataManage .el-row{
-    margin-bottom: 10px;
-  }
-  #Statics .single{
-    width: calc(25% - 15px);
-    display: block;
-    float: left;
-    height: 60px;
-    padding: 20px 0px;
-    margin-right: 15px;
-    margin-bottom: 15px;
-  }
-  .single .title, .single .number{
-    display: block;
-    clear: both;
-    color: #fff;
-  }
-  .single .number{
-    font-size: 2em;
-    line-height: 40px;
-  }
-  .ca{
-    background-color: rgba(88, 163, 247, 1);
-  }
-  .cb{
-    background-color: rgba(254, 192, 61, 1);
-  }
-  .cc{
-    background-color: rgba(82, 193, 245, 1);
-  }
-  .cd{
-    background-color: rgba(251, 98, 96, 1);
-  }
-  .ce{
-    background-color: rgba(204, 153, 0, 1);
-  }
-  .cf{
-    background-color: rgba(204, 153, 255, 1);
-  }
-  .cg{
-    background-color: rgba(102, 204, 51, 1);
-  }
-  .ch{
-    background-color: rgba(255, 153, 102, 1);
-  }
-  .ranks{
-    width: calc(50% - 17px);
-    min-width: 520px;
-    float: left;
-    min-height: 640px;
-    margin-right: 15px;
-    border: 1px solid #e2e2e2;
-    background: #fff;
-    border-radius: 2px;
-    position: relative;
-    margin-bottom: 15px;
-  }
-  .titles{
-    height: 70px;
-    line-height: 70px;
-    color: #666;
-    font-weight: 700;
-    padding: 0px 35px 0px 15px;
-    overflow: hidden;
-    margin-bottom: -1px;
-    position: relative;
-  }
-
-  .ranks:after{
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 70px;
-    width: 100%;
-    height: 1px;
-    background-color: #E4E7ED;
-    z-index: 1;
-  }
-
-</style>
+<style scoped src='../../assets/css/datamanage.css'></style>
