@@ -1,24 +1,5 @@
 
-  .el-row span, .el-row .el-button--primary{
-    display: block;
-    float: left;
-  }
-  .wd400{
-    width: 400px;
-    margin-right: 10px;
-  }
-  .el-row .el-button--text{
-    float: right;
-    color: #999;
-    height: 30px;
-    line-height: 30px;
-    padding: 0px 20px;
-    border: 1px solid   rgba(228, 228, 228, 1);
-    margin-top: 4.8px;
-  }
-   .el-row .el-button--text:hover{
-    background-color: rgba(242, 242, 242, 1);
-  }
+
   #DataManage .el-row{
     margin-bottom: 10px;
   }
@@ -113,13 +94,6 @@
   #hotWords{
     height: 390px;
     background-color: #fff;
-  }
-  #pieChart .tit, #hotWords .tit{
-    font-weight: 700;
-    padding-left: 15px;
-    padding-top: 20px;
-    height: 20px;
-    line-height: 20px;
   }
   #pieChart .el-row, #hotWords .el-row{
     height: 60px;

@@ -80,3 +80,23 @@
 .right{
   float: right;
 }
+.wd400{
+  width: 400px;
+  margin-right: 10px;
+}
+.mt5{
+  margin-top: 5px;
+}
+.el-row .tit{
+  font-weight: 700;
+  padding-left: 15px;
+  padding-top: 20px;
+  height: 20px;
+  line-height: 20px;
+}
+.mr15{
+  margin-right: 15px;
+}
+.mt13{
+  margin-top: 13px;
+}

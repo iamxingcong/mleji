@@ -1,0 +1,25 @@
+.el-main{
+  background-color: lightblue !important;
+}
+#musicBrand{
+  display: block;
+  clear: both;
+  background-color: #fff;
+  margin-top: 15px;
+  min-height: 500px;
+}
+#musicBrand .el-row{
+  height: 60px;
+}
+.sinbrand img{
+  width: 101px;
+    height: 95px;
+}
+.sinbrand{
+  width: calc(33% - 30px);
+  display: block;
+  float: left;
+  border: 1px solid #e2e2e2;
+  margin-right: 25px;
+  margin-bottom: 25px;
+}

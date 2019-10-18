@@ -2,12 +2,16 @@
   <div id='DataManage'>
 
     <el-row>
-      <span class="wd400">
+      <span class="wd400 left">
         <el-input v-model="input" placeholder="请输入搜索关键词"></el-input>
       </span>
+      <span class="left">
         <el-button type="primary">搜索音乐</el-button>
         <el-button type="primary">全部音乐</el-button>
-        <el-button  type="text">刷新</el-button>
+      </span>
+      <span class="right mt5">
+        <el-button size="mini">刷新</el-button>
+      </span>
     </el-row>
 
     <div id="Statics">
@@ -19,7 +23,7 @@
 
     <div class="ranks left">
       <el-row>
-        <span class="titles">播放排行</span>
+        <span class="titles left">播放排行</span>
 
           <el-time-picker
           is-range
@@ -50,7 +54,7 @@
 
     <div class="ranks right">
       <el-row>
-        <span class="titles">下载排行</span>
+        <span class="titles left">下载排行</span>
 
           <el-time-picker
           is-range
@@ -81,7 +85,7 @@
 
     <div id="pieChart">
       <el-row>
-        <span class="tit">用户选择最多的5个标签</span>
+        <span class="tit left">用户选择最多的5个标签</span>
         <div  class="f10 right rbtn">
           <el-button size="small" round>下载全部标签数据</el-button>
         </div>
@@ -90,7 +94,7 @@
 
     <div id="hotWords">
       <el-row>
-        <span class="tit">用户检索关键词热图</span>
+        <span class="tit left">用户检索关键词热图</span>
         <div  class="f10 right rbtn">
           <el-button size="small" round>下载全部关键词数据</el-button>
         </div>
