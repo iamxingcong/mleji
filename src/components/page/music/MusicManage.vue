@@ -24,8 +24,25 @@
 
       <div id="brandWrap">
           <div class="sinbrand" v-for="(i,index) in ms" :key = "index">
+
             <span class="hti">{{i.name}}</span>
-            <img :src="i.img" />
+            <div class="brandLogo" :style='{ backgroundImage: `url(${i.img})` }'></div>
+            <span class="desc">{{i.desc}}</span>
+            <div class="crs flex3 c99">
+                <span>专辑</span>
+                <span>音乐</span>
+                <span>艺术家</span>
+            </div>
+            <div class="crs flex3 fw700">
+                <span>{{i.brandsm}}</span>
+                <span>{{i.musum}}</span>
+                <span>{{i.artist}}</span>
+            </div>
+            <div class="crs flex3">
+              <el-button type="text"  class="f12" v-on:click="brandDetail(i.id)">厂牌详情</el-button>
+              <el-button type="text"  class="f12">编辑厂牌</el-button>
+              <el-button type="text"  class="f12">删除厂牌</el-button>
+            </div>
 
           </div>
       </div>
@@ -41,7 +58,7 @@ var brands = [
     brandsm: 52,
     musum: 233,
     artist: 323,
-    id: 23
+    id: 232
   },
   {
     name: 'gone with windfsfs',
@@ -49,11 +66,38 @@ var brands = [
     desc: 'best music i ve ever heard',
     brandsm: 52,
     musum: 233,
-    artist: 323,
-    id: 23
+    artist: 1323,
+    id: 231
   },
   {
-    name: 'gone with wind',
+    name: 'gone withfdsf wind',
+    img: 'https://cn.vuejs.org/images/logo.png',
+    desc: 'best music i ve ever heard',
+    brandsm: 52,
+    musum: 233,
+    artist: 323,
+    id: 233
+  },
+  {
+    name: 'gone witdfsh wind',
+    img: 'https://cn.vuejs.org/images/logo.png',
+    desc: 'best music i ve ever heard',
+    brandsm: 52,
+    musum: 233,
+    artist: 323,
+    id: 234
+  },
+  {
+    name: 'gone witsfh wind',
+    img: 'https://cn.vuejs.org/images/logo.png',
+    desc: 'best music i ve ever heard',
+    brandsm: 52,
+    musum: 233,
+    artist: 323,
+    id: 235
+  },
+  {
+    name: 'gone with fssfffswind',
     img: 'https://cn.vuejs.org/images/logo.png',
     desc: 'best music i ve ever heard',
     brandsm: 52,
@@ -62,34 +106,7 @@ var brands = [
     id: 23
   },
   {
-    name: 'gone with wind',
-    img: 'https://cn.vuejs.org/images/logo.png',
-    desc: 'best music i ve ever heard',
-    brandsm: 52,
-    musum: 233,
-    artist: 323,
-    id: 23
-  },
-  {
-    name: 'gone with wind',
-    img: 'https://cn.vuejs.org/images/logo.png',
-    desc: 'best music i ve ever heard',
-    brandsm: 52,
-    musum: 233,
-    artist: 323,
-    id: 23
-  },
-  {
-    name: 'gone with wind',
-    img: 'https://cn.vuejs.org/images/logo.png',
-    desc: 'best music i ve ever heard',
-    brandsm: 52,
-    musum: 233,
-    artist: 323,
-    id: 23
-  },
-  {
-    name: 'gone with wind',
+    name: 'gone witfsfh wind',
     img: 'https://cn.vuejs.org/images/logo.png',
     desc: 'best music i ve ever heard',
     brandsm: 52,
@@ -127,6 +144,11 @@ export default {
   },
   created () {
     this.ms = brands
+  },
+  methods: {
+    brandDetail: function (x) {
+      this.$router.push('BrandDetail')
+    }
   }
 }
 </script>

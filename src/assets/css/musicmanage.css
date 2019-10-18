@@ -7,19 +7,46 @@
   background-color: #fff;
   margin-top: 15px;
   min-height: 500px;
+  overflow: auto;
 }
 #musicBrand .el-row{
   height: 60px;
 }
-.sinbrand img{
-  width: 101px;
-    height: 95px;
+.brandLogo{
+  width: 100px;
+  height: 95px;
+  display: block;
+  clear: both;
+  margin: 5px auto;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
 }
 .sinbrand{
-  width: calc(33% - 30px);
+  width: calc(33% - 33px);
   display: block;
   float: left;
   border: 1px solid #e2e2e2;
-  margin-right: 25px;
+  margin-left: 25px;
   margin-bottom: 25px;
+}
+.hti{
+  background-color: rgba(245, 245, 245, 1);
+  display: block;
+  height: 38px;
+  line-height: 38px;
+  font-weight: 700;
+}
+.desc{
+  text-align: left;
+  display: block;
+  margin:  10px 15px;
+  font-size: 12px;
+  color: #999999
+}
+.crs{
+  display: flex;
+  line-height: 30px;
+}
+.flex3 span, .flex3 button{
+  flex: 3;
 }

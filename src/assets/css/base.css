@@ -71,7 +71,7 @@
 .ranks .el-tabs__nav-scroll {
   padding-left: 120px;
 }
-.f10 span{
+.f10 span, .f10{
   font-size: 10px !important;
 }
 .left{
@@ -99,4 +99,13 @@
 }
 .mt13{
   margin-top: 13px;
+}
+.c99{
+  color: #999;
+}
+.fw700{
+  font-weight: 700;
+}
+.f12 span, .f12{
+  font-size: 12px !important;
 }
