@@ -9,7 +9,6 @@
   }
   .el-row .el-button--text{
     float: right;
-    margin-right: 20px;
     color: #999;
     height: 30px;
     line-height: 30px;
@@ -24,13 +23,16 @@
     margin-bottom: 10px;
   }
   #Statics .single{
-    width: calc(25% - 15px);
+    width: calc(25% - 11.3px);
     display: block;
     float: left;
     height: 60px;
     padding: 20px 0px;
     margin-right: 15px;
     margin-bottom: 15px;
+  }
+  #Statics .single:nth-child(4n){
+    margin-right: 0px;
   }
  #Statics .single .title, #Statics .single .number{
     display: block;
@@ -66,11 +68,9 @@
     background-color: rgba(255, 153, 102, 1);
   }
   .ranks{
-    width: calc(50% - 17px);
+    width: calc(50% - 8.5px);
     min-width: 520px;
-    float: left;
     min-height: 640px;
-    margin-right: 15px;
     border: 1px solid #e2e2e2;
     background: #fff;
     border-radius: 2px;
@@ -105,4 +105,26 @@
   }
   #pieChart{
     display: block;
+    height: 300px;
+    clear: both;
+    background-color: #fff;
+    margin-bottom: 15px;
+  }
+  #hotWords{
+    height: 390px;
+    background-color: #fff;
+  }
+  #pieChart .tit, #hotWords .tit{
+    font-weight: 700;
+    padding-left: 15px;
+    padding-top: 20px;
+    height: 20px;
+    line-height: 20px;
+  }
+  #pieChart .el-row, #hotWords .el-row{
+    height: 60px;
+  }
+  #pieChart  .rbtn, #hotWords .rbtn{
+    margin-right: 15px;
+    margin-top: 14px;
   }

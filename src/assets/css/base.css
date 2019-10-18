@@ -74,3 +74,9 @@
 .f10 span{
   font-size: 10px !important;
 }
+.left{
+  float: left;
+}
+.right{
+  float: right;
+}

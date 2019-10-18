@@ -17,7 +17,7 @@
         </div>
     </div>
 
-    <div class="ranks">
+    <div class="ranks left">
       <el-row>
         <span class="titles">播放排行</span>
 
@@ -48,7 +48,7 @@
       </div>
     </div>
 
-    <div class="ranks">
+    <div class="ranks right">
       <el-row>
         <span class="titles">下载排行</span>
 
@@ -81,10 +81,21 @@
 
     <div id="pieChart">
       <el-row>
-        <span>用户选择最多的5个标签</span>
+        <span class="tit">用户选择最多的5个标签</span>
+        <div  class="f10 right rbtn">
+          <el-button size="small" round>下载全部标签数据</el-button>
+        </div>
       </el-row>
     </div>
 
+    <div id="hotWords">
+      <el-row>
+        <span class="tit">用户检索关键词热图</span>
+        <div  class="f10 right rbtn">
+          <el-button size="small" round>下载全部关键词数据</el-button>
+        </div>
+      </el-row>
+    </div>
   </div>
 </template>
 <script>
