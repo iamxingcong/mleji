@@ -108,4 +108,17 @@
 }
 .f12 span, .f12{
   font-size: 12px !important;
+
+}
+.el-dialog{
+  text-align: left;
+}
+.fll{
+  float: left;
+}
+.paginations{
+  display: block;
+  clear:both;
+  margin-bottom: 15px;
+  text-align: right;
 }
