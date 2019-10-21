@@ -126,8 +126,29 @@
   background-color:  #ffffff;
   overflow: auto;
   padding-bottom: 15px;
+  margin-top: 15px;
 }
 .filterwrap .el-checkbox-button__inner{
   border: 0px !important;
   border-radius: 0px !important;
+}
+.mg15{
+  margin: 15px;
+}
+.mt15{
+  margin-top: 15px;
+}
+.sq250{
+  display: block;
+  float: left;
+  width: 250px;
+  height: 250px;
+}
+.bd{
+  border: 1px solid #e2e2e2;
+}
+.crs{
+  display: block;
+  clear: both;
+  width: 100%;
 }

@@ -66,8 +66,36 @@
     <div class="whitewraps">
       <el-row>
         <span class="tit left">筛选结果</span>
+        <span class="right mt15 mr15">
+          <el-button size="mini">刷新</el-button>
+        </span>
       </el-row>
+      <div class="pd15">
+        <el-table
+        :data="tableData"
+        style="width: 100%">
+        <el-table-column
+        type="selection"
+        width="55">
+        </el-table-column>
+          <el-table-column
+            prop="date"
+            label="日期"
+            width="180">
+          </el-table-column>
+          <el-table-column
+            prop="name"
+            label="姓名"
+            width="180">
+          </el-table-column>
+          <el-table-column
+            prop="address"
+            label="地址">
+          </el-table-column>
+        </el-table>
+      </div>
     </div>
+
   </div>
 </template>
 <script>
@@ -92,7 +120,24 @@ export default {
         {name: '标签三'},
         {name: '标签四'},
         {name: '标签五'}
-      ]
+      ],
+      tableData: [{
+        date: '2016-05-02',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-04',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1517 弄'
+      }, {
+        date: '2016-05-01',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1519 弄'
+      }, {
+        date: '2016-05-03',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1516 弄'
+      }]
     }
   },
   methods: {
@@ -146,7 +191,7 @@ export default {
     display: block;
     float: left;
     margin-left: 15px;
-
+    opacity: 0.9;
 }
 .filterwrap{
   margin-top: 15px;
@@ -171,5 +216,12 @@ export default {
   color: #e2e2e2;
   margin-left: 15px;
   margin-top: -3.5px;
+}
+.el-table--fit {
+  padding: 15px;
+}
+.el-table::before {
+
+    height: 0px !important;
 }
 </style>
