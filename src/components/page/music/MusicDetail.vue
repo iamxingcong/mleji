@@ -222,7 +222,7 @@
       </div>
 
       <el-row>
-        <span class="tit left">更多版本作品信息</span>
+        <span class="tit left">多版本作品信息</span>
         <span class="right mt15 mr15">
           <el-button size="mini">添加多版本</el-button>
         </span>
