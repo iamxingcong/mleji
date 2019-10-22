@@ -152,3 +152,11 @@
   clear: both;
   width: 100%;
 }
+.filterwrap .el-checkbox-button__inner {
+  padding: 0px 20px !important;
+  height: 25px;
+  line-height: 25px;
+}
+body .el-table th.gutter{
+  display: table-cell !important;
+}

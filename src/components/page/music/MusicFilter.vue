@@ -197,13 +197,13 @@ export default {
   margin-top: 15px;
 }
 .cktit{
-  line-height: 38px;
+  line-height: 25px;
   color: #443344;
   padding-left: 15px;
   font-size: 16px;
 }
 .filterwrap .el-row{
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
 .whitewraps  .el-tag{
   margin-bottom: 3px;
