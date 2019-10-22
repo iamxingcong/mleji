@@ -23,8 +23,8 @@
           style="width: 100%"
         >
           <el-table-column label="图片" width="180">
-            <template scope="scope">
-              <img :src="scope.row.image" width="100" height="100"/>
+            <template slot-scope="scope">
+              <img :src="scope.row.image" width="100" :key="scope.row.image" height="100"/>
             </template>
           </el-table-column>
           <el-table-column
@@ -65,7 +65,7 @@ export default {
     return {
       img: require('../../../assets/icons/logo.png'),
       tableDatab: [{
-        image:  'https://www.baidu.com/img/bd_logo1.png',
+        image: 'https://www.baidu.com/img/bd_logo1.png',
         namea: '上海',
         nameb: '普陀区',
         namec: '上海市普陀区金沙江路 1518 弄',
