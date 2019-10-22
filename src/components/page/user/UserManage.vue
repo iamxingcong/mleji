@@ -77,35 +77,66 @@
           </el-table-column>
           <el-table-column
             prop="addressa"
-            label="用户类型">
+            label="剩余下载量">
           </el-table-column>
           <el-table-column
             prop="addressb"
-            label="用户类型">
+            label="总消费金额">
           </el-table-column>
           <el-table-column
             prop="addressc"
-            label="用户类型">
+            label="上次登录时间">
           </el-table-column>
           <el-table-column
             prop="addressd"
-            label="用户类型">
+            label="状态">
             <template slot-scope="scope">
               <el-switch
                   active-color="#5B7BFA"
                   inactive-color="#dadde5"
                   v-model="scope.row.addressd"
+                  @change="schange(scope.row)"
               >
               </el-switch>
             </template>
           </el-table-column>
           <el-table-column
-            prop="addressd"
-            label="用户类型">
+            width="250"
+            prop="addresse"
+            label="操作">
+            <template slot-scope="scope">
+               <el-button
+                type="text"
+                @click="handleClick(scope.row)">查看</el-button>
+               <el-button
+                type="text"
+                @click="edit(scope.row)">编辑</el-button>
+               <el-button
+                type="text"
+                @click="hddelete(scope.row)"
+               >
+                删除
+               </el-button>
+            </template>
           </el-table-column>
         </el-table>
       </div>
+
+      <div class="paginations">
+        <el-pagination
+          background
+          @size-change="handleSizeChangeg"
+          @current-change="handleCurrentChangeg"
+          :current-page="currentPage3"
+          :page-sizes="[10, 20, 30, 100]"
+          :page-size="100"
+          layout="prev, pager, next, sizes"
+          :total="400">
+        </el-pagination>
+      </div>
+
      </div>
+
   </div>
 </template>
 <script>
@@ -139,9 +170,30 @@ export default {
         addressa: '上海市普陀区金沙江路 1518 弄',
         addressb: '上海市普陀区金沙江路 1518 弄',
         addressc: '上海市普陀区金沙江路 1518 弄',
-        addressd: false,
+        addressd: true,
         addresse: '上海市普陀区金沙江路 1518 弄'
-      }]
+      }],
+      currentPage3: 2
+    }
+  },
+  methods: {
+    handleClick (row) {
+      console.log(row)
+    },
+    edit (row) {
+      console.log(row)
+    },
+    hddelete (row) {
+      console.log(row)
+    },
+    schange (r) {
+      console.log(r.addressd)
+    },
+    handleSizeChangeg (val) {
+      console.log(`每页a ${val} 条`)
+    },
+    handleCurrentChangeg (val) {
+      console.log(`当前页a: ${val}`)
     }
   }
 }
@@ -164,5 +216,11 @@ export default {
   .demo-input-suffix button{
     float: right;
     margin-right: 15px;
+  }
+  .cell{
+    display: flex;
+  }
+  .cell button{
+    flex: 3;
   }
 </style>
