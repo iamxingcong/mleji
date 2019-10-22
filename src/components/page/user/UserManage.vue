@@ -52,6 +52,59 @@
             <el-button size="mini" icon="el-icon-receiving">导出</el-button>
           </span>
       </el-row>
+      <div class="pd15">
+        <el-table
+          border
+          :data="tableData"
+          style="width: 100%">
+          <el-table-column
+          type="selection"
+          width="55">
+          </el-table-column>
+          <el-table-column
+            prop="date"
+            label="ID"
+            width="180">
+          </el-table-column>
+          <el-table-column
+            prop="name"
+            label="用户名称"
+            width="180">
+          </el-table-column>
+          <el-table-column
+            prop="address"
+            label="用户类型">
+          </el-table-column>
+          <el-table-column
+            prop="addressa"
+            label="用户类型">
+          </el-table-column>
+          <el-table-column
+            prop="addressb"
+            label="用户类型">
+          </el-table-column>
+          <el-table-column
+            prop="addressc"
+            label="用户类型">
+          </el-table-column>
+          <el-table-column
+            prop="addressd"
+            label="用户类型">
+            <template slot-scope="scope">
+              <el-switch
+                  active-color="#5B7BFA"
+                  inactive-color="#dadde5"
+                  v-model="scope.row.addressd"
+              >
+              </el-switch>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="addressd"
+            label="用户类型">
+          </el-table-column>
+        </el-table>
+      </div>
      </div>
   </div>
 </template>
@@ -78,7 +131,17 @@ export default {
         label: '北京烤鸭'
       }],
       value: '',
-      value1: ''
+      value1: '',
+      tableData: [{
+        date: '2016-05-02',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄',
+        addressa: '上海市普陀区金沙江路 1518 弄',
+        addressb: '上海市普陀区金沙江路 1518 弄',
+        addressc: '上海市普陀区金沙江路 1518 弄',
+        addressd: false,
+        addresse: '上海市普陀区金沙江路 1518 弄'
+      }]
     }
   }
 }

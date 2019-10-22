@@ -72,12 +72,13 @@
       </el-row>
       <div class="pd15">
         <el-table
-        :data="tableData"
-        style="width: 100%">
-        <el-table-column
-        type="selection"
-        width="55">
-        </el-table-column>
+          border
+          :data="tableData"
+          style="width: 100%">
+          <el-table-column
+          type="selection"
+          width="55">
+          </el-table-column>
           <el-table-column
             prop="date"
             label="日期"
@@ -216,9 +217,6 @@ export default {
   color: #e2e2e2;
   margin-left: 15px;
   margin-top: -3.5px;
-}
-.el-table--fit {
-  padding: 15px;
 }
 .el-table::before {
 

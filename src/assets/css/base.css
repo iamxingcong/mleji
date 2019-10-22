@@ -169,3 +169,6 @@ body .el-table th.gutter{
 .flex4{
   display: flex;
 }
+.pd15{
+  padding: 15px;
+}
