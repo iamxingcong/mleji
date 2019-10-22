@@ -1,5 +1,6 @@
 <template>
   <div id='UserManage'>
+
      <div class="white">
       <el-row>
         <span class="tit left">专辑名称</span>
@@ -43,6 +44,15 @@
       </el-row>
      </div>
 
+     <div class="white mt15">
+        <el-row>
+          <span class="tit left">用户列表</span>
+          <span class="right mt15 mr15">
+            <el-button size="mini">新增用户</el-button>
+            <el-button size="mini" icon="el-icon-receiving">导出</el-button>
+          </span>
+      </el-row>
+     </div>
   </div>
 </template>
 <script>
