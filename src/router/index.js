@@ -6,7 +6,7 @@ import ManagePanel from '@/components/page/ManagePanel'
 import UserManage from '@/components/page/user/UserManage'
 import ProjectDetail from '@/components/page/user/ProjectDetail'
 import SubmitSuccess from '@/components/page/user/SubmitSuccess'
-import UserDetial from '@/components/page/user/UserDetial'
+import UserDetail from '@/components/page/user/UserDetail'
 import UserEdit from '@/components/page/user/UserEdit'
 import AddUser from '@/components/page/user/AddUser'
 import LoginLog from '@/components/page/user/LoginLog'
@@ -58,8 +58,8 @@ export default new Router({
           component: SubmitSuccess
         },
         {
-          path: '/UserDetial',
-          component: UserDetial
+          path: '/UserDetail',
+          component: UserDetail
         },
         {
           path: '/UserEdit',

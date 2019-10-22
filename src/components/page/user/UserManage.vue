@@ -107,7 +107,7 @@
             <template slot-scope="scope">
                <el-button
                 type="text"
-                @click="handleClick(scope.row)">查看</el-button>
+                @click="detailedUser(scope.row)">查看</el-button>
                <el-button
                 type="text"
                 @click="edit(scope.row)">编辑</el-button>
@@ -177,8 +177,9 @@ export default {
     }
   },
   methods: {
-    handleClick (row) {
+    detailedUser (row) {
       console.log(row)
+      this.$router.push('UserDetail')
     },
     edit (row) {
       console.log(row)
