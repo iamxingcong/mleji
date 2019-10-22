@@ -48,7 +48,7 @@
         <el-row>
           <span class="tit left">用户列表</span>
           <span class="right mt15 mr15">
-            <el-button size="mini">新增用户</el-button>
+            <el-button size="mini" @click="addUser">新增用户</el-button>
             <el-button size="mini" icon="el-icon-receiving">导出</el-button>
           </span>
       </el-row>
@@ -183,6 +183,10 @@ export default {
     },
     edit (row) {
       console.log(row)
+      this.$router.push('UserEdit')
+    },
+    addUser () {
+      this.$router.push('AddUser')
     },
     hddelete (row) {
       console.log(row)

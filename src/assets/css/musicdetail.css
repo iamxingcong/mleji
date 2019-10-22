@@ -1,0 +1,67 @@
+
+  .wdp252{
+    width: calc(100% - 253px);
+    border-bottom: 1px solid #e2e2e2;
+    border-right: 1px solid #e2e2e2;
+  }
+
+  .sq250{
+    border: 1px solid #e2e2e2;
+    background:rgba(234,234,234,1);
+  }
+  .musicinfo{
+    height: 251px;
+    line-height: 250px;
+  }
+  .wdp252 .crs span:nth-child(1),
+  .wdp252 .crs span:nth-child(3){
+    width: 120px;
+
+  }
+  .wdp252 .crs span:nth-child(2),
+  .wdp252 .crs span:nth-child(4){
+    width: calc(50% - 123px);
+
+  }
+  .wdp252 .crs span{
+    display: block;
+    float: left;
+    border-right: 1px solid #e2e2e2;
+  }
+  .wdp252 .crs span:nth-child(4){
+    border-right: none;
+  }
+  .crs{
+    line-height: 49px;
+    height: 49px;
+    position: relative;
+    border-top: 1px solid #e2e2e2;
+  }
+  .l50{
+    height: 50px;
+    line-height: 50px;
+  }
+  .musicdistributor .el-row{
+    display: flex;
+  }
+  .musicdistributor .el-row span,
+  .musicdistributor .el-row .el-input{
+    flex: 3;
+  }
+  .musicdistributor .el-row span:nth-child(1),
+  .musicdistributor .el-row .el-input:nth-child(1),
+  .musicdistributor .el-row span:nth-child(2),
+  .musicdistributor .el-row .el-input:nth-child(2){
+    margin-right: 40px;
+  }
+  .musicdistributor .el-row span{
+    display: block;
+    float: left;
+    text-align: left;
+    margin-bottom: 5px;
+    margin-top: 15px;
+  }
+ .musicdistributor{
+   width: calc(100% - 30px);
+   margin: 0px auto;
+ }
