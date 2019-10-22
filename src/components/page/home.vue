@@ -8,7 +8,7 @@ import { userlist } from '../../config/urls'
 export default {
   name: 'home',
   created () {
-    this.user()
+    // this.user()
   },
   methods: {
     async user () {

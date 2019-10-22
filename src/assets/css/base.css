@@ -160,3 +160,12 @@
 body .el-table th.gutter{
   display: table-cell !important;
 }
+.el-table th.is-leaf {
+  border-bottom: 1px solid #EBEEF5;
+}
+.white{
+  background-color: #fff;
+}
+.flex4{
+  display: flex;
+}

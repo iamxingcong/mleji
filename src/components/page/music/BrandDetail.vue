@@ -11,10 +11,7 @@
     </div>
     <div class="crs mt15">
       <el-row>
-        <span class="tit left">描述</span>
-        <span class="right mt15 mr15">
-          <el-button size="mini">编辑描述</el-button>
-        </span>
+        <span class="tit left">专辑列表</span>
       </el-row>
       <div class="mg15">
         <el-table
@@ -22,38 +19,51 @@
           border
           style="width: 100%"
         >
-          <el-table-column label="图片" width="180">
+          <el-table-column label="专辑图片" width="180">
             <template slot-scope="scope">
               <img :src="scope.row.image" width="100" :key="scope.row.image" height="100"/>
             </template>
           </el-table-column>
           <el-table-column
             prop="namea"
-            label="情绪"
+            label="专辑ID"
           >
           </el-table-column>
           <el-table-column
             prop="nameb"
-            label="主奏乐器"
+            label="专辑名称"
           >
           </el-table-column>
           <el-table-column
             prop="namec"
-            label="伴奏乐器"
+            label="专辑编号"
           >
           </el-table-column>
           <el-table-column
             prop="named"
-            label="关键词"
+            label="专辑描述"
           >
           </el-table-column>
           <el-table-column
             prop="namee"
-            label="描述"
+            label="操作"
           >
           </el-table-column>
         </el-table>
       </div>
+      <div class="paginations">
+        <el-pagination
+          background
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="currentPage4"
+          :page-sizes="[10, 20, 30, 100]"
+          :page-size="100"
+          layout="prev, pager, next, sizes"
+          :total="400">
+        </el-pagination>
+      </div>
+
     </div>
 
   </div>
@@ -72,7 +82,16 @@ export default {
         named: 200333,
         namee: 'sfsff',
         namef: 'sfd搜搜放松放松'
-      }]
+      }],
+      currentPage4: 1
+    }
+  },
+  methods: {
+    handleSizeChange (val) {
+      console.log(`每页 ${val} 条`)
+    },
+    handleCurrentChange (val) {
+      console.log(`当前页: ${val}`)
     }
   }
 }
@@ -113,5 +132,8 @@ export default {
 }
 #BrandDetail .el-table th{
   background-color: #fff !important;
+}
+.el-table__header-wrapper{
+    border-bottom: 1px solid #EBEEF5 !important;
 }
 </style>
