@@ -126,7 +126,6 @@
   background-color:  #ffffff;
   overflow: auto;
   padding-bottom: 15px;
-  margin-top: 15px;
 }
 .filterwrap .el-checkbox-button__inner{
   border: 0px !important;
@@ -171,4 +170,18 @@ body .el-table th.gutter{
 }
 .pd15{
   padding: 15px;
+}
+.minh400{
+  min-height: 400px;
+}
+.white .bdbtm{
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e2e2e2;
+  display: block;
+  clear: both;
+  height: 45px;
+}
+.el-table th.is-leaf{
+  background: rgba(228,228,228,1);
 }

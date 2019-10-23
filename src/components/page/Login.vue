@@ -3,20 +3,23 @@
     <div class='login_wrap'>
       <div id='bg_icons' :style='{ backgroundImage: `url(${img})` }'></div>
       <span class='login_title'>{{ msg }}</span>
-      <div class='login_form'>
-        <el-input placeholder='请输入用户名称' v-model='user'>
-          <i slot='prefix' class='el-input__icon el-icon-user'></i>
-        </el-input>
-        <el-input placeholder='请输入登录密码' v-model='pass'>
-          <i slot='prefix' class='el-input__icon el-icon-lock'></i>
-        </el-input>
-        <el-row>
-          <el-button type='primary' size='medium' v-on:click='login'>登录</el-button>
-        </el-row>
-        <el-row>
-          <el-button type='text'>忘记密码</el-button>
-        </el-row>
-      </div>
+      <el-form ref="form" :model="form">
+        <div class='login_form'>
+
+          <el-form-item>
+            <el-input  placeholder='请输入用户名称'  v-model="form.phone"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-input  placeholder='请输入用户名称'  v-model="form.password"></el-input>
+          </el-form-item>
+          <el-row>
+            <el-button type='primary' size='medium' v-on:click='login'>登录</el-button>
+          </el-row>
+          <el-row>
+            <el-button type='text'>忘记密码</el-button>
+          </el-row>
+        </div>
+      </el-form>
     </div>
     <Footer />
   </div>
@@ -24,29 +27,30 @@
 
 <script>
 import Footer from '../public/footer.vue'
+import { login } from '@/config/urls'
 export default {
   name: 'Login',
   components: {
-    Footer
+    Footer,
+    login
   },
   data () {
     return {
       msg: 'CMusic Copyright版权曲库管理系统',
       user: '',
       pass: '',
-      img: require('../../assets/icons/logo.png')
+      img: require('../../assets/icons/logo.png'),
+      form: {
+        email: '',
+        phone: '18710031682',
+        password: 'Aa123456'
+      }
     }
   },
   methods: {
-    login: function () {
-      if (!this.user || !this.pass) {
-        this.$message({
-          message: '用户名或密码没有输入',
-          type: 'warning'
-        })
-      } else {
-        this.$router.push('ManagePanel')
-      }
+    async login () {
+      const res = await login({phone: this.form.phone, password: this.form.password})
+      console.log(res)
     }
   }
 }

@@ -42,12 +42,28 @@
         <el-menu-item index="LoginLog">登录日志</el-menu-item>
       </el-submenu>
 
-      <el-menu-item index='RequestManage'> 请求管理 </el-menu-item>
+      <el-menu-item index='RequestManage'>
+        <i class="el-icon-thumb"></i>
+        <span slot="title">请求管理 </span>
+      </el-menu-item>
 
-      <el-menu-item index='AuthorizeManage'> 授权管理 </el-menu-item>
-      <el-menu-item index='ProfitManage'> 收益管理 </el-menu-item>
-      <el-menu-item index='PermissionManage'> 权限管理 </el-menu-item>
-      <el-menu-item index='NoticeManage'> 通知管理 </el-menu-item>
+      <el-menu-item index='AuthorizeManage'>
+        <i class="el-icon-s-check"></i>
+        <span slot="title">授权管理</span>
+      </el-menu-item>
+      <el-menu-item index='NoticeManage'>
+        <i class="el-icon-s-comment"></i>
+        <span slot="title">通知管理</span>
+      </el-menu-item>
+      <el-menu-item index='ProfitManage'>
+        <i class="el-icon-coin"></i>
+        <span slot="title">收益管理</span>
+      </el-menu-item>
+      <el-menu-item index='PermissionManage'>
+        <i class="el-icon-coordinate"></i>
+        <span slot="title">权限管理</span>
+      </el-menu-item>
+
     </el-menu>
   </div>
 </template>

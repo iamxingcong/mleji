@@ -6,7 +6,7 @@
         <span class="right mt15 mr15">
           <el-button size="mini">用户详情</el-button>
           <el-button size="mini">编辑资料</el-button>
-          <el-button size="mini">登录日志</el-button>
+          <el-button size="mini"  @click="LoginLog">登录日志</el-button>
         </span>
       </el-row>
 
@@ -341,6 +341,9 @@ export default {
     },
     handleCurrentChange (val) {
       console.log(`当前页a: ${val}`)
+    },
+    LoginLog () {
+      this.$router.push('LoginLog')
     }
   }
 }

@@ -1,4 +1,5 @@
 export default async (url = '', data = {}, type = 'GET', method = 'fetch') => {
+  // url = 'http://dspeaklow.api.wangge0101.cn' + url
   type = type.toUpperCase()
   var ActiveXObject
   if (type === 'GET') {

@@ -13,6 +13,7 @@ import LoginLog from '@/components/page/user/LoginLog'
 
 import home from '@/components/page/home'
 import RequestManage from '@/components/page/RequestManage'
+import RequestDetail from '@/components/page/RequestDetail'
 
 import MusicManage from '@/components/page/music/MusicManage'
 import MusicFilter from '@/components/page/music/MusicFilter'
@@ -21,10 +22,14 @@ import BrandDetail from '@/components/page/music/BrandDetail'
 import AlbumDetail from '@/components/page/music/AlbumDetail'
 
 import AuthorizeManage from '@/components/page/AuthorizeManage'
+import AuthorizeDetail from '@/components/page/AuthorizeDetail'
 import ProfitManage from '@/components/page/ProfitManage'
 import DataManage from '@/components/page/DataManage'
 import PermissionManage from '@/components/page/PermissionManage'
+
 import NoticeManage from '@/components/page/NoticeManage'
+import NoticeDetail from '@/components/page/NoticeDetail'
+import NoticeCreate from '@/components/page/NoticeCreate'
 
 Vue.use(Router)
 
@@ -78,6 +83,10 @@ export default new Router({
           component: RequestManage
         },
         {
+          path: '/RequestDetail',
+          component: RequestDetail
+        },
+        {
           path: '/MusicManage',
           component: MusicManage
         },
@@ -102,6 +111,10 @@ export default new Router({
           component: AuthorizeManage
         },
         {
+          path: '/AuthorizeDetail',
+          component: AuthorizeDetail
+        },
+        {
           path: '/ProfitManage',
           component: ProfitManage
         },
@@ -116,6 +129,14 @@ export default new Router({
         {
           path: '/NoticeManage',
           component: NoticeManage
+        },
+        {
+          path: '/NoticeDetail',
+          component: NoticeDetail
+        },
+        {
+          path: '/NoticeCreate',
+          component: NoticeCreate
         }
       ]
     }

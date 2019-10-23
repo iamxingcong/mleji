@@ -63,7 +63,7 @@
       </div>
     </div>
 
-    <div class="whitewraps">
+    <div class="whitewraps mt15">
       <el-row>
         <span class="tit left">筛选结果</span>
         <span class="right mt15 mr15">
