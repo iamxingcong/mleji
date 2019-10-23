@@ -1,24 +1,12 @@
-<template>
-  <div id='AddUser'>
-    <span>新增用户</span>
 
-  </div>
-</template>
-<script>
-export default {
-  name: 'AddUser'
-}
-</script>
 <template>
   <div id='UserEdit'>
     <div class="whitewraps">
       <el-row>
-        <span class="tit left">编辑资料</span>
+        <span class="tit left">新增用户</span>
         <span class="tips">为必填项</span>
         <span class="right mt15 mr15">
-          <el-button size="mini">用户详情</el-button>
-          <el-button size="mini">编辑资料</el-button>
-          <el-button size="mini">登录日志</el-button>
+          <el-button size="mini" @click="backTo">返回</el-button>
         </span>
       </el-row>
 
@@ -98,7 +86,7 @@ export default {
 </template>
 <script>
 export default {
-  name: 'UserEdit',
+  name: 'AddUser',
   data () {
     return {
       form: {
@@ -127,6 +115,9 @@ export default {
     },
     onSubmit () {
       console.log('submit!')
+    },
+    backTo () {
+      this.$router.go(-1)
     }
   }
 }
