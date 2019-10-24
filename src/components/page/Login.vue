@@ -3,14 +3,14 @@
     <div class='login_wrap'>
       <div id='bg_icons' :style='{ backgroundImage: `url(${img})` }'></div>
       <span class='login_title'>{{ msg }}</span>
-      <el-form ref="form" :model="form">
+      <el-form ref='form' :model='form'>
         <div class='login_form'>
 
           <el-form-item>
-            <el-input  placeholder='请输入用户名称'  v-model="form.phone"></el-input>
+            <el-input  placeholder='请输入用户名称'  v-model='form.phone'></el-input>
           </el-form-item>
           <el-form-item>
-            <el-input  placeholder='请输入用户名称'  v-model="form.password"></el-input>
+            <el-input  placeholder='请输入用户名称'  v-model='form.password'></el-input>
           </el-form-item>
           <el-row>
             <el-button type='primary' size='medium' v-on:click='login'>登录</el-button>
@@ -27,12 +27,12 @@
 
 <script>
 import Footer from '../public/footer.vue'
-import { login } from '@/config/urls'
+import axiosapi from '@/config/axiosapi'
+
 export default {
   name: 'Login',
   components: {
-    Footer,
-    login
+    Footer
   },
   data () {
     return {
@@ -41,21 +41,40 @@ export default {
       pass: '',
       img: require('../../assets/icons/logo.png'),
       form: {
-        email: '',
         phone: '18710031682',
+        password: 'Aa123456'
+      },
+      forma: {
+        email: '121950263@qq.com',
         password: 'Aa123456'
       }
     }
   },
+  created () {
+    this.loginout()
+  },
   methods: {
     async login () {
-      const res = await login({phone: this.form.phone, password: this.form.password})
-      console.log(res)
+      try {
+        let dt = await axiosapi.login(this.form)
+        if (dt.status === 200) {
+          this.$router.push({path: 'ManagePanel', query: {'name': dt.data.name}})
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    async loginout () {
+      try {
+        await axiosapi.loginout()
+      } catch (e) {
+        console.log(e)
+      }
+      this.$router.push('/')
     }
   }
 }
 </script>
-<!-- Add 'scoped' attribute to limit CSS to this component only -->
 <style scoped>
 #bg_icons {
   width: 115px;

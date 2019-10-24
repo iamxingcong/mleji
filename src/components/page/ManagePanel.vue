@@ -20,17 +20,28 @@
 import Header from '../public/header.vue'
 import Aside from '../public/aside.vue'
 import Footer from '../public/footer.vue'
+import Trans from '@/config/trans.js'
+
 export default {
   name: 'ManagePanel',
   components: {
     Header,
     Aside,
-    Footer
+    Footer,
+    Trans
   },
   data () {
     return {
-      msg: 'CMusic Copyright版权曲库管理系统'
+      msg: 'CMusic Copyright版权曲库管理系统',
+      name: ''
     }
+  },
+  created () {
+    this.name = this.$route.query.name
+    Trans.$emit('logindata', this.name)
+  },
+  methods: {
+
   }
 
 }

@@ -17,20 +17,37 @@
 </template>
 
 <script>
+import Trans from '../../config/trans.js'
+import axiosapi from '@/config/axiosapi'
 export default {
   name: 'Header',
+  components: {
+    Trans
+  },
   data () {
     return {
-      user: 'admin',
+      user: '--',
       search: ''
     }
   },
+  created () {
+    this.user = this.$route.query.name
+    Trans.$on('logindata', this.lgdt)
+  },
   methods: {
-    loginout: function () {
+    async loginout () {
+      try {
+        await axiosapi.loginout()
+      } catch (e) {
+        console.log(e)
+      }
       this.$router.push('/')
     },
     searching: function () {
       console.log('u r searching: ' + this.search)
+    },
+    lgdt (vl) {
+      this.user = vl
     }
   }
 }

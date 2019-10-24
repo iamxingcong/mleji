@@ -105,6 +105,7 @@
 <script>
 import MusicList from './subcompo/MusicList.vue'
 import DownloadList from './subcompo/DownloadList.vue'
+import axiosapi from '@/config/axiosapi'
 var stactic = [
   {'name': '用户数量', 'number': 200, 'class': 'ca'},
   {'name': 'vip用户数量', 'number': 15, 'class': 'cb'},
@@ -133,6 +134,7 @@ export default {
   },
   created () {
     this.statics = stactic
+    this.datapanel()
   },
   methods: {
     handleClick (tab, event) {
@@ -140,6 +142,14 @@ export default {
     },
     handleClickd (tab, event) {
       console.log(tab, event)
+    },
+    async datapanel () {
+      try {
+        const pn = await axiosapi.datapanel()
+        console.log(pn)
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
 }
