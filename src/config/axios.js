@@ -6,7 +6,8 @@ Vue.use(VueAxios, axios)
 
 export default() => {
   return axios.create({
-    withCredentials: false,
+    // baseURL: 'https://front.miido.com.cn/shop/rest/',
+    withCredentials: true,
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'

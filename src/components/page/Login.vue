@@ -56,7 +56,8 @@ export default {
   methods: {
     async login () {
       try {
-        let dt = await axiosapi.login(this.form)
+        let dt = await axiosapi.indexfaceIndexData()
+        console.log(dt)
         if (dt.status === 200) {
           this.$router.push({path: 'ManagePanel', query: {'name': dt.data.name}})
         }
@@ -66,7 +67,7 @@ export default {
     },
     async loginout () {
       try {
-        await axiosapi.loginout()
+        await axiosapi.indexfaceIndexData()
       } catch (e) {
         console.log(e)
       }
