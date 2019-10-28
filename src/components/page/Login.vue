@@ -83,6 +83,7 @@ export default {
       // }
 
       try {
+<<<<<<< HEAD
         let dt
         if (this.user && (this.user).indexOf('@') !== -1) {
           this.forma.email = this.user
@@ -94,6 +95,10 @@ export default {
           return
         }
 
+=======
+        let dt = await axiosapi.indexfaceIndexData()
+        console.log(dt)
+>>>>>>> b9edeb672c3a7534dfa71c684ecb5693fcdaccdb
         if (dt.status === 200) {
           this.$router.push({path: 'ManagePanel', query: {'name': dt.data.name}})
         }
@@ -103,7 +108,7 @@ export default {
     },
     async loginout () {
       try {
-        await axiosapi.loginout()
+        await axiosapi.indexfaceIndexData()
       } catch (e) {
         console.log(e)
       }
