@@ -55,6 +55,14 @@
         <i class="el-icon-s-comment"></i>
         <span slot="title">通知管理</span>
       </el-menu-item>
+      <el-menu-item index='ColumnManage'>
+          <i class="el-icon-s-unfold"></i>
+          <span slot="title">栏目管理</span>
+      </el-menu-item>
+      <el-menu-item index='MemmberDetail'>
+        <i class='el-icon-user-solid'></i>
+        <span>会员详情</span>
+      </el-menu-item>
       <el-menu-item index='ProfitManage'>
         <i class="el-icon-coin"></i>
         <span slot="title">收益管理</span>

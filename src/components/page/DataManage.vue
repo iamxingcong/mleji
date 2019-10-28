@@ -134,7 +134,7 @@ export default {
   },
   created () {
     this.statics = stactic
-    this.datapanel()
+    // this.datapanel()
   },
   methods: {
     handleClick (tab, event) {

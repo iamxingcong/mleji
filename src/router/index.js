@@ -31,6 +31,9 @@ import NoticeManage from '@/components/page/NoticeManage'
 import NoticeDetail from '@/components/page/NoticeDetail'
 import NoticeCreate from '@/components/page/NoticeCreate'
 
+import ColumnManage from '@/components/page/ColumnManage'
+import MemmberDetail from '@/components/page/MemmberDetail'
+
 Vue.use(Router)
 
 export default new Router({
@@ -137,6 +140,14 @@ export default new Router({
         {
           path: '/NoticeCreate',
           component: NoticeCreate
+        },
+        {
+          path: '/ColumnManage',
+          component: ColumnManage
+        },
+        {
+          path: '/MemmberDetail',
+          component: MemmberDetail
         }
       ]
     }

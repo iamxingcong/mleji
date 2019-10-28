@@ -9,6 +9,7 @@ import './assets/css/base.css'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

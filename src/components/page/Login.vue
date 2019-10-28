@@ -7,10 +7,10 @@
         <div class='login_form'>
 
           <el-form-item>
-            <el-input  placeholder='请输入用户名称'  v-model='form.phone'></el-input>
+            <el-input  placeholder='请输入用户名称'  v-model='user'></el-input>
           </el-form-item>
           <el-form-item>
-            <el-input  placeholder='请输入用户名称'  v-model='form.password'></el-input>
+            <el-input type="password" placeholder='请输入登录密码'  v-model='form.password'></el-input>
           </el-form-item>
           <el-row>
             <el-button type='primary' size='medium' v-on:click='login'>登录</el-button>
@@ -27,7 +27,10 @@
 
 <script>
 import Footer from '../public/footer.vue'
+
 import axiosapi from '@/config/axiosapi'
+
+// import axios from 'axios'
 
 export default {
   name: 'Login',
@@ -37,26 +40,60 @@ export default {
   data () {
     return {
       msg: 'CMusic Copyright版权曲库管理系统',
-      user: '',
+      user: '+8618710031682',
       pass: '',
       img: require('../../assets/icons/logo.png'),
       form: {
-        phone: '18710031682',
+        phone: '',
         password: 'Aa123456'
       },
       forma: {
-        email: '121950263@qq.com',
+        email: '',
         password: 'Aa123456'
       }
     }
   },
   created () {
     this.loginout()
+    var that = this
+    document.onkeydown = function (e) {
+      var key = window.event.keyCode
+      if (key === 13) {
+        that.login()
+      }
+    }
   },
   methods: {
     async login () {
+      // try {
+
+      //   axios.post('http://dspeaklow.api.wangge0101.cn/bbb/user/login/', {
+      //     phone: '+8618710031682',
+      //     password: 'Aa123456'
+      //   })
+      //   .then(function (response) {
+      //     console.log(response);
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error);
+      //   });
+
+      // } catch (e) {
+      //   console.log(e)
+      // }
+
       try {
-        let dt = await axiosapi.login(this.form)
+        let dt
+        if (this.user && (this.user).indexOf('@') !== -1) {
+          this.forma.email = this.user
+          dt = await axiosapi.login(this.forma)
+        } else if (this.user) {
+          this.form.phone = this.user
+          dt = await axiosapi.login(this.form)
+        } else {
+          return
+        }
+
         if (dt.status === 200) {
           this.$router.push({path: 'ManagePanel', query: {'name': dt.data.name}})
         }

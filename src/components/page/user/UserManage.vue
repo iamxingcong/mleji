@@ -62,7 +62,7 @@
           width="55">
           </el-table-column>
           <el-table-column
-            prop="date"
+            prop="avatar"
             label="ID"
             width="180">
           </el-table-column>
@@ -72,23 +72,26 @@
             width="180">
           </el-table-column>
           <el-table-column
-            prop="address"
+            prop="is_vip"
             label="用户类型">
+            <template slot-scope="scope">
+              <span> {{ scope.row.is_vip == true ?  '高级会员' :   '普通会员' }}</span>
+            </template>
           </el-table-column>
           <el-table-column
-            prop="addressa"
+            prop="download_origin_count"
             label="剩余下载量">
           </el-table-column>
           <el-table-column
-            prop="addressb"
+            prop="cumulative_pay"
             label="总消费金额">
           </el-table-column>
           <el-table-column
-            prop="addressc"
+            prop="last_login"
             label="上次登录时间">
           </el-table-column>
           <el-table-column
-            prop="addressd"
+            prop="ia"
             label="状态">
             <template slot-scope="scope">
               <el-switch
@@ -140,6 +143,7 @@
   </div>
 </template>
 <script>
+import axiosapi from '@/config/axiosapi'
 export default {
   name: 'UserManage',
   data () {
@@ -164,19 +168,27 @@ export default {
       value: '',
       value1: '',
       tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄',
-        addressa: '上海市普陀区金沙江路 1518 弄',
-        addressb: '上海市普陀区金沙江路 1518 弄',
-        addressc: '上海市普陀区金沙江路 1518 弄',
-        addressd: true,
-        addresse: '上海市普陀区金沙江路 1518 弄'
+        avatar: '',
+        cumulative_pay: 0,
+        download_origin_count: 0,
+        is_active: true,
+        is_vip: false,
+        last_login: '2019-10-25T15:06:56.831853',
+        name: 'admin',
+        uuid: 'd42ec625-43e4-4a0d-af5b-d307f66a2e9f'
       }],
       currentPage3: 2
     }
   },
+  created () {
+    this.user()
+  },
   methods: {
+    async user () {
+      const dt = await axiosapi.user()
+      console.log(dt)
+      this.tableData = dt.data.results
+    },
     detailedUser (row) {
       console.log(row)
       this.$router.push('UserDetail')
