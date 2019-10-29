@@ -281,6 +281,7 @@
   </div>
 </template>
 <script>
+import axi from '@/config/axi'
 export default {
   name: 'UserDetail',
   data () {
@@ -326,10 +327,23 @@ export default {
       inpute: '',
       inputf: '',
       currentPage3: 2,
-      currentPage4: 1
+      currentPage4: 1,
+      uuid: ''
     }
   },
+  created () {
+    this.uuid = this.$route.query.uuid
+    this.detail()
+  },
   methods: {
+    async detail () {
+      try {
+        let dt = await axi().get('/ops/user/' + this.uuid)
+        console.log(dt)
+      } catch (e) {
+        console.log(e)
+      }
+    },
     handleSizeChangeg (val) {
       console.log(`每页a ${val} 条`)
     },

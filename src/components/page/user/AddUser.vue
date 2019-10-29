@@ -85,6 +85,8 @@
   </div>
 </template>
 <script>
+import axiosapi from '@/config/axiosapi'
+
 export default {
   name: 'AddUser',
   data () {
@@ -103,7 +105,18 @@ export default {
       fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]
     }
   },
+  created () {
+    this.Telcode()
+  },
   methods: {
+    async Telcode () {
+      try {
+        let dt = await axiosapi.opsTel_code()
+        console.log(dt)
+      } catch (e) {
+        console.log(e)
+      }
+    },
     submitUpload () {
       this.$refs.upload.submit()
     },

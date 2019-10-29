@@ -41,7 +41,7 @@
                 <td></td>
               </tr>
           </table>
-          <el-button type="text">权限编辑</el-button>
+          <el-button type="text" @click="edit(23)">权限编辑</el-button>
         </div>
 
         <div class="singles">
@@ -73,8 +73,8 @@
                 <td></td>
               </tr>
           </table>
-          <el-button type="text">查看详情</el-button>
-          <el-button type="text">权限编辑</el-button>
+          <el-button type="text" @click="checkMemberUser(34)">查看详情</el-button>
+          <el-button type="text" @click="edit(23)">权限编辑</el-button>
         </div>
 
         <div class="singles">
@@ -105,8 +105,8 @@
                 <td></td>
               </tr>
           </table>
-          <el-button type="text">查看详情</el-button>
-          <el-button type="text">权限编辑</el-button>
+          <el-button type="text" @click="checkMemberUser(34)">查看详情</el-button>
+          <el-button type="text" @click="edit(23)">权限编辑</el-button>
         </div>
 
       </div>
@@ -115,7 +115,7 @@
         <el-row>
           <span class="tit left">曲库授权管理</span>
           <span class="right mt15 mr15">
-            <el-button size="mini" type="primary">添加定价方式</el-button>
+            <el-button size="mini" type="primary" @click="pricesetting">添加定价方式</el-button>
           </span>
         </el-row>
       </div>
@@ -244,87 +244,51 @@
       </div>
     </div>
 
-      <el-dialog
-        title="添加会员类型"
-        :visible.sync="dialogVisible"
-        width="50%"
-        :modal="true"
-        :close-on-click-modal="false"
-        :destroy-on-close="true"
-        :before-close="handleClose">
+    <addMemberUser :show.sync = "show"> </addMemberUser>
+    <checkMemberUser :cshow.sync = "cshow"></checkMemberUser>
+    <editMemberUser :dshow.sync = "dshow"></editMemberUser>
+    <priceSetting :eshow.sync = "eshow"></priceSetting>
 
-        <el-form :model="form"  :inline="true" >
-          <el-row class="widtl">
-            <el-form-item label="会员类型名称：" :label-width="formLabelWidth">
-              <el-input v-model="form.name" autocomplete="off"></el-input>
-            </el-form-item>
-          </el-row>
-          <el-row>
-            <el-form-item label="是否可以试听：" :label-width="formLabelWidth">
-              <el-select v-model="form.region" placeholder="是">
-                <el-option label="是" value="shanghai"></el-option>
-                <el-option label="否" value="beijing"></el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item label="试听次数" :label-width="formLabelWidth">
-              <el-input v-model="form.date1" autocomplete="off"></el-input>
-            </el-form-item>
-          </el-row>
-          <el-row>
-            <el-form-item label="是否可以下单：" :label-width="formLabelWidth">
-              <el-select v-model="form.order" placeholder="是">
-                <el-option label="是" value="shanghai"></el-option>
-                <el-option label="否" value="beijing"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-row>
-          <el-row class="widtl">
-              <el-form-item label="备注：" :label-width="formLabelWidth">
-                <el-input
-                  type="textarea"
-                  :rows="2"
-                  placeholder="请填写会员类型备注"
-                  v-model="form.desc">
-                </el-input>
-
-              </el-form-item>
-          </el-row>
-        </el-form>
-
-        <span slot="footer" class="dialog-footer">
-          <el-button @click="dialogVisible = false">取 消</el-button>
-          <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-        </span>
-      </el-dialog>
-
-  </div>
+</div>
 </template>
 <script>
+import addMemberUser from './subcompo/addMemberUser.vue'
+import checkMemberUser from './subcompo/checkMemberUser.vue'
+import editMemberUser from './subcompo/editMemberUser.vue'
+
+import priceSetting from './subcompo/priceSetting.vue'
+
 export default {
   name: 'PermissionManage',
   data () {
     return {
-      dialogVisible: false,
-      form: {
-        name: '',
-        region: 'shanghai',
-        order: 'beijing',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
-      },
-      formLabelWidth: '120px'
+      show: false,
+      cshow: false,
+      dshow: false,
+      eshow: false
     }
+  },
+  components: {
+    addMemberUser,
+    checkMemberUser,
+    editMemberUser,
+    priceSetting
   },
   methods: {
     addMember () {
-      this.dialogVisible = true
+      this.show = true
+      console.log(this.show + ', show parent')
     },
-    handleClose (done) {
-      this.dialogVisible = false
+    checkMemberUser (v) {
+      console.log(v)
+      this.cshow = true
+    },
+    edit (v) {
+      console.log(v)
+      this.dshow = true
+    },
+    pricesetting () {
+      this.eshow = true
     }
   }
 }

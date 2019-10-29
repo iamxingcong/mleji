@@ -105,6 +105,8 @@
   </div>
 </template>
 <script>
+import axiosapi from '@/config/axiosapi'
+
 export default {
   name: 'MemmberDetail',
   data () {
@@ -131,7 +133,18 @@ export default {
       currentPage4: 1
     }
   },
+  created () {
+    this.uprofile()
+  },
   methods: {
+    async uprofile () {
+      try {
+        let dx = await axiosapi.userprofile()
+        console.log.log(dx)
+      } catch (e) {
+        console.log(e)
+      }
+    },
     RequestDetail (row) {
       console.log(row)
     },

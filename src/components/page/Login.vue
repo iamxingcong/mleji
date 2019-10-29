@@ -30,8 +30,6 @@ import Footer from '../public/footer.vue'
 
 import axiosapi from '@/config/axiosapi'
 
-// import axios from 'axios'
-
 export default {
   name: 'Login',
   components: {
@@ -65,25 +63,7 @@ export default {
   },
   methods: {
     async login () {
-      // try {
-
-      //   axios.post('http://dspeaklow.api.wangge0101.cn/bbb/user/login/', {
-      //     phone: '+8618710031682',
-      //     password: 'Aa123456'
-      //   })
-      //   .then(function (response) {
-      //     console.log(response);
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error);
-      //   });
-
-      // } catch (e) {
-      //   console.log(e)
-      // }
-
       try {
-<<<<<<< HEAD
         let dt
         if (this.user && (this.user).indexOf('@') !== -1) {
           this.forma.email = this.user
@@ -95,10 +75,6 @@ export default {
           return
         }
 
-=======
-        let dt = await axiosapi.indexfaceIndexData()
-        console.log(dt)
->>>>>>> b9edeb672c3a7534dfa71c684ecb5693fcdaccdb
         if (dt.status === 200) {
           this.$router.push({path: 'ManagePanel', query: {'name': dt.data.name}})
         }
@@ -108,7 +84,7 @@ export default {
     },
     async loginout () {
       try {
-        await axiosapi.indexfaceIndexData()
+        await axiosapi.loginout()
       } catch (e) {
         console.log(e)
       }
