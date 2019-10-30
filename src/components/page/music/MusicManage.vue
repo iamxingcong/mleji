@@ -116,6 +116,7 @@
   </div>
 </template>
 <script>
+import axiosapi from '@/config/axiosapi'
 var brands = [
   {
     name: 'gone with wind',
@@ -213,8 +214,17 @@ export default {
   },
   created () {
     this.ms = brands
+    this.mlist()
   },
   methods: {
+    async mlist () {
+      try {
+        let ls = await axiosapi.musiclist()
+        console.log(ls)
+      } catch (e) {
+        console.log(e)
+      }
+    },
     brandDetail: function (x) {
       this.$router.push('BrandDetail')
     },

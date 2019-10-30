@@ -1,6 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/page/Login'
+import ResetPassword from '@/components/page/ResetPassword'
+import ResetPasswordVerify from '@/components/page/ResetPasswordVerify'
+
+import ResetPasswordPhone from '@/components/page/ResetPasswordPhone'
+import ResetPasswordVerifyPhone from '@/components/page/ResetPasswordVerifyPhone'
+
 import ManagePanel from '@/components/page/ManagePanel'
 
 import UserManage from '@/components/page/user/UserManage'
@@ -34,6 +40,8 @@ import NoticeCreate from '@/components/page/NoticeCreate'
 import ColumnManage from '@/components/page/ColumnManage'
 import MemmberDetail from '@/components/page/MemmberDetail'
 
+import MusicLists from '@/components/page/MusicLists'
+
 Vue.use(Router)
 
 export default new Router({
@@ -42,6 +50,26 @@ export default new Router({
       path: '/',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/ResetPassword',
+      name: 'ResetPassword',
+      component: ResetPassword
+    },
+    {
+      path: '/ResetPasswordVerify',
+      name: 'ResetPasswordVerify',
+      component: ResetPasswordVerify
+    },
+    {
+      path: '/ResetPasswordPhone',
+      name: 'ResetPasswordPhone',
+      component: ResetPasswordPhone
+    },
+    {
+      path: '/ResetPasswordVerifyPhone',
+      name: 'ResetPasswordVerifyPhone',
+      component: ResetPasswordVerifyPhone
     },
     {
       path: '/ManagePanel',
@@ -148,6 +176,10 @@ export default new Router({
         {
           path: '/MemmberDetail',
           component: MemmberDetail
+        },
+        {
+          path: '/MusicLists',
+          component: MusicLists
         }
       ]
     }

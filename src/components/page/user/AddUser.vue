@@ -13,13 +13,17 @@
       <el-form ref="form" :model="form" label-width="120px">
         <el-form-item label="手机号码：">
           <i class="wrn">*</i>
-          <el-input v-model="form.name"></el-input>
+          <el-input v-model="form.phone"></el-input>
+        </el-form-item>
+        <el-form-item label="邮箱：">
+          <i class="wrn">*</i>
+          <el-input v-model="form.email"></el-input>
         </el-form-item>
         <el-form-item label="用户类型：">
           <i class="wrn">*</i>
-          <el-select v-model="form.region" placeholder="请选择活动区域">
-            <el-option label="区域一" value="shanghai"></el-option>
-            <el-option label="区域二" value="beijing"></el-option>
+          <el-select v-model="form.vip_type" placeholder="请选择会员等级">
+            <el-option label="普通" value="NORMAL"></el-option>
+            <el-option label="高级" value="VIP"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="上传头像：">
@@ -37,39 +41,39 @@
           </el-upload>
         </el-form-item>
         <el-form-item label="所在城市：">
-          <el-input v-model="form.city"></el-input>
+          <el-input v-model="form.city_name"></el-input>
         </el-form-item>
         <el-form-item label="职业：">
           <el-input v-model="form.career"></el-input>
         </el-form-item>
         <el-form-item label="公司名称：">
-          <el-input v-model="form.company"></el-input>
+          <el-input v-model="form.company_name"></el-input>
         </el-form-item>
         <el-form-item label="公司描述：">
           <el-input v-model="form.desc"></el-input>
         </el-form-item>
         <el-form-item label="用户密码：">
-          <el-input v-model="form.name"></el-input>
+          <el-input v-model="form.password"></el-input>
         </el-form-item>
         <el-form-item label="发票抬头：">
-          <el-input v-model="form.name"></el-input>
+          <el-input v-model="form.invoice"></el-input>
         </el-form-item>
         <el-form-item label="银行账号：">
-          <el-input v-model="form.name"></el-input>
+          <el-input v-model="form.account_no"></el-input>
         </el-form-item>
         <el-form-item label="公司电话：">
-          <el-input v-model="form.name"></el-input>
+          <el-input v-model="form.company_phone"></el-input>
         </el-form-item>
         <el-form-item label="开户银行：">
-          <el-input v-model="form.name"></el-input>
+          <el-input v-model="form.opening_bank"></el-input>
         </el-form-item>
         <el-form-item label="公司地址：">
-          <el-input v-model="form.name"></el-input>
+          <el-input v-model="form.company_phone"></el-input>
         </el-form-item>
         <el-form-item label="账号状态：">
 
           <el-switch
-            v-model="form.status"
+            v-model="form.is_active"
             active-color="#13ce66"
             inactive-color="#ff4949">
           </el-switch>
@@ -92,26 +96,33 @@ export default {
   data () {
     return {
       form: {
-        name: '',
-        region: '',
-        city: '',
+        phone: '',
+        email: '',
+        vip_type: '',
+        avatar: '',
+        city_name: '',
         career: '',
-        delivery: false,
-        type: [],
-        company: '',
+        company_name: '',
         desc: '',
-        status: true
+        password: '',
+        is_active: true,
+        invoice: '',
+        taxpayer_number: '',
+        company_address: '',
+        company_phone: '',
+        opening_bank: '',
+        account_no: ''
       },
       fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]
     }
   },
   created () {
-    this.Telcode()
+
   },
   methods: {
-    async Telcode () {
+    async onSubmit () {
       try {
-        let dt = await axiosapi.opsTel_code()
+        let dt = await axiosapi.useradd(this.form)
         console.log(dt)
       } catch (e) {
         console.log(e)
@@ -125,9 +136,6 @@ export default {
     },
     handlePreview (file) {
       console.log(file)
-    },
-    onSubmit () {
-      console.log('submit!')
     },
     backTo () {
       this.$router.go(-1)

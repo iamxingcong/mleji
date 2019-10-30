@@ -19,8 +19,17 @@ export default {
   userprofile () {
     return axi().get('/ops/user/profile/')
   },
-  userlist () {
-    return axi().get('/ops/user/')
+  useradd (data) {
+    return axi().post('/ops/user/add/', data)
+  },
+  musiclist () {
+    return axi().get('/ops/project')
+  },
+  verifycode (data) {
+    return axi().post('/ops/verify_code/', data)
+  },
+  resetpassword (data) {
+    return axi().post('/ops/user/reset_password/', data)
   }
 
 }

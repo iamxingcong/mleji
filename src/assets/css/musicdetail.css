@@ -27,6 +27,7 @@
     display: block;
     float: left;
     border-right: 1px solid #e2e2e2;
+    height: 49px;
   }
   .wdp252 .crs span:nth-child(4){
     border-right: none;
@@ -65,3 +66,26 @@
    width: calc(100% - 30px);
    margin: 0px auto;
  }
+  #avantar{
+    width: 72px;
+    height: 72px;
+    display: block;
+    margin: 15px auto;
+    border-radius: 72px;
+    background-position: center center;
+    background-size: 100% auto;
+    box-shadow: 1px 1px 1px #ffffff;
+    margin-top: 30px;
+  }
+.iconname{
+  display: block;
+  clear: both;
+  text-align: center;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  margin-top: 10px;
+}
+.sq250{
+  position: relative;
+}

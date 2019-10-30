@@ -9,7 +9,9 @@ export default() => {
     // baseURL: 'http://dspeaklow.wangge0101.cn',
     headers: {
       'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'X-Api-Key': 'idToken',
+      's-hd': 'youo want what, give you what, but, how to get,, params, is a problem, but i will try'
     }
   })
 }

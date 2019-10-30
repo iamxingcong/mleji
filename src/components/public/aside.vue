@@ -11,6 +11,7 @@
       active-text-color='#20a0ff'
       :default-active='this.$router.path'
       router
+      unique-opened
       @select="select"
 
     >
@@ -71,7 +72,10 @@
         <i class="el-icon-coordinate"></i>
         <span slot="title">权限管理</span>
       </el-menu-item>
-
+      <el-menu-item index='MusicLists'>
+        <i class='el-icon-s-grid'></i>
+        <span slot='title'>曲单管理</span>
+      </el-menu-item>
     </el-menu>
   </div>
 </template>

@@ -2,48 +2,55 @@
   <div id='UserDetail'>
     <div class="whitewraps">
       <el-row>
-        <span class="tit left">音乐信息</span>
+        <span class="tit left">基本信息</span>
         <span class="right mt15 mr15">
           <el-button size="mini">用户详情</el-button>
           <el-button size="mini">编辑资料</el-button>
           <el-button size="mini"  @click="LoginLog">登录日志</el-button>
+          <el-button size="mini" @click="backTo">返回</el-button>
         </span>
       </el-row>
 
       <div class="musicinfo mg15">
         <div class="left sq250">
-            left
+             <div id='avantar' :style='{ backgroundImage: `url(${ udata.avatar  ?  udata.avatar : img })` }'></div>
+             <span class="iconname"> {{udata.career ? udata.career : ' 缺省 '}} </span>
+             <span class="iconname">
+              <el-button type="warning" round>
+                {{udata.vip_type == 'NORMAL' ? '普通会员' : udata.vip_type}}
+              </el-button>
+             </span>
         </div>
         <div class="right wdp252">
             <div class="crs">
-              <span>a</span>
-              <span>a</span>
-              <span>a</span>
-              <span>a</span>
+              <span> ID </span>
+              <span> {{udata.account_no}} </span>
+              <span> 职业 </span>
+              <span> {{udata.career}} </span>
             </div>
             <div class="crs">
-              <span>a</span>
-              <span>a</span>
-              <span>a</span>
-              <span>a</span>
+              <span> 手机号码 </span>
+              <span> {{udata.phone}} </span>
+              <span> 描述备注 </span>
+              <span> {{udata.desc}} </span>
             </div>
             <div class="crs">
-              <span>a</span>
-              <span>a</span>
-              <span>a</span>
-              <span>a</span>
+              <span> 姓名 </span>
+              <span> {{udata.name}} </span>
+              <span> 常用的标签 </span>
+              <span> {{udata.use_categories}} </span>
             </div>
             <div class="crs">
-              <span>a</span>
-              <span>a</span>
-              <span>a</span>
-              <span>a</span>
+              <span> 公司 </span>
+              <span> {{udata.company_name}} </span>
+              <span> 注册时间 </span>
+              <span> {{udata.created_at}} </span>
             </div>
             <div class="crs l50">
-              <span>a</span>
-              <span>a</span>
-              <span>a</span>
-              <span>a</span>
+              <span> 城市 </span>
+              <span> {{udata.city_name}} </span>
+              <span> 用户来源 </span>
+              <span> {{udata.add_type}} </span>
             </div>
         </div>
       </div>
@@ -110,9 +117,9 @@
             <span>开户银行</span>
         </el-row>
         <el-row>
-            <el-input v-model="inputa" ></el-input>
+            <el-input v-model="udata.taxpayer_number" ></el-input>
             <el-input v-model="inputb" ></el-input>
-            <el-input v-model="inputc" ></el-input>
+            <el-input v-model="udata.opening_bank" ></el-input>
         </el-row>
          <el-row>
             <span>银行账号</span>
@@ -121,7 +128,7 @@
         </el-row>
         <el-row>
             <el-input v-model="inputd" ></el-input>
-            <el-input v-model="inpute" ></el-input>
+            <el-input v-model="udata.phone" ></el-input>
             <el-input v-model="inputf" ></el-input>
         </el-row>
       </div>
@@ -286,6 +293,7 @@ export default {
   name: 'UserDetail',
   data () {
     return {
+      img: require('../../../assets/icons/logo.png'),
       tableData: [{
         date: '2016-05-03',
         namea: '上海',
@@ -328,18 +336,52 @@ export default {
       inputf: '',
       currentPage3: 2,
       currentPage4: 1,
-      uuid: ''
+      uuid: '',
+      udata: {}
     }
   },
   created () {
     this.uuid = this.$route.query.uuid
     this.detail()
+    this.userproject()
+    this.userorder()
   },
   methods: {
     async detail () {
       try {
         let dt = await axi().get('/ops/user/' + this.uuid)
-        console.log(dt)
+        console.log(dt.data)
+        if (dt.status === 200) {
+          this.udata = dt.data
+        } else {
+          console.log('错误')
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    async userproject () {
+      try {
+        let dp = await axi().get('/ops/user/' + this.uuid + '/project/')
+        console.log(dp.data)
+        if (dp.status === 200) {
+          // console.log(dp.data)
+        } else {
+          console.log('错误')
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    async userorder () {
+      try {
+        let dr = await axi().get('/ops/user/' + this.uuid + '/order/')
+        console.log(dr.data)
+        if (dr.status === 200) {
+          // console.log(dp.data)
+        } else {
+          console.log('错误')
+        }
       } catch (e) {
         console.log(e)
       }
@@ -358,6 +400,9 @@ export default {
     },
     LoginLog () {
       this.$router.push('LoginLog')
+    },
+    backTo () {
+      this.$router.go(-1)
     }
   }
 }
