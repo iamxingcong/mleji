@@ -13,7 +13,6 @@
       router
       unique-opened
       @select="select"
-
     >
       <el-menu-item index='DataManage'>
         <i class="el-icon-pie-chart"></i>
@@ -25,11 +24,9 @@
            <i class="el-icon-headset"></i>
           <span>音乐</span>
         </template>
-        <el-menu-item index="MusicManage">音乐管理</el-menu-item>
-        <el-menu-item index="MusicFilter">音乐筛选列表</el-menu-item>
-        <el-menu-item index="MusicDetail">音乐详情</el-menu-item>
-        <el-menu-item index="BrandDetail">厂牌详情</el-menu-item>
-        <el-menu-item index="AlbumDetail">专辑详情</el-menu-item>
+        <el-menu-item index="MusicFilter">音乐列表</el-menu-item>
+        <el-menu-item index="BrandLists">厂牌列表</el-menu-item>
+        <el-menu-item index="AlbumFilter">专辑列表</el-menu-item>
       </el-submenu>
 
        <el-submenu index="3">
@@ -38,7 +35,6 @@
           <span>用户</span>
         </template>
         <el-menu-item index="UserManage">用户管理</el-menu-item>
-        <el-menu-item index="ProjectDetail">项目详情</el-menu-item>
         <el-menu-item index="AddUser">新增用户</el-menu-item>
         <el-menu-item index="LoginLog">登录日志</el-menu-item>
       </el-submenu>

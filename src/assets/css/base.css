@@ -198,3 +198,6 @@ body .el-table th.gutter{
 .login_wrap .el-tabs__header {
   padding: 15px 50px 0px 50px !important;
 }
+.el-form-item__content .el-input{
+  z-index: 2003;
+}

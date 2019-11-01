@@ -6,44 +6,44 @@
         <span class="tit left">音乐信息</span>
         <span class="right mt15 mr15">
           <el-button size="mini">上传歌词</el-button>
-          <el-button size="mini">筛选音乐信息</el-button>
+          <el-button size="mini">编辑音乐信息</el-button>
         </span>
       </el-row>
 
       <div class="musicinfo mg15">
         <div class="left sq250">
-            left
+            <span> {{ detail.album_name }}</span>
         </div>
         <div class="right wdp252">
             <div class="crs">
-              <span>a</span>
-              <span>a</span>
-              <span>a</span>
-              <span>a</span>
+              <span> 专辑ID </span>
+              <span> {{ detail.album_id }}</span>
+              <span> Open Key </span>
+              <span> {{ detail.opening_key }}</span>
             </div>
             <div class="crs">
-              <span>a</span>
-              <span>a</span>
-              <span>a</span>
-              <span>a</span>
+              <span> 音乐编号 </span>
+              <span> {{ detail.uuid }}</span>
+              <span> End Key </span>
+              <span> {{ detail.closing_key }}</span>
             </div>
             <div class="crs">
-              <span>a</span>
-              <span>a</span>
-              <span>a</span>
-              <span>a</span>
+              <span> 文件格式 </span>
+              <span> {{ detail.format }}</span>
+              <span> Tempo Open </span>
+              <span> {{ detail.tempo_open_id }} </span>
             </div>
             <div class="crs">
-              <span>a</span>
-              <span>a</span>
-              <span>a</span>
-              <span>a</span>
+              <span> 节拍 </span>
+              <span> {{ detail.metre }}</span>
+              <span> Tempo End </span>
+              <span> {{ detail.tempo_end_id }} </span>
             </div>
             <div class="crs l50">
-              <span>a</span>
-              <span>a</span>
-              <span>a</span>
-              <span>a</span>
+              <span> 时长 </span>
+              <span> {{ detail.length + "'" }}</span>
+              <span> 速度 </span>
+              <span> {{detail.tempo_notes_id }} </span>
             </div>
         </div>
       </div>
@@ -56,77 +56,51 @@
       </el-row>
       <div class="mg15">
           <el-table
-            :data="tableData"
+            :data="tablett"
             border
             style="width: 100%">
             <el-table-column
-              prop="date"
+              prop="publisher"
               label="原出版商"
             >
             </el-table-column>
             <el-table-column
-              prop="namea"
+              prop="agent_publisher"
               label="代理出版商"
             >
             </el-table-column>
             <el-table-column
-              prop="nameb"
+              prop="release_year"
               label="发行时间"
             >
             </el-table-column>
             <el-table-column
-              prop="namec"
+              prop="composer"
               label="原曲作者"
             >
             </el-table-column>
             <el-table-column
-              prop="named"
+              prop="arranged_by"
               label="编曲作者"
             >
             </el-table-column>
             <el-table-column
-              prop="namee"
+              prop="lyricist"
               label="原词作者"
             >
             </el-table-column>
             <el-table-column
-              prop="namef"
+              prop="arranged_by"
               label="主要表演者"
             >
             </el-table-column>
             <el-table-column
-              prop="nameg"
+              prop="place_of_recording"
               label="录制地点"
             >
             </el-table-column>
 
           </el-table>
-      </div>
-
-      <el-row>
-        <span class="tit left">ISRC信息</span>
-      </el-row>
-      <div class="musicdistributor">
-        <el-row>
-            <span>原出版商</span>
-            <span>原出版商</span>
-            <span>原出版商</span>
-        </el-row>
-        <el-row>
-            <el-input v-model="inputa" ></el-input>
-            <el-input v-model="inputb" ></el-input>
-            <el-input v-model="inputc" ></el-input>
-        </el-row>
-         <el-row>
-            <span>原出版商</span>
-            <span>原出版商</span>
-            <span>原出版商</span>
-        </el-row>
-        <el-row>
-            <el-input v-model="inputd" ></el-input>
-            <el-input v-model="inpute" ></el-input>
-            <el-input v-model="inputf" ></el-input>
-        </el-row>
       </div>
 
       <el-row>
@@ -137,37 +111,37 @@
       </el-row>
       <div class="mg15">
           <el-table
-            :data="tableDatab"
+            :data="tablett"
             border
             style="width: 100%"
           >
             <el-table-column
-              prop="date"
+              prop="styles"
               label="风格"
             >
             </el-table-column>
             <el-table-column
-              prop="namea"
+              prop="moods"
               label="情绪"
             >
             </el-table-column>
             <el-table-column
-              prop="nameb"
+              prop="main_instruments"
               label="主奏乐器"
             >
             </el-table-column>
             <el-table-column
-              prop="namec"
+              prop="accompanied_instruments"
               label="伴奏乐器"
             >
             </el-table-column>
             <el-table-column
-              prop="named"
+              prop="keyword"
               label="关键词"
             >
             </el-table-column>
             <el-table-column
-              prop="namee"
+              prop="desc"
               label="描述"
             >
             </el-table-column>
@@ -179,18 +153,18 @@
       </el-row>
       <div class="mg15">
           <el-table
-            :data="tableDatac"
+            :data="tablett"
             border
             style="width: 100%"
           >
             <el-table-column
-              prop="date"
+              prop="factoid"
               label="授权编号"
             >
             </el-table-column>
             <el-table-column
-              prop="namea"
-              label="发生时间"
+              prop="release_year"
+              label="发行时间"
             >
             </el-table-column>
             <el-table-column
@@ -326,6 +300,8 @@
   </div>
 </template>
 <script>
+import axi from '@/config/axi'
+import axiosapi from '@/config/axiosapi'
 export default {
   name: 'MusicDetail',
   data () {
@@ -380,7 +356,82 @@ export default {
       inputc: '',
       inputd: '',
       inpute: '',
-      inputf: ''
+      inputf: '',
+      detail: {},
+      tablett: []
+    }
+  },
+  created () {
+    this.musicdetail()
+    this.catetory()
+    this.certificates()
+    this.tracks()
+    this.relates()
+  },
+  methods: {
+    async musicdetail () {
+      try {
+        let dp = await axi().get('/ops/music/' + this.$route.query.uuid)
+        if (dp.status === 200) {
+          // console.log(dp)
+          this.detail = dp.data
+          this.tablett.push(dp.data)
+        } else {
+          console.log('错误')
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    async catetory () {
+      try {
+        let dp = await axiosapi.musiccategory()
+        if (dp.status === 200) {
+          // console.log(dp)
+        } else {
+          console.log('错误')
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    async certificates () {
+      try {
+        let dp = await axi().get('/ops/music/' + this.$route.query.uuid + '/certificates/')
+        if (dp.status === 200) {
+          // console.log(dp)
+          this.detail = dp.data
+          this.tablett.push(dp.data)
+        } else {
+          console.log('错误')
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    async tracks () {
+      try {
+        let dp = await axi().get('/ops/music/' + this.$route.query.uuid + '/tracks/')
+        if (dp.status === 200) {
+          console.log(dp)
+        } else {
+          console.log('错误')
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    async relates () {
+      try {
+        let dp = await axi().get('/ops/music/' + this.$route.query.uuid + '/relates/')
+        if (dp.status === 200) {
+          console.log(dp)
+        } else {
+          console.log('错误')
+        }
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
 }

@@ -10,7 +10,7 @@ import ResetPasswordVerifyPhone from '@/components/page/ResetPasswordVerifyPhone
 import ManagePanel from '@/components/page/ManagePanel'
 
 import UserManage from '@/components/page/user/UserManage'
-import ProjectDetail from '@/components/page/user/ProjectDetail'
+import ProjectList from '@/components/page/user/ProjectList'
 import SubmitSuccess from '@/components/page/user/SubmitSuccess'
 import UserDetail from '@/components/page/user/UserDetail'
 import UserEdit from '@/components/page/user/UserEdit'
@@ -21,8 +21,10 @@ import home from '@/components/page/home'
 import RequestManage from '@/components/page/RequestManage'
 import RequestDetail from '@/components/page/RequestDetail'
 
-import MusicManage from '@/components/page/music/MusicManage'
+import BrandLists from '@/components/page/music/BrandLists'
 import MusicFilter from '@/components/page/music/MusicFilter'
+import AlbumFilter from '@/components/page/music/AlbumFilter'
+
 import MusicDetail from '@/components/page/music/MusicDetail'
 import BrandDetail from '@/components/page/music/BrandDetail'
 import AlbumDetail from '@/components/page/music/AlbumDetail'
@@ -86,8 +88,8 @@ export default new Router({
           component: UserManage
         },
         {
-          path: '/ProjectDetail',
-          component: ProjectDetail
+          path: '/ProjectList',
+          component: ProjectList
         },
         {
           path: '/SubmitSuccess',
@@ -118,12 +120,16 @@ export default new Router({
           component: RequestDetail
         },
         {
-          path: '/MusicManage',
-          component: MusicManage
+          path: '/BrandLists',
+          component: BrandLists
         },
         {
           path: '/MusicFilter',
           component: MusicFilter
+        },
+        {
+          path: '/AlbumFilter',
+          component: AlbumFilter
         },
         {
           path: '/MusicDetail',

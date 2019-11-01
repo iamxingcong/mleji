@@ -30,6 +30,29 @@ export default {
   },
   resetpassword (data) {
     return axi().post('/ops/user/reset_password/', data)
+  },
+  applyforproject () {
+    return axi().get('/ops/apply_for_project/')
+  },
+  addlabel (data) {
+    return axi().post('/ops/label/', data)
+  },
+  getlabel () {
+    return axi().get('/ops/label/')
+  },
+  album () {
+    return axi().get('/ops/album/')
+  },
+  addalbum (data) {
+    return axi().post('/ops/album/', data)
+  },
+  labelsearch () {
+    return axi().get('/ops/label_search/')
+  },
+  addmusic (data) {
+    return axi().post('/ops/music/', data)
+  },
+  musiccategory () {
+    return axi().get('/ops/music_category/')
   }
-
 }

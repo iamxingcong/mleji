@@ -14,7 +14,7 @@
             <div class='login_form'>
               <el-form-item>
                 <div class="w336 mgt40">
-                  <el-input  placeholder='手机号'  v-model='form.phone'></el-input>
+                  <el-input  placeholder='手机号'  v-model='form.phone' autocomplete='off'></el-input>
                 </div>
               </el-form-item>
               <el-form-item>
@@ -42,7 +42,7 @@
             <div class='login_form'>
               <el-form-item>
                 <div class="w336 mgt40">
-                  <el-input  placeholder='邮箱'  v-model='forma.email'></el-input>
+                  <el-input  placeholder='邮箱'  v-model='forma.email' autocomplete='off'></el-input>
                 </div>
               </el-form-item>
               <el-form-item>
@@ -84,7 +84,7 @@ export default {
   },
   data () {
     return {
-      activeName: 'second',
+      activeName: 'first',
       msg: 'CMusic Copyright版权曲库管理系统',
       user: '',
       pass: '',
@@ -117,7 +117,23 @@ export default {
           this.$router.push({path: 'ManagePanel', query: {'name': dt.data.name}})
         }
       } catch (e) {
-        console.log(e)
+        if (e.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log(e.response.data)
+          console.log(e.response.status)
+          console.log(e.response.headers)
+          this.$message.error(e.response.data.detail)
+        } else if (e.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          console.log(e.request)
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error', e.message)
+        }
+        console.log(e.config)
       }
     },
     async logina () {
@@ -128,7 +144,23 @@ export default {
           this.$router.push({path: 'ManagePanel', query: {'name': dt.data.name}})
         }
       } catch (e) {
-        console.log(e)
+        if (e.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log(e.response.data)
+          console.log(e.response.status)
+          console.log(e.response.headers)
+          this.$message.error(e.response.data.detail)
+        } else if (e.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          console.log(e.request)
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error', e.message)
+        }
+        console.log(e.config)
       }
     },
     async loginout () {
@@ -144,7 +176,12 @@ export default {
       this.$router.push('ResetPassword')
     },
     handleClick (tab, event) {
-      // console.log(tab, event)
+      console.log(tab.name)
+      if (tab.name === 'first') {
+        this.form.phone = ''
+      } else {
+        this.forma.email = ''
+      }
     }
   }
 }

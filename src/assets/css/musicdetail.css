@@ -42,30 +42,6 @@
     height: 50px;
     line-height: 50px;
   }
-  .musicdistributor .el-row{
-    display: flex;
-  }
-  .musicdistributor .el-row span,
-  .musicdistributor .el-row .el-input{
-    flex: 3;
-  }
-  .musicdistributor .el-row span:nth-child(1),
-  .musicdistributor .el-row .el-input:nth-child(1),
-  .musicdistributor .el-row span:nth-child(2),
-  .musicdistributor .el-row .el-input:nth-child(2){
-    margin-right: 40px;
-  }
-  .musicdistributor .el-row span{
-    display: block;
-    float: left;
-    text-align: left;
-    margin-bottom: 5px;
-    margin-top: 15px;
-  }
- .musicdistributor{
-   width: calc(100% - 30px);
-   margin: 0px auto;
- }
   #avantar{
     width: 72px;
     height: 72px;

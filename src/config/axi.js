@@ -11,7 +11,7 @@ export default() => {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
       'X-Api-Key': 'idToken',
-      's-hd': 'youo want what, give you what, but, how to get,, params, is a problem, but i will try'
+      'moto': 'do as you like, believe yourself'
     }
   })
 }

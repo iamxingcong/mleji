@@ -81,6 +81,7 @@
   </div>
 </template>
 <script>
+import axiosapi from '@/config/axiosapi'
 export default {
   name: 'RequestManage',
   data () {
@@ -106,7 +107,20 @@ export default {
       currentPage4: 1
     }
   },
+  created () {
+    this.applyforproject()
+  },
   methods: {
+    async applyforproject () {
+      try {
+        let dt = await axiosapi.applyforproject()
+        if (dt.status === 200) {
+          console.log(dt.data)
+        }
+      } catch (e) {
+        console.log(e.config)
+      }
+    },
     RequestDetail (row) {
       console.log(row)
       this.$router.push('RequestDetail')
