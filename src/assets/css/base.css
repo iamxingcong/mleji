@@ -201,3 +201,9 @@ body .el-table th.gutter{
 .el-form-item__content .el-input{
   z-index: 2003;
 }
+
+.el-dialog__body span{
+  display: block;
+  clear: both;
+  line-height: 2em;
+}

@@ -141,17 +141,81 @@
       </el-dialog>
     </div>
 
+    <div id='editalbum'>
+      <el-dialog title='编辑专辑：'
+      :close-on-click-modal='false'
+      :visible.sync='dialogFormVisibleedit'>
+        <el-form :model='formedit'>
+          <el-form-item label='专辑名：' :label-width='formLabelWidth'>
+            <el-input v-model='formedit.name' autocomplete='off'></el-input>
+          </el-form-item>
+          <el-form-item label='专辑号：' :label-width='formLabelWidth'>
+            <el-input v-model='formedit.album_no' autocomplete='off'></el-input>
+          </el-form-item>
+          <el-form-item label='请填写专辑描述：' :label-width='formLabelWidth'>
+            <el-input
+              type='textarea'
+              :autosize='{ minRows: 3, maxRows: 4}'
+              placeholder='请输入专辑描述'
+              v-model='formedit.desc'>
+            </el-input>
+          </el-form-item>
+
+          <el-form-item label='专辑封面：' :label-width='formLabelWidth'>
+            <el-input v-model='formedit.cover' autocomplete='off'></el-input>
+          </el-form-item>
+          <el-form-item label='formedit' autocomplete='on' :label-width='formLabelWidth'>
+            <el-select v-model="formedit.label_id" placeholder="请选择">
+              <el-option
+                v-for="item in labeluids"
+                :key="item.name"
+                :label="item.name"
+                :value="item.uuid">
+                <span style="float: left">{{ item.name }}</span>
+                <span style="float: right; color: #8492a6; font-size: 13px">{{ item.uuid }}</span>
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-form>
+        <div slot='footer' class='dialog-footer'>
+          <el-button @click='dialogFormVisibleedit = false'>取 消</el-button>
+          <el-button type='primary' @click='editalbumConfirm'>确 定</el-button>
+        </div>
+      </el-dialog>
+    </div>
+
+    <div id='dialogues'>
+       <el-dialog
+        title='确认提示'
+        :visible.sync='dialogVisible'
+        :close-on-click-modal='false'
+        width='30%'>
+        <span class='fw700'>
+          <i class='el-icon-warning'></i>
+            是否确定删除专辑: {{uuid}}
+        </span>
+        <span>专辑删除后不可恢复</span>
+        <span slot='footer' class='dialog-footer'>
+          <el-button @click='dialogVisible = false'>取 消</el-button>
+          <el-button type='primary' @click='deleteconfirm'>确 定</el-button>
+        </span>
+      </el-dialog>
+    </div>
+
   </div>
 </template>
 <script>
 import axiosapi from '@/config/axiosapi'
+import axi from '@/config/axi'
 
 const cityOptions = ['上海', '北京', '广州', '深圳']
 export default {
   name: 'AlbumFilter',
   data () {
     return {
+      dialogVisible: false,
       dialogFormVisiblea: false,
+      dialogFormVisibleedit: false,
       formLabelWidth: '150px',
       form: {
         name: ''
@@ -162,6 +226,9 @@ export default {
         cover: '',
         desc: '',
         label_id: ''
+      },
+      formedit: {
+
       },
       checkAll: false,
       checkedCities: [],
@@ -211,10 +278,65 @@ export default {
       )
     },
     editAlbum (uuid) {
-
+      this.dialogFormVisibleedit = true
+      this.uuid = uuid
+      this.albumdetail(this.uuid)
     },
-    deleteAlbum (uuid) {
-
+    async editalbumConfirm () {
+      console.log(this.formedit)
+      try {
+        let dt = await axi().put('/ops/album/' + this.uuid, this.formedit)
+        if (dt.status === 200) {
+          this.formedit = dt.data
+          this.albumlist()
+          this.dialogFormVisibleedit = false
+        } else {
+          console.log('错误')
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    async albumdetail () {
+      try {
+        let dt = await axi().get('/ops/album/' + this.uuid)
+        if (dt.status === 200) {
+          this.formedit = dt.data
+        } else {
+          console.log('错误')
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    deleteAlbum (x) {
+      this.uuid = x
+      this.dialogVisible = true
+    },
+    async deleteconfirm (uuid) {
+      try {
+        let dp = await axi().delete('/ops/album/' + this.uuid)
+        if (dp.status === 200) {
+          this.dialogVisible = false
+          this.$message({
+            message: '删除成功',
+            type: 'success'
+          })
+          this.albumlist()
+        } else {
+          console.log('错误')
+        }
+      } catch (e) {
+        // console.log(e)
+        if (e.response) {
+          this.dialogVisible = false
+          this.$message.error(e.response.data.detail)
+        } else if (e.request) {
+          console.log(e.request)
+        } else {
+          console.log('Error', e.message)
+        }
+      }
     },
     handleCheckAllChange (val) {
       this.checkedCities = val ? cityOptions : []
@@ -242,6 +364,7 @@ export default {
             message: '添加成功',
             type: 'success'
           })
+          this.albumlist()
           this.dialogFormVisiblea = false
         }
       } catch (e) {
@@ -305,6 +428,11 @@ export default {
 .el-tag{
   height: 25px;
   line-height: 25px;
+}
+.el-dialog__body span{
+  display: block;
+  clear: both;
+  line-height: 2em;
 }
 
 </style>

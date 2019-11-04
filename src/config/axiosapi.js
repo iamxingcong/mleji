@@ -32,7 +32,7 @@ export default {
     return axi().post('/ops/user/reset_password/', data)
   },
   applyforproject () {
-    return axi().get('/ops/apply_for_project/')
+    return axi().get('/ops/apply_for_vip/')
   },
   addlabel (data) {
     return axi().post('/ops/label/', data)
@@ -52,7 +52,13 @@ export default {
   addmusic (data) {
     return axi().post('/ops/music/', data)
   },
+  musiclistmusic () {
+    return axi().get('/ops/music/')
+  },
   musiccategory () {
     return axi().get('/ops/music_category/')
+  },
+  musicsearch () {
+    return axi().get('/ops/music_search/')
   }
 }

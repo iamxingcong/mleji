@@ -4,9 +4,7 @@
       <el-row>
         <span class="tit left">基本信息</span>
         <span class="right mt15 mr15">
-          <el-button size="mini">用户详情</el-button>
-          <el-button size="mini">编辑资料</el-button>
-          <el-button size="mini"  @click="LoginLog">登录日志</el-button>
+          <el-button size="mini" @click="edituser">编辑资料</el-button>
           <el-button size="mini" @click="backTo">返回</el-button>
         </span>
       </el-row>
@@ -118,7 +116,7 @@
         </el-row>
         <el-row>
             <el-input v-model="udata.taxpayer_number" ></el-input>
-            <el-input v-model="inputb" ></el-input>
+            <el-input v-model="udata.invoice" ></el-input>
             <el-input v-model="udata.opening_bank" ></el-input>
         </el-row>
          <el-row>
@@ -127,9 +125,9 @@
             <span>单位地址</span>
         </el-row>
         <el-row>
-            <el-input v-model="inputd" ></el-input>
+            <el-input v-model="udata.account_no" ></el-input>
             <el-input v-model="udata.phone" ></el-input>
-            <el-input v-model="inputf" ></el-input>
+            <el-input v-model="udata.company_address" ></el-input>
         </el-row>
       </div>
 
@@ -284,6 +282,55 @@
         </el-pagination>
       </div>
 
+      <el-row>
+        <span class="tit left">登录日志</span>
+      </el-row>
+      <div class="mg15">
+        <el-table
+          :data="tableDatag"
+          border
+          style="width: 100%"
+        >
+          <el-table-column
+            prop="image"
+            label="登录时间"
+            width="180">
+          </el-table-column>
+          <el-table-column
+            prop="namea"
+            label="IP地址"
+          >
+          </el-table-column>
+          <el-table-column
+            prop="nameb"
+            label="地区"
+          >
+          </el-table-column>
+          <el-table-column
+            prop="namec"
+            label="作者"
+          >
+          </el-table-column>
+          <el-table-column
+            prop="named"
+            label="在线时长"
+          >
+          </el-table-column>
+        </el-table>
+      </div>
+      <div class="paginations">
+        <el-pagination
+          background
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="currentPage4"
+          :page-sizes="[10, 20, 30, 100]"
+          :page-size="100"
+          layout="prev, pager, next, sizes"
+          :total="400">
+        </el-pagination>
+      </div>
+
     </div>
   </div>
 </template>
@@ -328,6 +375,31 @@ export default {
         named: 200333,
         namee: 'sfsff'
       }],
+      tableDatag: [{
+        image: '哈哈发放',
+        namea: '上海',
+        nameb: '普陀区',
+        namec: '上海市普陀区金沙江路 1518 弄',
+        named: 200333,
+        namee: 'sfsff'
+      },
+      {
+        image: '哈哈发放',
+        namea: '上海',
+        nameb: '普陀区',
+        namec: '上海市普陀区金沙江路 1518 弄',
+        named: 200333,
+        namee: 'sfsff'
+      },
+      {
+        image: '哈哈发放',
+        namea: '上海',
+        nameb: '普陀区',
+        namec: '上海市普陀区金沙江路 1518 弄',
+        named: 200333,
+        namee: 'sfsff'
+      }],
+      currentPage5: 1,
       inputa: '',
       inputb: '',
       inputc: '',
@@ -398,11 +470,14 @@ export default {
     handleCurrentChange (val) {
       console.log(`当前页a: ${val}`)
     },
-    LoginLog () {
-      this.$router.push('LoginLog')
-    },
     backTo () {
       this.$router.go(-1)
+    },
+    edituser () {
+      this.$router.push({
+        path: 'UserEdit',
+        query: {'uuid': this.uuid}
+      })
     }
   }
 }

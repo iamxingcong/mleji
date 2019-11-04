@@ -29,15 +29,10 @@
         <el-menu-item index="AlbumFilter">专辑列表</el-menu-item>
       </el-submenu>
 
-       <el-submenu index="3">
-        <template slot="title">
-           <i class="el-icon-user"></i>
-          <span>用户</span>
-        </template>
-        <el-menu-item index="UserManage">用户管理</el-menu-item>
-        <el-menu-item index="AddUser">新增用户</el-menu-item>
-        <el-menu-item index="LoginLog">登录日志</el-menu-item>
-      </el-submenu>
+      <el-menu-item index='UserManage'>
+        <i class="el-icon-user"></i>
+        <span slot="title">用户管理 </span>
+      </el-menu-item>
 
       <el-menu-item index='RequestManage'>
         <i class="el-icon-thumb"></i>

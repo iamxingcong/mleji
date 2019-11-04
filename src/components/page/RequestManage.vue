@@ -29,7 +29,7 @@
           </el-table-column>
           <el-table-column
             prop="namec"
-            label="项目名称"
+            label="公司名称"
           >
           </el-table-column>
           <el-table-column

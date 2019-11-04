@@ -67,7 +67,8 @@
       <el-row>
         <span class="tit left">筛选结果</span>
         <span class="right mt15 mr15">
-          <el-button size="mini">刷新</el-button>
+          <el-button size="mini">导出</el-button>
+          <el-button size="mini" @click="dialogFormVisible = true">添加音乐</el-button>
         </span>
       </el-row>
       <div class="pd15">
@@ -80,31 +81,128 @@
           width="55">
           </el-table-column>
           <el-table-column
-            prop="date"
-            label="日期"
+            prop="uuid"
+            label="ID"
             width="180">
           </el-table-column>
           <el-table-column
             prop="name"
-            label="姓名"
+            label="音乐名称"
             width="180">
           </el-table-column>
           <el-table-column
-            prop="address"
-            label="地址">
+            prop="composer"
+            label="作者"
+            width="180">
+          </el-table-column>
+          <el-table-column
+            prop="album_name"
+            label="专辑名称"
+            width="180">
+          </el-table-column>
+          <el-table-column
+            prop="length"
+            label="时长"
+            width="180">
+          </el-table-column>
+          <el-table-column
+            prop="name"
+            label="desc"
+            width="180">
+          </el-table-column>
+          <el-table-column
+            prop="track_count"
+            label="版本数">
+          </el-table-column>
+          <el-table-column
+            prop="uuid"
+            label="操作">
+            <template slot-scope="scope">
+                <el-button
+                  type="text"
+                @click="checkMusic(scope.row.uuid)">查看</el-button>
+                <el-button
+                  type="text"
+                  @click="DownloadMusic(scope.row.uuid)">下载</el-button>
+            </template>
           </el-table-column>
         </el-table>
       </div>
     </div>
 
+    <div id='addlabel'>
+      <el-dialog title='添加音乐'
+      :close-on-click-modal='false'
+      :visible.sync='dialogFormVisible'>
+        <el-form :model='form'>
+          <el-col :span="11">
+            <el-form-item label='音乐名称：' :label-width='formLabelWidth'>
+              <el-input v-model='form.name' autocomplete='off'></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="11">
+            <el-form-item label='音乐编号：' :label-width='formLabelWidth'>
+              <el-input v-model='form.music_no' autocomplete='off'></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="11">
+            <el-form-item label='编曲作者：' :label-width='formLabelWidth'>
+              <el-input v-model='form.arranged_by' autocomplete='off'></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="11">
+            <el-form-item label='曲作者：' :label-width='formLabelWidth'>
+              <el-input v-model='form.composer' autocomplete='off'></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="11">
+            <el-form-item label='词作者：' :label-width='formLabelWidth'>
+              <el-input v-model='form.lyricist' autocomplete='off'></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="11">
+            <el-form-item label='上传音乐文件：' :label-width='formLabelWidth'>
+              <el-input type='file' v-model='form.path' autocomplete='off'></el-input>
+            </el-form-item>
+          </el-col>
+          <el-form-item label='音乐描述：' :label-width='formLabelWidth'>
+            <el-input
+              type='textarea'
+              :autosize='{ minRows: 3, maxRows: 4}'
+              placeholder='请输入音乐描述：'
+              v-model='form.desc'>
+            </el-input>
+          </el-form-item>
+
+        </el-form>
+        <div slot='footer' class='dialog-footer'>
+          <el-button @click='dialogFormVisible = false'>取 消</el-button>
+          <el-button type='primary' @click='addmusics'>确 定</el-button>
+        </div>
+      </el-dialog>
+    </div>
+
   </div>
 </template>
 <script>
+import axiosapi from '@/config/axiosapi'
 const cityOptions = ['上海', '北京', '广州', '深圳']
 export default {
   name: 'MusicFilter',
   data () {
     return {
+      dialogFormVisible: false,
+      form: {
+        name: '',
+        music_no: '',
+        lyricist: '',
+        composer: '',
+        arranged_by: '',
+        path: '',
+        desc: '',
+        album_id: this.$route.query.uuid
+      },
+      formLabelWidth: '150px',
       checkAll: false,
       checkAlla: false,
       checkAllb: false,
@@ -141,7 +239,56 @@ export default {
       }]
     }
   },
+  created () {
+    this.musiclist()
+  },
   methods: {
+    checkMusic (x) {
+      this.$router.push(
+        {
+          path: 'MusicDetail',
+          query: {'uuid': x}
+        }
+      )
+    },
+    DownloadMusic () {
+
+    },
+    async musiclist () {
+      try {
+        let ls = await axiosapi.musiclistmusic()
+        console.log(ls)
+        this.tableData = ls.data.results
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    async addmusics () {
+      console.log(this.form)
+      try {
+        let ls = await axiosapi.addmusic(this.form)
+        console.log(ls)
+        if (ls.status === 201) {
+          this.$message({
+            message: '添加成功',
+            type: 'success'
+          })
+          this.dialogFormVisible = false
+          this.musliclist(this.$route.query.uuid)
+          this.form = {
+            name: '',
+            music_no: '',
+            lyricist: '',
+            composer: '',
+            arranged_by: '',
+            path: '',
+            desc: ''
+          }
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    },
     handleCheckAllChange (val) {
       this.checkedCities = val ? cityOptions : []
       this.isIndeterminate = false
@@ -211,7 +358,7 @@ export default {
   margin-left: 15px;
   float: left;
 }
-.whitewraps .el-button--text{
+.whitewraps .el-row  .el-button--text{
   display: block;
   float: left;
   color: #e2e2e2;

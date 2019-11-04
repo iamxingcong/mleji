@@ -77,6 +77,24 @@
 
     </div>
 
+    <div id='dialogues'>
+       <el-dialog
+        title='确认提示'
+        :visible.sync='dialogVisible'
+        :close-on-click-modal='false'
+        width='30%'>
+        <span class='fw700'>
+          <i class='el-icon-warning'></i>
+            是否确定删除厂牌: {{uuid}}
+        </span>
+        <span>厂牌信息删除后不可恢复</span>
+        <span slot='footer' class='dialog-footer'>
+          <el-button @click='dialogVisible = false'>取 消</el-button>
+          <el-button type='primary' @click='deleteconfirm'>确 定</el-button>
+        </span>
+      </el-dialog>
+    </div>
+
   </div>
 </template>
 <script>
@@ -86,6 +104,7 @@ export default {
   name: 'BrandDetail',
   data () {
     return {
+      dialogVisible: false,
       label: {},
       img: require('../../../assets/icons/logo.png'),
       tableDatab: [{
@@ -98,7 +117,8 @@ export default {
         namef: 'sfd搜搜放松放松'
       }],
       currentPage4: 1,
-      tb: []
+      tb: [],
+      uuid: ''
     }
   },
   created () {
@@ -139,10 +159,38 @@ export default {
       )
     },
     editAlbum (uuid) {
-
+      this.uuid = uuid
+      console.log(this.uuid)
     },
     deleteAlbum (uuid) {
-
+      this.uuid = uuid
+      this.dialogVisible = true
+      console.log(this.uuid)
+    },
+    async deleteconfirm () {
+      try {
+        let dp = await axi().delete('/ops/album/' + this.uuid)
+        if (dp.status === 200) {
+          this.dialogVisible = false
+          this.$message({
+            message: '删除成功',
+            type: 'success'
+          })
+          this.albumlist()
+        } else {
+          console.log('错误')
+        }
+      } catch (e) {
+        // console.log(e)
+        if (e.response) {
+          this.dialogVisible = false
+          this.$message.error(e.response.data.detail)
+        } else if (e.request) {
+          console.log(e.request)
+        } else {
+          console.log('Error', e.message)
+        }
+      }
     },
     handleSizeChange (val) {
       console.log(`每页 ${val} 条`)
@@ -193,4 +241,5 @@ export default {
 .el-table__header-wrapper{
     border-bottom: 1px solid #EBEEF5 !important;
 }
+
 </style>

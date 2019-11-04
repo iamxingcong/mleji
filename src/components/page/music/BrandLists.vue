@@ -41,7 +41,7 @@
             </div>
             <div class='crs flex3'>
               <el-button type='text'  class='f12' v-on:click='brandDetail(i.uuid)'>厂牌详情</el-button>
-              <el-button type='text'  class='f12'>编辑厂牌</el-button>
+              <el-button type='text'  class='f12' v-on:click='editlabel(i.uuid)'>编辑厂牌</el-button>
               <el-button type='text'  class='f12' v-on:click='deleteBrand(i.uuid)'>删除厂牌</el-button>
             </div>
 
@@ -106,6 +106,32 @@
       </el-dialog>
     </div>
 
+    <div id='editlabel'>
+      <el-dialog title='编辑厂牌：'
+      :close-on-click-modal='false'
+      :visible.sync='dialogFormVisibleEdit'>
+        <el-form :model='forme'>
+          <el-form-item label='厂牌名称：' :label-width='formLabelWidth'>
+            <el-input v-model='forme.name' autocomplete='off'></el-input>
+          </el-form-item>
+          <el-form-item :label-width='formLabelWidth'>
+            <el-input
+              type='textarea'
+              :autosize='{ minRows: 3, maxRows: 4}'
+              v-model='forme.desc'>
+            </el-input>
+          </el-form-item>
+           <el-form-item label='添加LOGO' :label-width='formLabelWidth'>
+            <el-input type='file' v-model='forme.logo' autocomplete='off'></el-input>
+          </el-form-item>
+        </el-form>
+        <div slot='footer' class='dialog-footer'>
+          <el-button @click='dialogFormVisibleEdit = false'>取 消</el-button>
+          <el-button type='primary' @click='editlabelconfirm'>确 定</el-button>
+        </div>
+      </el-dialog>
+    </div>
+
   </div>
 </template>
 <script>
@@ -120,9 +146,15 @@ export default {
       ms: [],
       dialogVisible: false,
       dialogFormVisible: false,
+      dialogFormVisibleEdit: false,
       currentPage4: 1,
       currentPage3: 2,
       form: {
+        name: '',
+        desc: '',
+        logo: ''
+      },
+      forme: {
         name: '',
         desc: '',
         logo: ''
@@ -205,6 +237,25 @@ export default {
       this.$router.push('AlbumDetail')
       console.log(x)
     },
+    editlabel (x) {
+      this.uuid = x
+      this.dialogFormVisibleEdit = true
+      console.log(x)
+      this.labeldetail()
+    },
+    async labeldetail () {
+      try {
+        let dt = await axi().get('/ops/label/' + this.uuid)
+        console.log(dt.data)
+        if (dt.status === 200) {
+          this.forme = dt.data
+        } else {
+          console.log('错误')
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    },
     async addlabels () {
       console.log(this.form)
       try {
@@ -221,7 +272,24 @@ export default {
       } catch (e) {
         console.log(e)
       }
+    },
+    async editlabelconfirm () {
+      try {
+        let ls = await axi().put('/ops/label/' + this.uuid, this.forme)
+        console.log(ls)
+        if (ls.status === 201 || ls.status === 200) {
+          this.$message({
+            message: '添加成功',
+            type: 'success'
+          })
+          this.dialogFormVisibleEdit = false
+          this.mlist()
+        }
+      } catch (e) {
+        console.log(e)
+      }
     }
+
   }
 }
 </script>

@@ -80,8 +80,7 @@ export default new Router({
       children: [
         {
           path: '',
-          component: home,
-          meta: []
+          component: home
         },
         {
           path: '/UserManage',

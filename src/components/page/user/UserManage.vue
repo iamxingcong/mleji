@@ -62,7 +62,7 @@
           width="55">
           </el-table-column>
           <el-table-column
-            prop="avatar"
+            prop="uuid"
             label="ID"
             width="180">
           </el-table-column>
@@ -91,13 +91,13 @@
             label="上次登录时间">
           </el-table-column>
           <el-table-column
-            prop="ia"
+            prop="is_active"
             label="状态">
             <template slot-scope="scope">
               <el-switch
                   active-color="#5B7BFA"
                   inactive-color="#dadde5"
-                  v-model="scope.row.addressd"
+                  v-model="scope.row.is_active"
                   @change="schange(scope.row)"
               >
               </el-switch>
@@ -144,6 +144,7 @@
 </template>
 <script>
 import axiosapi from '@/config/axiosapi'
+import axi from '@/config/axi'
 export default {
   name: 'UserManage',
   data () {
@@ -198,13 +199,26 @@ export default {
     },
     edit (row) {
       console.log(row)
-      this.$router.push('UserEdit')
+      this.$router.push({
+        path: 'UserEdit',
+        query: {'uuid': row.uuid}
+      })
     },
     addUser () {
       this.$router.push('AddUser')
     },
-    hddelete (row) {
+    async hddelete (row) {
       console.log(row)
+      try {
+        let dp = await axi().delete('/ops/user/' + row.uuid)
+        if (dp.status === 200) {
+          this.user()
+        } else {
+          console.log('错误')
+        }
+      } catch (e) {
+        console.log(e)
+      }
     },
     schange (r) {
       console.log(r.addressd)

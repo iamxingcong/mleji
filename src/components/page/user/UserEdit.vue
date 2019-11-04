@@ -5,22 +5,21 @@
         <span class="tit left">编辑资料</span>
         <span class="tips">为必填项</span>
         <span class="right mt15 mr15">
-          <el-button size="mini">用户详情</el-button>
-          <el-button size="mini">编辑资料</el-button>
-          <el-button size="mini">登录日志</el-button>
+          <el-button size="mini" @click="gotouserdetail">用户详情</el-button>
+          <el-button size="mini" @click="gotologinlog">登录日志</el-button>
         </span>
       </el-row>
 
       <el-form ref="form" :model="form" label-width="120px">
         <el-form-item label="手机号码：">
           <i class="wrn">*</i>
-          <el-input v-model="form.name"></el-input>
+          <el-input v-model="form.phone"></el-input>
         </el-form-item>
         <el-form-item label="用户类型：">
           <i class="wrn">*</i>
-          <el-select v-model="form.region" placeholder="请选择活动区域">
-            <el-option label="区域一" value="shanghai"></el-option>
-            <el-option label="区域二" value="beijing"></el-option>
+          <el-select v-model="form.vip_type" placeholder="请选择会员等级">
+            <el-option label="普通" value="NORMAL"></el-option>
+            <el-option label="高级" value="VIP"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="上传头像：">
@@ -38,39 +37,39 @@
           </el-upload>
         </el-form-item>
         <el-form-item label="所在城市：">
-          <el-input v-model="form.city"></el-input>
+          <el-input v-model="form.city_name"></el-input>
         </el-form-item>
         <el-form-item label="职业：">
           <el-input v-model="form.career"></el-input>
         </el-form-item>
         <el-form-item label="公司名称：">
-          <el-input v-model="form.company"></el-input>
+          <el-input v-model="form.company_name"></el-input>
         </el-form-item>
         <el-form-item label="公司描述：">
           <el-input v-model="form.desc"></el-input>
         </el-form-item>
         <el-form-item label="用户密码：">
-          <el-input v-model="form.name"></el-input>
+          <el-input v-model="form.password"></el-input>
         </el-form-item>
         <el-form-item label="发票抬头：">
-          <el-input v-model="form.name"></el-input>
+          <el-input v-model="form.invoice"></el-input>
         </el-form-item>
         <el-form-item label="银行账号：">
-          <el-input v-model="form.name"></el-input>
+          <el-input v-model="form.account_no"></el-input>
         </el-form-item>
         <el-form-item label="公司电话：">
-          <el-input v-model="form.name"></el-input>
+          <el-input v-model="form.company_phone"></el-input>
         </el-form-item>
         <el-form-item label="开户银行：">
-          <el-input v-model="form.name"></el-input>
+          <el-input v-model="form.opening_bank"></el-input>
         </el-form-item>
         <el-form-item label="公司地址：">
-          <el-input v-model="form.name"></el-input>
+          <el-input v-model="form.company_address"></el-input>
         </el-form-item>
         <el-form-item label="账号状态：">
 
           <el-switch
-            v-model="form.status"
+            v-model="form.is_active"
             active-color="#13ce66"
             inactive-color="#ff4949">
           </el-switch>
@@ -86,25 +85,50 @@
   </div>
 </template>
 <script>
+import axi from '@/config/axi'
 export default {
   name: 'UserEdit',
   data () {
     return {
       form: {
-        name: '',
-        region: '',
-        city: '',
+        phone: '',
+        email: '',
+        vip_type: '',
+        avatar: '',
+        city_name: '',
         career: '',
-        delivery: false,
-        type: [],
-        company: '',
+        company_name: '',
         desc: '',
-        status: true
+        password: '',
+        is_active: true,
+        invoice: '',
+        taxpayer_number: '',
+        company_address: '',
+        company_phone: '',
+        opening_bank: '',
+        account_no: ''
       },
-      fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]
+      fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}],
+      uuid: this.$route.query.uuid
     }
   },
+  created () {
+    this.userdetail()
+  },
   methods: {
+    async userdetail () {
+      try {
+        let dt = await axi().get('/ops/user/' + this.uuid)
+        console.log(dt.data)
+        if (dt.status === 200) {
+          this.form = dt.data
+        } else {
+          console.log('错误')
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    },
     submitUpload () {
       this.$refs.upload.submit()
     },
@@ -114,8 +138,38 @@ export default {
     handlePreview (file) {
       console.log(file)
     },
-    onSubmit () {
+    async onSubmit () {
       console.log('submit!')
+      try {
+        let dt = await axi().put('/ops/user/' + this.uuid, this.form)
+
+        if (dt.status === 200) {
+          this.$router.push({
+            path: 'UserDetail',
+            query: {'uuid': this.uuid}
+          })
+        } else {
+          console.log('错误')
+        }
+      } catch (e) {
+        if (e.response) {
+          this.$message.error(e.response.data.detail)
+        } else if (e.request) {
+          console.log(e.request)
+        } else {
+          console.log('Error', e.message)
+        }
+        console.log(e)
+      }
+    },
+    gotouserdetail () {
+      this.$router.push({
+        path: 'UserDetail',
+        query: {'uuid': this.uuid}
+      })
+    },
+    gotologinlog () {
+      this.$router.push('LoginLog')
     }
   }
 }

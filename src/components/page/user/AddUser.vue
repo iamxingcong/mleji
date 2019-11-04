@@ -68,7 +68,7 @@
           <el-input v-model="form.opening_bank"></el-input>
         </el-form-item>
         <el-form-item label="公司地址：">
-          <el-input v-model="form.company_phone"></el-input>
+          <el-input v-model="form.company_address"></el-input>
         </el-form-item>
         <el-form-item label="账号状态：">
 
@@ -124,7 +124,17 @@ export default {
       try {
         let dt = await axiosapi.useradd(this.form)
         console.log(dt)
+        if (dt.status === 200 || dt.status === 201) {
+          this.$router.push('UserManage')
+        }
       } catch (e) {
+        if (e.response) {
+          this.$message.error(e.response.data.detail)
+        } else if (e.request) {
+          console.log(e.request)
+        } else {
+          console.log('Error', e.message)
+        }
         console.log(e)
       }
     },

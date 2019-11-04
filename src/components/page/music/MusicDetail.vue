@@ -51,7 +51,7 @@
       <el-row>
         <span class="tit left">创作人信息</span>
         <span class="right mt15 mr15">
-          <el-button size="mini">编辑音乐信息</el-button>
+          <el-button size="mini">编辑创作人信息</el-button>
         </span>
       </el-row>
       <div class="mg15">
