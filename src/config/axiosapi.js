@@ -60,5 +60,8 @@ export default {
   },
   musicsearch () {
     return axi().get('/ops/music_search/')
+  },
+  avatarupload (data) {
+    return axi().post('/ops/upload/', data)
   }
 }

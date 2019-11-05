@@ -82,7 +82,7 @@
       <el-row>
         <span class="tit left">描述</span>
         <span class="right mt15 mr15">
-          <el-button size="mini">编辑描述</el-button>
+          <el-button size="mini"  @click="dialogFormVisibledescss">编辑描述</el-button>
         </span>
       </el-row>
       <div class="mg15">
@@ -372,17 +372,64 @@
       </el-dialog>
     </div>
 
+    <div id='descedit'>
+      <el-dialog title='编辑描述'
+      :close-on-click-modal='false'
+      :visible.sync='dialogFormVisibledesc'>
+        <el-form :model='formdesc'>
+            <el-form-item label='风格：' :label-width='formLabelWidth'>
+              <el-checkbox-group
+                v-model="checkedstyle"
+                @change="cgstyles"
+              >
+                <el-checkbox v-for="x in style" :label="x.name" :key="x.id">{{x.name}}</el-checkbox>
+              </el-checkbox-group>
+            </el-form-item>
+            <el-form-item label='情绪：' :label-width='formLabelWidth'>
+              <el-checkbox-group
+                v-model="checkedmood"
+                @change="cgmoods"
+              >
+                <el-checkbox v-for="x in mood" :label="x.name" :key="x.id">{{x.name}}</el-checkbox>
+              </el-checkbox-group>
+            </el-form-item>
+
+            <el-form-item label='主奏乐器：' :label-width='formLabelWidth'>
+             <el-checkbox-group
+                v-model="checkedinstrument"
+                @change="cginstruments"
+              >
+                <el-checkbox v-for="x in instrument" :label="x.name" :key="x.id">{{x.name}}</el-checkbox>
+              </el-checkbox-group>
+            </el-form-item>
+            <el-form-item label='关键词：' :label-width='formLabelWidth'>
+              <el-input v-model='formdesc.keyword' autocomplete='off'></el-input>
+            </el-form-item>
+            <el-form-item label='描述：' :label-width='formLabelWidth'>
+              <el-input type="textarea" :rows="2" v-model='formdesc.desc' autocomplete='off'></el-input>
+            </el-form-item>
+        </el-form>
+
+        <div slot='footer' class='dialog-footer'>
+            <el-button @click='dialogFormVisibledesc = false'>取 消</el-button>
+            <el-button type='primary' @click='descmusicconfirm'>确 定</el-button>
+        </div>
+      </el-dialog>
+    </div>
+
   </div>
 </template>
 <script>
 import axi from '@/config/axi'
 import axiosapi from '@/config/axiosapi'
+
 export default {
   name: 'MusicDetail',
   data () {
     return {
       dialogFormVisibleedit: false,
       dialogFormVisiblecomposer: false,
+      dialogFormVisibledesc: false,
       formLabelWidth: '150px',
       formedit: {
         name: '',
@@ -396,33 +443,13 @@ export default {
       formcomposer: {
 
       },
-      tableData: [{
-        date: '2016-05-03',
-        namea: '上海',
-        nameb: '普陀区',
-        namec: '上海市普陀区金沙江路 1518 弄',
-        named: 200333,
-        namee: 'sfsff',
-        namef: 'sfd搜搜放松放松',
-        nameg: 'sfd搜搜放松放松'
-      }],
-      tableDatab: [{
-        date: '2016-05-03',
-        namea: '上海',
-        nameb: '普陀区',
-        namec: '上海市普陀区金沙江路 1518 弄',
-        named: 200333,
-        namee: 'sfsff'
-      }],
-      tableDatac: [{
-        date: '2016-05-03',
-        namea: '上海',
-        nameb: '普陀区',
-        namec: '上海市普陀区金沙江路 1518 弄',
-        named: 200333,
-        namee: 'sfsff',
-        namef: 'sfd搜搜放松放松'
-      }],
+      formdesc: {
+        keyword: '',
+        desc: '',
+        moods: [],
+        styles: [],
+        main_instruments: []
+      },
       tableDatad: [{
         date: '2016-05-03',
         namea: '上海',
@@ -448,22 +475,35 @@ export default {
       inpute: '',
       inputf: '',
       detail: {},
-      tablett: []
+      tablett: [],
+      musiccategory: [],
+      style: [],
+      mood: [],
+      instrument: [],
+      speed: [],
+      checkedmood: [],
+      checkedinstrument: [],
+      checkedstyle: [],
+      checkedspeed: ''
     }
   },
   created () {
     this.musicdetail()
-    this.catetory()
     this.certificates()
     this.tracks()
     this.relates()
+  },
+  computed: {
+    location: () => window.location
   },
   methods: {
     async musicdetail () {
       try {
         let dp = await axi().get('/ops/music/' + this.$route.query.uuid)
         if (dp.status === 200) {
-          // console.log(dp)
+          this.formdesc.desc = dp.data.desc
+          this.formdesc.keyword = dp.data.keyword
+
           this.detail = dp.data
           this.tablett.push(dp.data)
         } else {
@@ -477,7 +517,21 @@ export default {
       try {
         let dp = await axiosapi.musiccategory()
         if (dp.status === 200) {
-          // console.log(dp)
+          let that = this
+          dp.data.results.forEach(function (x) {
+            if (x.type === 'MOOD') {
+              that.mood = x.children
+            }
+            if (x.type === 'STYLE') {
+              that.style = x.children
+            }
+            if (x.type === 'SPEED') {
+              that.speed = x.children
+            }
+            if (x.type === 'INSTRUMENT') {
+              that.instrument = x.children
+            }
+          })
         } else {
           console.log('错误')
         }
@@ -497,6 +551,10 @@ export default {
       } catch (e) {
         console.log(e)
       }
+    },
+    dialogFormVisibledescss () {
+      this.dialogFormVisibledesc = true
+      this.catetory()
     },
     async tracks () {
       try {
@@ -542,6 +600,31 @@ export default {
         if (dt.status === 200) {
           this.musicdetail()
           this.dialogFormVisiblecomposer = false
+        } else {
+          console.log('错误')
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    cgstyles (v) {
+      console.log(v)
+      this.formdesc.styles = v
+    },
+    cgmoods (v) {
+      console.log(v)
+      this.formdesc.moods = v
+    },
+    cginstruments (v) {
+      console.log(v)
+      this.formdesc.main_instruments = v
+    },
+    async descmusicconfirm () {
+      try {
+        let dt = await axi().patch('/ops/music/' + this.$route.query.uuid, this.formdesc)
+        if (dt.status === 200) {
+          this.musicdetail()
+          this.dialogFormVisibledesc = false
         } else {
           console.log('错误')
         }

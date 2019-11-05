@@ -11,8 +11,13 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-        target: 'https://front.miido.com.cn/shop/rest/',
-        changeOrigin: true
+        '/ops': {
+        target: 'http://dspeaklow.wangge0101.cn',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/': ''
+        }
+      }
     },
 
     // Various Dev Server settings
