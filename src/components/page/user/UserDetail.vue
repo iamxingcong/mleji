@@ -115,9 +115,9 @@
             <span>开户银行</span>
         </el-row>
         <el-row>
-            <el-input v-model="udata.taxpayer_number" ></el-input>
-            <el-input v-model="udata.invoice" ></el-input>
-            <el-input v-model="udata.opening_bank" ></el-input>
+            <el-input v-model="udata.taxpayer_number" :disabled="true"></el-input>
+            <el-input v-model="udata.invoice" :disabled="true"></el-input>
+            <el-input v-model="udata.opening_bank" :disabled="true"></el-input>
         </el-row>
          <el-row>
             <span>银行账号</span>
@@ -125,9 +125,9 @@
             <span>单位地址</span>
         </el-row>
         <el-row>
-            <el-input v-model="udata.account_no" ></el-input>
-            <el-input v-model="udata.phone" ></el-input>
-            <el-input v-model="udata.company_address" ></el-input>
+            <el-input v-model="udata.account_no" :disabled="true"></el-input>
+            <el-input v-model="udata.phone" :disabled="true"></el-input>
+            <el-input v-model="udata.company_address" :disabled="true"></el-input>
         </el-row>
       </div>
 

@@ -6,7 +6,7 @@
         <span class="tips">为必填项</span>
         <span class="right mt15 mr15">
           <el-button size="mini" @click="gotouserdetail">用户详情</el-button>
-          <el-button size="mini" @click="gotologinlog">登录日志</el-button>
+          <el-button size="mini" @click="backTo">返回</el-button>
         </span>
       </el-row>
 
@@ -53,6 +53,9 @@
         </el-form-item>
         <el-form-item label="发票抬头：">
           <el-input v-model="form.invoice"></el-input>
+        </el-form-item>
+        <el-form-item label="税号：">
+          <el-input v-model="form.taxpayer_number"></el-input>
         </el-form-item>
         <el-form-item label="银行账号：">
           <el-input v-model="form.account_no"></el-input>
@@ -137,6 +140,9 @@ export default {
     },
     handlePreview (file) {
       console.log(file)
+    },
+    backTo () {
+      this.$router.go(-1)
     },
     async onSubmit () {
       console.log('submit!')

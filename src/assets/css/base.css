@@ -207,3 +207,7 @@ body .el-table th.gutter{
   clear: both;
   line-height: 2em;
 }
+.el-dialog__footer{
+  display: block;
+  clear: both;
+}

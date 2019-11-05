@@ -76,3 +76,24 @@
   line-height: 40px;
   height: 40px;
 }
+.cross{
+  display: flex;
+}
+.flex8 span{
+  flex: 8;
+  border-right: 1px solid #EBEEF5;
+}
+.headers{
+  background: rgba(228,228,228,1);
+  height: 48px;
+  line-height: 48px;
+}
+.contents span{
+  line-height: 48px;
+  height: 48px;
+
+}
+.contents{
+  border-bottom: 1px solid #EBEEF5;
+  border-left: 1px solid #EBEEF5;
+}
