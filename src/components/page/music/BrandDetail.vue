@@ -1,7 +1,7 @@
 <template>
   <div id='BrandDetail'>
     <div class="crs">
-      <div class="brnaLogo"  :style='{ backgroundImage: `url(${ label.water_url ? label.water_url : img})` }'></div>
+      <div class="brnaLogo"  :style='{ backgroundImage: `url(${ label.logo ? label.logo : img})` }'></div>
       <div class="logotitle">
         {{label.name}}
       </div>
@@ -68,13 +68,67 @@
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="currentPage4"
-          :page-sizes="[10, 20, 30, 100]"
-          :page-size="100"
+          :page-sizes="[10, 20]"
+          :page-size="10"
           layout="prev, pager, next, sizes"
-          :total="400">
+          :total="count">
         </el-pagination>
       </div>
 
+    </div>
+
+    <div id='editalbum'>
+      <el-dialog title='编辑专辑：'
+      :close-on-click-modal='false'
+      :visible.sync='dialogFormVisibleedit'>
+        <el-form :model='formedit'>
+          <el-form-item label='专辑名：' :label-width='formLabelWidth'>
+            <el-input v-model='formedit.name' autocomplete='off'></el-input>
+          </el-form-item>
+          <el-form-item label='专辑号：' :label-width='formLabelWidth'>
+            <el-input v-model='formedit.album_no' autocomplete='off'></el-input>
+          </el-form-item>
+          <el-form-item label='请填写专辑描述：' :label-width='formLabelWidth'>
+            <el-input
+              type='textarea'
+              :autosize='{ minRows: 3, maxRows: 4}'
+              placeholder='请输入专辑描述'
+              v-model='formedit.desc'>
+            </el-input>
+          </el-form-item>
+
+          <el-form-item label='专辑封面：' :label-width='formLabelWidth'>
+
+            <el-upload
+              class="avatar-uploader"
+              :action="urls"
+              :data='updatas'
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess"
+              :before-upload="beforeAvatarUpload">
+              <img v-if="imageUrl" :src="imageUrl" class="avatar">
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+
+          </el-form-item>
+          <el-form-item label='formedit' autocomplete='on' :label-width='formLabelWidth'>
+            <el-select v-model="formedit.label_id" placeholder="请选择">
+              <el-option
+                v-for="item in labeluids"
+                :key="item.name"
+                :label="item.name"
+                :value="item.uuid">
+                <span style="float: left">{{ item.name }}</span>
+                <span style="float: right; color: #8492a6; font-size: 13px">{{ item.uuid }}</span>
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-form>
+        <div slot='footer' class='dialog-footer'>
+          <el-button @click='dialogFormVisibleedit = false'>取 消</el-button>
+          <el-button type='primary' @click='editalbumConfirm'>确 定</el-button>
+        </div>
+      </el-dialog>
     </div>
 
     <div id='dialogues'>
@@ -97,110 +151,7 @@
 
   </div>
 </template>
-<script>
-import axi from '@/config/axi'
-import axiosapi from '@/config/axiosapi'
-export default {
-  name: 'BrandDetail',
-  data () {
-    return {
-      dialogVisible: false,
-      label: {},
-      img: require('../../../assets/icons/logo.png'),
-      tableDatab: [{
-        image: 'https://www.baidu.com/img/bd_logo1.png',
-        namea: '上海',
-        nameb: '普陀区',
-        namec: '上海市普陀区金沙江路 1518 弄',
-        named: 200333,
-        namee: 'sfsff',
-        namef: 'sfd搜搜放松放松'
-      }],
-      currentPage4: 1,
-      tb: [],
-      uuid: ''
-    }
-  },
-  created () {
-    console.log(this.$route.query.uuid)
-    this.labeldetail(this.$route.query.uuid)
-    this.albumlist()
-  },
-  methods: {
-    async  albumlist () {
-      try {
-        let ls = await axiosapi.album()
-        this.tb = ls.data.results
-        console.log(ls)
-      } catch (e) {
-        console.log(e)
-      }
-    },
-    async labeldetail (x) {
-      try {
-        let dt = await axi().get('/ops/label/' + x)
-        console.log(dt.data)
-        if (dt.status === 200) {
-          this.label = dt.data
-        } else {
-          console.log('错误')
-        }
-      } catch (e) {
-        console.log(e)
-      }
-    },
-    checkAlbum (uuid) {
-      console.log(uuid)
-      this.$router.push(
-        {
-          path: 'AlbumDetail',
-          query: {'uuid': uuid}
-        }
-      )
-    },
-    editAlbum (uuid) {
-      this.uuid = uuid
-      console.log(this.uuid)
-    },
-    deleteAlbum (uuid) {
-      this.uuid = uuid
-      this.dialogVisible = true
-      console.log(this.uuid)
-    },
-    async deleteconfirm () {
-      try {
-        let dp = await axi().delete('/ops/album/' + this.uuid)
-        if (dp.status === 200) {
-          this.dialogVisible = false
-          this.$message({
-            message: '删除成功',
-            type: 'success'
-          })
-          this.albumlist()
-        } else {
-          console.log('错误')
-        }
-      } catch (e) {
-        // console.log(e)
-        if (e.response) {
-          this.dialogVisible = false
-          this.$message.error(e.response.data.detail)
-        } else if (e.request) {
-          console.log(e.request)
-        } else {
-          console.log('Error', e.message)
-        }
-      }
-    },
-    handleSizeChange (val) {
-      console.log(`每页 ${val} 条`)
-    },
-    handleCurrentChange (val) {
-      console.log(`当前页: ${val}`)
-    }
-  }
-}
-</script>
+<script src="../../../assets/js/branddetail.js"></script>
 <style scoped>
 .brnaLogo{
     width: 120px;

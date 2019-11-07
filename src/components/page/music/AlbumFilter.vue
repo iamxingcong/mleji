@@ -7,12 +7,14 @@
       <div class="filterwrap">
         <el-row>
             <span class="cktit left">厂牌：</span>
-            <el-checkbox-button :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox-button>
+            <div class="tagsright">
 
-            <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
+              <el-radio-group v-model="checkedCities" @change="handleCheckedLabelsChange">
 
-              <el-checkbox-button v-for="city in cities" :label="city" :key="city" >{{city}}</el-checkbox-button>
-            </el-checkbox-group>
+                <el-radio-button v-for="i in labeluids" :label="i" :key="i.uuid" >{{i.name.substr(0,6)}}</el-radio-button>
+              </el-radio-group>
+            </div>
+
         </el-row>
         <el-row>
           <div class="inline">
@@ -24,26 +26,10 @@
           <div class="inline">
             <el-button type="primary" icon="el-icon-search" size="mini">搜索</el-button>
           </div>
-        </el-row>
-
-        <el-row>
-          <span class="cktit left">
-            已选条件：
-          </span>
-          <el-tag
-            v-for="tag in tags"
-            :key="tag.name"
-            @close="cltag(tag)"
-            closable
-          >
-            {{tag.name}}
-          </el-tag>
-          <el-button type="text">清除全部</el-button>
-          <span class="right  mr15">
-            <el-button type="primary" size="mini"   @click='openaddalbum'>添加专辑</el-button>
+          <span class="right mt15 mr15">
+            <el-button type="primary" size="mini" @click='openaddalbum'>添加专辑</el-button>
           </span>
         </el-row>
-
       </div>
     </div>
 
@@ -96,6 +82,18 @@
           </el-table-column>
         </el-table>
       </div>
+      <div class="paginations">
+        <el-pagination
+          background
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="currentPage1"
+          :page-sizes="[10, 20]"
+          :page-size="10"
+          layout="prev, pager, next, sizes"
+          :total="count">
+        </el-pagination>
+      </div>
     </div>
 
     <div id='openaddalbum'>
@@ -119,7 +117,18 @@
           </el-form-item>
 
           <el-form-item label='专辑封面：' :label-width='formLabelWidth'>
-            <el-input v-model='formb.cover' autocomplete='off'></el-input>
+
+            <el-upload
+              class="avatar-uploader"
+              :action="urls"
+              :data='updatas'
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess"
+              :before-upload="beforeAvatarUpload">
+              <img v-if="imageUrl" :src="imageUrl" class="avatar">
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+
           </el-form-item>
           <el-form-item label='厂牌ID：' autocomplete='on' :label-width='formLabelWidth'>
             <el-select v-model="formb.label_id" placeholder="请选择">
@@ -162,9 +171,20 @@
           </el-form-item>
 
           <el-form-item label='专辑封面：' :label-width='formLabelWidth'>
-            <el-input v-model='formedit.cover' autocomplete='off'></el-input>
+
+            <el-upload
+              class="avatar-uploader"
+              :action="urls"
+              :data='updatas'
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess"
+              :before-upload="beforeAvatarUpload">
+              <img v-if="imageUrl" :src="imageUrl" class="avatar">
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+
           </el-form-item>
-          <el-form-item label='formedit' autocomplete='on' :label-width='formLabelWidth'>
+          <el-form-item label='厂牌ID：' autocomplete='on' :label-width='formLabelWidth'>
             <el-select v-model="formedit.label_id" placeholder="请选择">
               <el-option
                 v-for="item in labeluids"
@@ -204,176 +224,7 @@
 
   </div>
 </template>
-<script>
-import axiosapi from '@/config/axiosapi'
-import axi from '@/config/axi'
-
-const cityOptions = ['上海', '北京', '广州', '深圳']
-export default {
-  name: 'AlbumFilter',
-  data () {
-    return {
-      dialogVisible: false,
-      dialogFormVisiblea: false,
-      dialogFormVisibleedit: false,
-      formLabelWidth: '150px',
-      form: {
-        name: ''
-      },
-      formb: {
-        name: '',
-        album_no: '',
-        cover: '',
-        desc: '',
-        label_id: ''
-      },
-      formedit: {
-
-      },
-      checkAll: false,
-      checkedCities: [],
-      cities: cityOptions,
-      isIndeterminate: true,
-      img: require('../../../assets/icons/logo.png'),
-      tags: [
-        {name: '标签一'},
-        {name: '标签二'},
-        {name: '标签三'},
-        {name: '标签四'},
-        {name: '标签五'}
-      ],
-      tableData: [],
-      labeluids: [],
-      uuid: ''
-    }
-  },
-  created () {
-    this.labelsearch()
-    this.albumlist()
-  },
-  methods: {
-    async albumlist () {
-      try {
-        let ab = await axiosapi.album()
-        this.tableData = ab.data.results
-      } catch (e) {
-        console.log(e)
-      }
-    },
-    async labelsearch () {
-      try {
-        let lw = await axiosapi.labelsearch()
-        this.labeluids = lw.data.results
-      } catch (e) {
-        console.log(e)
-      }
-    },
-    checkAlbum (uuid) {
-      console.log(uuid)
-      this.$router.push(
-        {
-          path: 'AlbumDetail',
-          query: {'uuid': uuid}
-        }
-      )
-    },
-    editAlbum (uuid) {
-      this.dialogFormVisibleedit = true
-      this.uuid = uuid
-      this.albumdetail(this.uuid)
-    },
-    async editalbumConfirm () {
-      console.log(this.formedit)
-      try {
-        let dt = await axi().put('/ops/album/' + this.uuid, this.formedit)
-        if (dt.status === 200) {
-          this.formedit = dt.data
-          this.albumlist()
-          this.dialogFormVisibleedit = false
-        } else {
-          console.log('错误')
-        }
-      } catch (e) {
-        console.log(e)
-      }
-    },
-    async albumdetail () {
-      try {
-        let dt = await axi().get('/ops/album/' + this.uuid)
-        if (dt.status === 200) {
-          this.formedit = dt.data
-        } else {
-          console.log('错误')
-        }
-      } catch (e) {
-        console.log(e)
-      }
-    },
-    deleteAlbum (x) {
-      this.uuid = x
-      this.dialogVisible = true
-    },
-    async deleteconfirm (uuid) {
-      try {
-        let dp = await axi().delete('/ops/album/' + this.uuid)
-        if (dp.status === 200) {
-          this.dialogVisible = false
-          this.$message({
-            message: '删除成功',
-            type: 'success'
-          })
-          this.albumlist()
-        } else {
-          console.log('错误')
-        }
-      } catch (e) {
-        // console.log(e)
-        if (e.response) {
-          this.dialogVisible = false
-          this.$message.error(e.response.data.detail)
-        } else if (e.request) {
-          console.log(e.request)
-        } else {
-          console.log('Error', e.message)
-        }
-      }
-    },
-    handleCheckAllChange (val) {
-      this.checkedCities = val ? cityOptions : []
-      this.isIndeterminate = false
-    },
-    handleCheckedCitiesChange (value) {
-      console.log(value)
-      let checkedCount = value.length
-      this.checkAll = checkedCount === this.cities.length
-      this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length
-    },
-    cltag (vl) {
-      console.log(vl.name)
-      this.tags.splice(this.tags.indexOf(vl), 1)
-    },
-    openaddalbum () {
-      this.dialogFormVisiblea = true
-    },
-    async addalbums () {
-      try {
-        let ls = await axiosapi.addalbum(this.formb)
-        console.log(ls)
-        if (ls.status === 201) {
-          this.$message({
-            message: '添加成功',
-            type: 'success'
-          })
-          this.albumlist()
-          this.dialogFormVisiblea = false
-        }
-      } catch (e) {
-        console.log(e)
-      }
-    }
-  }
-}
-</script>
+<script src="../../../assets/js/albumfilter.js"></script>
 <style scoped>
 .el-checkbox-button, .el-checkbox-button__inner{
     position: relative;
@@ -381,6 +232,7 @@ export default {
     float: left;
     margin-left: 15px;
     opacity: 0.9;
+    margin-bottom: 5px;
 }
 .filterwrap{
   margin-top: 15px;
@@ -434,5 +286,13 @@ export default {
   clear: both;
   line-height: 2em;
 }
-
+.tagsright{
+  display: block;
+  float: right;
+  width: calc(100% - 100px);
+}
+.el-radio-button{
+  float: left;
+  margin-bottom: 15px;
+}
 </style>

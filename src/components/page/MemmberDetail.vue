@@ -140,7 +140,7 @@ export default {
     async uprofile () {
       try {
         let dx = await axiosapi.userprofile()
-        console.log.log(dx)
+        console.log(dx)
       } catch (e) {
         console.log(e)
       }

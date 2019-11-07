@@ -127,7 +127,8 @@
   overflow: auto;
   padding-bottom: 15px;
 }
-.filterwrap .el-checkbox-button__inner{
+.filterwrap .el-checkbox-button__inner,
+.filterwrap .el-radio-button__inner{
   border: 0px !important;
   border-radius: 0px !important;
 }
@@ -151,7 +152,8 @@
   clear: both;
   width: 100%;
 }
-.filterwrap .el-checkbox-button__inner {
+.filterwrap .el-checkbox-button__inner,
+.filterwrap .el-radio-button__inner {
   padding: 0px 20px !important;
   height: 25px;
   line-height: 25px;
@@ -193,15 +195,34 @@ body .el-table th.gutter{
   padding-bottom: 15px;
   border-bottom: 1px solid #e2e2e2;
 }
-
+#editmusic  .el-form-item__content .el-select{
+  width: 100% !important;
+}
 
 .login_wrap .el-tabs__header {
   padding: 15px 50px 0px 50px !important;
 }
-.el-form-item__content .el-input{
+.el-form-item__content .el-input,
+.el-form-item__content .avatar-uploader {
   z-index: 2003;
 }
+
 .el-dialog__footer{
   display: block;
   clear: both;
+}
+.avatar-uploader img{
+  max-width: 120px;
+}
+.el-upload{
+  padding: 0px 30px;
+}
+#addMultiVersion  .el-form-item__label{
+  width: 100%;
+  font-weight: 700;
+  line-height: 40px;
+  text-align: left;
+  background-color: #e2e2e2;
+  margin: 10px 0px;
+  padding: 0px 15px;
 }

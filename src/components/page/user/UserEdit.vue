@@ -23,18 +23,18 @@
           </el-select>
         </el-form-item>
         <el-form-item label="上传头像：">
+
           <el-upload
-            class="upload-demo"
-            ref="upload"
-            action="https://jsonplaceholder.typicode.com/posts/"
-            :on-preview="handlePreview"
-            :on-remove="handleRemove"
-            :file-list="fileList"
-            :auto-upload="false">
-            <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-            <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
-            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+            class="avatar-uploader"
+            :action="urls"
+            :data='updatas'
+            :show-file-list="false"
+            :on-success="handleAvatarSuccess"
+            :before-upload="beforeAvatarUpload">
+            <img v-if="imageUrl" :src="imageUrl" class="avatar">
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
+
         </el-form-item>
         <el-form-item label="所在城市：">
           <el-input v-model="form.city_name"></el-input>
@@ -88,6 +88,8 @@
   </div>
 </template>
 <script>
+import axiosapi from '@/config/axiosapi'
+
 import axi from '@/config/axi'
 export default {
   name: 'UserEdit',
@@ -111,20 +113,43 @@ export default {
         opening_bank: '',
         account_no: ''
       },
-      fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}],
-      uuid: this.$route.query.uuid
+      uuid: this.$route.query.uuid,
+      imageUrl: '',
+      isMultiple: true,
+      updata: {
+        'upload_dir': 'user_avatar',
+        'extension': ''
+      },
+      updatas: {},
+      updatt: {
+        'upload_dir': 'user_avatar',
+        'extension': 'jpeg'
+      },
+      imgs: '',
+      urls: ''
     }
   },
   created () {
     this.userdetail()
+    this.imgupurl()
   },
   methods: {
+    async imgupurl () {
+      try {
+        let dt = await axiosapi.avatarupload(this.updatt)
+        if (dt.status === 200 || dt.status === 201) {
+          this.urls = dt.data.host
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    },
     async userdetail () {
       try {
         let dt = await axi().get('/ops/user/' + this.uuid)
-        console.log(dt.data)
         if (dt.status === 200) {
           this.form = dt.data
+          this.imageUrl = dt.data.avatar
         } else {
           console.log('错误')
         }
@@ -132,20 +157,42 @@ export default {
         console.log(e)
       }
     },
-    submitUpload () {
-      this.$refs.upload.submit()
-    },
-    handleRemove (file, fileList) {
-      console.log(file, fileList)
-    },
-    handlePreview (file) {
-      console.log(file)
-    },
     backTo () {
       this.$router.go(-1)
     },
+    handleAvatarSuccess (res, file) {
+      this.imageUrl = URL.createObjectURL(file.raw)
+    },
+    async beforeAvatarUpload (file) {
+      const isJPG = file.type === 'image/jpeg'
+      const isPNG = file.type === 'image/png'
+      const isGIF = file.type === 'image/gif'
+      if (isJPG || isPNG || isGIF) {
+        console.log('符合')
+      } else {
+        this.$message.error('图片格式不符合')
+        return
+      }
+      const isLt2M = file.size / 1024 / 1024 < 2
+      if (!isLt2M) {
+        this.$message.error('上传头像图片大小不能超过 2MB!')
+      }
+      try {
+        this.updata.extension = file.type.replace('image/', '')
+        let dt = await axiosapi.avatarupload(this.updata)
+        if (dt.status === 200 || dt.status === 201) {
+          this.updatas.OSSAccessKeyId = dt.data.OSSAccessKeyId
+          this.updatas.policy = dt.data.policy
+          this.updatas.Signature = dt.data.Signature
+          this.updatas.key = dt.data.key
+          this.form.avatar = this.urls + '/' + dt.data.key
+        }
+      } catch (e) {
+        console.log(e)
+      }
+      return isJPG && isLt2M && isPNG && isGIF
+    },
     async onSubmit () {
-      console.log('submit!')
       try {
         let dt = await axi().put('/ops/user/' + this.uuid, this.form)
 

@@ -5,59 +5,61 @@
         <span class="tit left">筛选条件</span>
       </el-row>
       <div class="filterwrap">
-        <el-row>
-            <span class="cktit left">风格</span>
-            <el-checkbox-button :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox-button>
+        <el-row v-for="i in searchTotal"  :key="i.id" >
+          <template v-if="i.type !== 'SPEED'">
+            <span class="cktit left mr15"> {{ i.name }} </span>
+<!--
+              <el-button
 
-            <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
+                type="text"
+                size="mini"
+                :v-model="i.type"
+                :true-label='i.type'
+                @click="btnstyleall(i.type, clked)">
+                  全选
+              </el-button> -->
+              <el-checkbox-group   v-model="filtervs"   @change="btnstyle">
+                <el-checkbox-button
+                  v-for="s in i.children"
+                  :label="s"
+                  :key="s.id"
+                  :border="false"
+                >
+                  {{s.name}}
+                </el-checkbox-button>
+              </el-checkbox-group>
 
-              <el-checkbox-button v-for="city in cities" :label="city" :key="city" >{{city}}</el-checkbox-button>
-            </el-checkbox-group>
+          </template>
+          <template v-if="i.type === 'SPEED'">
+              <span class="cktit left mr15"> {{ i.name }} </span>
+
+              <el-radio-group v-model="speeds"   @change="btnstyleradio" class='left'>
+                <el-radio-button
+                  v-for="s in i.children"
+                  :label="s"
+                  :key="s.id"
+                  :border="false"
+                >
+                  {{s.name}}
+                </el-radio-button>
+              </el-radio-group>
+          </template>
         </el-row>
 
-        <el-row>
-            <span class="cktit left">情绪</span>
-            <el-checkbox-button :indeterminate="isIndeterminate" v-model="checkAlla" @change="handleCheckAllChangea">全选</el-checkbox-button>
-
-            <el-checkbox-group v-model="checkedCitiesa" @change="handleCheckedCitiesChangea">
-
-              <el-checkbox-button v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox-button>
-            </el-checkbox-group>
-        </el-row>
-
-        <el-row>
-            <span class="cktit left">配器</span>
-            <el-checkbox-button :indeterminate="isIndeterminate" v-model="checkAllb" @change="handleCheckAllChangeb">全选</el-checkbox-button>
-
-            <el-checkbox-group v-model="checkedCitiesb" @change="handleCheckedCitiesChangeb">
-
-              <el-checkbox-button v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox-button>
-            </el-checkbox-group>
-        </el-row>
-
-        <el-row>
-            <span class="cktit left">速度</span>
-            <el-checkbox-button :indeterminate="isIndeterminate" v-model="checkAllc" @change="handleCheckAllChangec">全选</el-checkbox-button>
-
-            <el-checkbox-group v-model="checkedCitiesc" @change="handleCheckedCitiesChangec">
-
-              <el-checkbox-button v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox-button>
-            </el-checkbox-group>
-        </el-row>
-
-        <el-row>
-          <span class="cktit left">
+        <el-row v-if="clearAll" class="filteralreay">
+          <span class="cktit left mr15">
             已选条件:
           </span>
           <el-tag
             v-for="tag in tags"
-            :key="tag.name"
+            :key="tag.id"
             @close="cltag(tag)"
             closable
+            size="medium"
           >
             {{tag.name}}
           </el-tag>
-          <el-button type="text">清除全部</el-button>
+          <el-button  type="text" size="mini" class="mgl15" @click="clicktagsall">清除全部</el-button>
         </el-row>
 
       </div>
@@ -68,7 +70,7 @@
         <span class="tit left">筛选结果</span>
         <span class="right mt15 mr15">
           <el-button size="mini">导出</el-button>
-          <el-button size="mini" @click="dialogFormVisible = true">添加音乐</el-button>
+          <el-button size="mini" @click="addmusicpop">添加音乐</el-button>
         </span>
       </el-row>
       <div class="pd15">
@@ -123,10 +125,22 @@
                 @click="checkMusic(scope.row.uuid)">查看</el-button>
                 <el-button
                   type="text"
-                  @click="DownloadMusic(scope.row.uuid)">下载</el-button>
+                  @click="downloadMusic(scope.row.uuid)">下载</el-button>
             </template>
           </el-table-column>
         </el-table>
+      </div>
+      <div class="paginations">
+        <el-pagination
+          background
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="currentPage1"
+          :page-sizes="[10, 20]"
+          :page-size="10"
+          layout="prev, pager, next, sizes"
+          :total="count">
+        </el-pagination>
       </div>
     </div>
 
@@ -162,18 +176,30 @@
           </el-col>
           <el-col :span="11">
             <el-form-item label='上传音乐文件：' :label-width='formLabelWidth'>
-              <el-input type='file' v-model='form.path' autocomplete='off'></el-input>
+
+              <el-upload
+                class="avatar-uploader"
+                :action="urls"
+                :data='updatas'
+                :show-file-list="false"
+                :on-success="handleAvatarSuccess"
+                :before-upload="beforeAvatarUpload">
+                <i v-if="imageUrl"  class="avatar">{{imageUrl}}</i>
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+              </el-upload>
+
             </el-form-item>
           </el-col>
-          <el-form-item label='音乐描述：' :label-width='formLabelWidth'>
-            <el-input
-              type='textarea'
-              :autosize='{ minRows: 3, maxRows: 4}'
-              placeholder='请输入音乐描述：'
-              v-model='form.desc'>
-            </el-input>
-          </el-form-item>
-
+          <el-col :span="22">
+            <el-form-item label='音乐描述：' :label-width='formLabelWidth'>
+              <el-input
+                type='textarea'
+                :autosize='{ minRows: 3, maxRows: 4}'
+                placeholder='请输入音乐描述：'
+                v-model='form.desc'>
+              </el-input>
+            </el-form-item>
+          </el-col>
         </el-form>
         <div slot='footer' class='dialog-footer'>
           <el-button @click='dialogFormVisible = false'>取 消</el-button>
@@ -184,157 +210,10 @@
 
   </div>
 </template>
-<script>
-import axiosapi from '@/config/axiosapi'
-const cityOptions = ['上海', '北京', '广州', '深圳']
-export default {
-  name: 'MusicFilter',
-  data () {
-    return {
-      dialogFormVisible: false,
-      form: {
-        name: '',
-        music_no: '',
-        lyricist: '',
-        composer: '',
-        arranged_by: '',
-        path: '',
-        desc: '',
-        album_id: this.$route.query.uuid
-      },
-      formLabelWidth: '150px',
-      checkAll: false,
-      checkAlla: false,
-      checkAllb: false,
-      checkAllc: false,
-      checkedCities: [],
-      checkedCitiesa: [],
-      checkedCitiesb: [],
-      checkedCitiesc: [],
-      cities: cityOptions,
-      isIndeterminate: true,
-      tags: [
-        {name: '标签一'},
-        {name: '标签二'},
-        {name: '标签三'},
-        {name: '标签四'},
-        {name: '标签五'}
-      ],
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
-      }]
-    }
-  },
-  created () {
-    this.musiclist()
-  },
-  methods: {
-    checkMusic (x) {
-      this.$router.push(
-        {
-          path: 'MusicDetail',
-          query: {'uuid': x}
-        }
-      )
-    },
-    DownloadMusic () {
-
-    },
-    async musiclist () {
-      try {
-        let ls = await axiosapi.musiclistmusic()
-        console.log(ls)
-        this.tableData = ls.data.results
-      } catch (e) {
-        console.log(e)
-      }
-    },
-    async addmusics () {
-      console.log(this.form)
-      try {
-        let ls = await axiosapi.addmusic(this.form)
-        console.log(ls)
-        if (ls.status === 201) {
-          this.$message({
-            message: '添加成功',
-            type: 'success'
-          })
-          this.dialogFormVisible = false
-          this.musliclist(this.$route.query.uuid)
-          this.form = {
-            name: '',
-            music_no: '',
-            lyricist: '',
-            composer: '',
-            arranged_by: '',
-            path: '',
-            desc: ''
-          }
-        }
-      } catch (e) {
-        console.log(e)
-      }
-    },
-    handleCheckAllChange (val) {
-      this.checkedCities = val ? cityOptions : []
-      this.isIndeterminate = false
-    },
-    handleCheckedCitiesChange (value) {
-      console.log(value)
-      let checkedCount = value.length
-      this.checkAll = checkedCount === this.cities.length
-      this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length
-    },
-    handleCheckAllChangea (val) {
-      this.checkedCitiesa = val ? cityOptions : []
-      this.isIndeterminate = false
-    },
-    handleCheckedCitiesChangea (value) {
-      let checkedCount = value.length
-      this.checkAlla = checkedCount === this.cities.length
-      this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length
-    },
-    handleCheckAllChangeb (val) {
-      this.checkedCitiesb = val ? cityOptions : []
-      this.isIndeterminate = false
-    },
-    handleCheckedCitiesChangeb (value) {
-      let checkedCount = value.length
-      this.checkAllb = checkedCount === this.cities.length
-      this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length
-    },
-    handleCheckAllChangec (val) {
-      this.checkedCitiesc = val ? cityOptions : []
-      this.isIndeterminate = false
-    },
-    handleCheckedCitiesChangec (value) {
-      let checkedCount = value.length
-      this.checkAllc = checkedCount === this.cities.length
-      this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length
-    },
-    cltag (vl) {
-      console.log(vl.name)
-      this.tags.splice(this.tags.indexOf(vl), 1)
-    }
-  }
-}
-</script>
+<script src="../../../assets/js/musicfilter.js"></script>
 <style scoped>
-.el-checkbox-button, .el-checkbox-button__inner{
+.el-checkbox-button, .el-checkbox-button__inner,
+.el-radio-button, .el-radio-button--mini{
     position: relative;
     display: block;
     float: left;
@@ -345,10 +224,11 @@ export default {
   margin-top: 15px;
 }
 .cktit{
-  line-height: 25px;
-  color: #443344;
-  padding-left: 15px;
-  font-size: 16px;
+    line-height: 25px;
+    color: #443344;
+    padding: 0px 25px;
+    font-size: 16px;
+    text-align: left;
 }
 .filterwrap .el-row{
   margin-bottom: 5px;
@@ -359,14 +239,23 @@ export default {
   float: left;
 }
 .whitewraps .el-row  .el-button--text{
-  display: block;
   float: left;
-  color: #e2e2e2;
-  margin-left: 15px;
-  margin-top: -3.5px;
 }
 .el-table::before {
 
     height: 0px !important;
+}
+.avatar{
+  line-height: 20px;
+  display: block;
+  text-align: left;
+  font-style: normal;
+  font-size: 0.8em;
+}
+.mgl15{
+  margin-left: 15px;
+}
+.filteralreay{
+  margin-top: 30px;
 }
 </style>

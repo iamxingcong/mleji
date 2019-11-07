@@ -52,10 +52,10 @@
               @size-change='handleSizeChange'
               @current-change='handleCurrentChange'
               :current-page='currentPage4'
-              :page-sizes='[10, 20, 30, 100]'
-              :page-size='100'
+              :page-sizes='[10, 20]'
+              :page-size='10'
               layout='prev, pager, next, sizes'
-              :total='400'>
+              :total='count'>
             </el-pagination>
           </div>
       </div>
@@ -96,7 +96,18 @@
             </el-input>
           </el-form-item>
            <el-form-item label='添加LOGO' :label-width='formLabelWidth'>
-            <el-input type='file' v-model='form.logo' autocomplete='off'></el-input>
+
+            <el-upload
+              class="avatar-uploader"
+              :action="urls"
+              :data='updatas'
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess"
+              :before-upload="beforeAvatarUpload">
+              <img v-if="imageUrl" :src="imageUrl" class="avatar">
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+
           </el-form-item>
         </el-form>
         <div slot='footer' class='dialog-footer'>
@@ -122,7 +133,18 @@
             </el-input>
           </el-form-item>
            <el-form-item label='添加LOGO' :label-width='formLabelWidth'>
-            <el-input type='file' v-model='forme.logo' autocomplete='off'></el-input>
+
+            <el-upload
+              class="avatar-uploader"
+              :action="urls"
+              :data='updatas'
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess"
+              :before-upload="beforeAvatarUpload">
+              <img v-if="imageUrl" :src="imageUrl" class="avatar">
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+
           </el-form-item>
         </el-form>
         <div slot='footer' class='dialog-footer'>
@@ -134,163 +156,5 @@
 
   </div>
 </template>
-<script>
-import axiosapi from '@/config/axiosapi'
-import axi from '@/config/axi'
-export default {
-  name: 'BrandLists',
-  data () {
-    return {
-      img: require('../../../assets/icons/logo.png'),
-      input: '',
-      ms: [],
-      dialogVisible: false,
-      dialogFormVisible: false,
-      dialogFormVisibleEdit: false,
-      currentPage4: 1,
-      currentPage3: 2,
-      form: {
-        name: '',
-        desc: '',
-        logo: ''
-      },
-      forme: {
-        name: '',
-        desc: '',
-        logo: ''
-      },
-      formLabelWidth: '150px',
-      uuid: '',
-      alb: []
-    }
-  },
-  created () {
-    this.mlist()
-  },
-  methods: {
-    async mlist () {
-      try {
-        let ls = await axiosapi.getlabel()
-        this.ms = ls.data.results
-      } catch (e) {
-        console.log(e)
-      }
-    },
-    brandDetail: function (x) {
-      this.$router.push(
-        {
-          path: 'BrandDetail',
-          query: {'uuid': x}
-        }
-      )
-    },
-    openadd () {
-      this.dialogFormVisible = true
-      this.form = {
-        name: '',
-        desc: '',
-        logo: ''
-      }
-    },
-    async deleteconfirm () {
-      try {
-        let dp = await axi().delete('/ops/label/' + this.uuid)
-        if (dp.status === 200) {
-          this.dialogVisible = false
-          this.$message({
-            message: '删除成功',
-            type: 'success'
-          })
-          this.mlist()
-        } else {
-          console.log('错误')
-        }
-      } catch (e) {
-        // console.log(e)
-        if (e.response) {
-          this.dialogVisible = false
-          this.$message.error(e.response.data.detail)
-        } else if (e.request) {
-          console.log(e.request)
-        } else {
-          console.log('Error', e.message)
-        }
-      }
-    },
-    deleteBrand (x) {
-      this.uuid = x
-      this.dialogVisible = true
-    },
-    handleSizeChange (val) {
-      console.log(`每页 ${val} 条`)
-    },
-    handleCurrentChange (val) {
-      console.log(`当前页: ${val}`)
-    },
-    handleSizeChangeg (val) {
-      console.log(`每页a ${val} 条`)
-    },
-    handleCurrentChangeg (val) {
-      console.log(`当前页a: ${val}`)
-    },
-    checkDetail: function (x) {
-      this.$router.push('AlbumDetail')
-      console.log(x)
-    },
-    editlabel (x) {
-      this.uuid = x
-      this.dialogFormVisibleEdit = true
-      console.log(x)
-      this.labeldetail()
-    },
-    async labeldetail () {
-      try {
-        let dt = await axi().get('/ops/label/' + this.uuid)
-        console.log(dt.data)
-        if (dt.status === 200) {
-          this.forme = dt.data
-        } else {
-          console.log('错误')
-        }
-      } catch (e) {
-        console.log(e)
-      }
-    },
-    async addlabels () {
-      console.log(this.form)
-      try {
-        let ls = await axiosapi.addlabel(this.form)
-        console.log(ls)
-        if (ls.status === 201) {
-          this.$message({
-            message: '添加成功',
-            type: 'success'
-          })
-          this.dialogFormVisible = false
-          this.mlist()
-        }
-      } catch (e) {
-        console.log(e)
-      }
-    },
-    async editlabelconfirm () {
-      try {
-        let ls = await axi().put('/ops/label/' + this.uuid, this.forme)
-        console.log(ls)
-        if (ls.status === 201 || ls.status === 200) {
-          this.$message({
-            message: '添加成功',
-            type: 'success'
-          })
-          this.dialogFormVisibleEdit = false
-          this.mlist()
-        }
-      } catch (e) {
-        console.log(e)
-      }
-    }
-
-  }
-}
-</script>
+<script src="../../../assets/js/brandlist.js"></script>
 <style scoped src='../../../assets/css/brandlists.css'></style>

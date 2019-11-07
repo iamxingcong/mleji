@@ -71,10 +71,10 @@
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="currentPage4"
-          :page-sizes="[10, 20, 30, 100]"
-          :page-size="100"
+          :page-sizes="[10, 20]"
+          :page-size="10"
           layout="prev, pager, next, sizes"
-          :total="400">
+          :total="count">
         </el-pagination>
       </div>
     </div>
@@ -132,18 +132,30 @@
           </el-col>
           <el-col :span="11">
             <el-form-item label='上传音乐文件：' :label-width='formLabelWidth'>
-              <el-input type='file' v-model='formedit.path' autocomplete='off'></el-input>
+
+              <el-upload
+                class="avatar-uploader"
+                :action="urls"
+                :data='updatas'
+                :show-file-list="false"
+                :on-success="handleAvatarSuccess"
+                :before-upload="beforeAvatarUpload">
+                <i v-if="imageUrl"  class="avatar">{{imageUrl}}</i>
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+              </el-upload>
+
             </el-form-item>
           </el-col>
-          <el-form-item label='音乐描述：' :label-width='formLabelWidth'>
-            <el-input
-              type='textarea'
-              :autosize='{ minRows: 3, maxRows: 4}'
-              placeholder='请输入音乐描述：'
-              v-model='formedit.desc'>
-            </el-input>
-          </el-form-item>
-
+          <el-col :span="22">
+            <el-form-item label='音乐描述：' :label-width='formLabelWidth'>
+              <el-input
+                type='textarea'
+                :autosize='{ minRows: 3, maxRows: 4}'
+                placeholder='请输入音乐描述：'
+                v-model='formedit.desc'>
+              </el-input>
+            </el-form-item>
+          </el-col>
         </el-form>
         <div slot='footer' class='dialog-footer'>
           <el-button @click='dialogFormVisibleedit = false'>取 消</el-button>
@@ -172,195 +184,7 @@
 
   </div>
 </template>
-<script>
-import axi from '@/config/axi'
-import axiosapi from '@/config/axiosapi'
-
-export default {
-  name: 'AlbumDetail',
-  data () {
-    return {
-      img: require('../../../assets/icons/logo.png'),
-      tableDatab: [],
-      currentPage4: 1,
-      alblist: '',
-      formedit: {
-        name: '',
-        music_no: '',
-        lyricist: '',
-        composer: '',
-        arranged_by: '',
-        path: '',
-        desc: ''
-      },
-      formLabelWidth: '150px',
-      dialogFormVisible: false,
-      dialogFormVisibleedit: false,
-      dialogVisible: false,
-      uuid: '',
-      uuids: [],
-      musicuuid: '',
-      cities: [],
-      addmusicuuid: '',
-      addmarr: []
-    }
-  },
-  created () {
-    this.albumlist(this.$route.query.uuid)
-    this.musliclist(this.$route.query.uuid)
-  },
-  methods: {
-    async albumlist (x) {
-      try {
-        let dt = await axi().get('/ops/album/' + x)
-        if (dt.status === 200) {
-          this.alblist = dt.data
-        } else {
-          console.log('错误')
-        }
-      } catch (e) {
-        console.log(e)
-      }
-    },
-    async musliclist (x) {
-      try {
-        let dt = await axi().get('/ops/music/?album_id=' + x)
-        if (dt.status === 200) {
-          console.log(dt.data)
-          this.tableDatab = dt.data.results
-        } else {
-          console.log('错误')
-        }
-      } catch (e) {
-        console.log(e)
-      }
-    },
-    addmusicspop () {
-      this.dialogFormVisible = true
-      this.musicsearchlist()
-    },
-    async musicsearchlist () {
-      console.log(this.form)
-      try {
-        let ls = await axiosapi.musicsearch()
-        console.log(ls)
-        if (ls.status === 200) {
-          console.log(ls)
-          this.cities = ls.data.results
-        }
-      } catch (e) {
-        console.log(e)
-      }
-    },
-    async addmusics () {
-      this.addmarr = []
-      this.addmarr.push(this.addmusicuuid)
-      try {
-        // /ops/album/<uuid>/musics_add/
-        let ls = await axi().post('/ops/album/' + this.$route.query.uuid + '/musics_add/', {'uuids': this.addmarr})
-        console.log(ls)
-        if (ls.status === 201 || ls.status === 200) {
-          this.$message({
-            message: '添加成功',
-            type: 'success'
-          })
-          this.addmarr = []
-          this.dialogFormVisible = false
-          this.musliclist(this.$route.query.uuid)
-        }
-      } catch (e) {
-        console.log(e)
-      }
-    },
-    async editmusicconfirm () {
-      console.log(this.formedit)
-      try {
-        let dt = await axi().patch('/ops/music/' + this.musicuuid, this.formedit)
-        if (dt.status === 200) {
-          this.musliclist(this.$route.query.uuid)
-          this.dialogFormVisibleedit = false
-        } else {
-          console.log('错误')
-        }
-      } catch (e) {
-        console.log(e)
-      }
-    },
-    handleSizeChange (val) {
-      console.log(`每页 ${val} 条`)
-    },
-    handleCurrentChange (val) {
-      console.log(`当前页: ${val}`)
-    },
-    checkMusic (x) {
-      this.$router.push(
-        {
-          path: 'MusicDetail',
-          query: {'uuid': x}
-        }
-      )
-    },
-    editMusic (x) {
-      this.musicuuid = x
-      this.dialogFormVisibleedit = true
-      this.musicdetail()
-    },
-    async musicdetail () {
-      try {
-        let dt = await axi().get('/ops/music/' + this.musicuuid)
-        if (dt.status === 200) {
-          this.formedit.name = dt.data.name
-          this.formedit.music_no = dt.data.music_no
-          this.formedit.lyricist = dt.data.lyricist
-          this.formedit.composer = dt.data.composer
-          this.formedit.arranged_by = dt.data.arranged_by
-          this.formedit.path = dt.data.path
-          this.formedit.desc = dt.data.desc
-        } else {
-          console.log('错误')
-        }
-      } catch (e) {
-        console.log(e)
-      }
-    },
-    deleteMusic (x) {
-      this.uuid = x
-      this.dialogVisible = true
-    },
-    async deleteconfirm () {
-      let dts = {
-        'uuids': this.uuids
-      }
-      this.uuids.push(this.uuid)
-      try {
-        let dp = await axi().post('/ops/album/' + this.$route.query.uuid + '/musics_remove/', dts)
-        if (dp.status === 200) {
-          this.dialogVisible = false
-          this.$message({
-            message: '删除成功',
-            type: 'success'
-          })
-          this.uuids = []
-          this.musliclist(this.$route.query.uuid)
-        } else {
-          console.log('错误')
-        }
-      } catch (e) {
-        // console.log(e)
-        if (e.response) {
-          this.dialogVisible = false
-          this.$message.error(e.response.data.detail)
-        } else if (e.request) {
-          console.log(e.request)
-        } else {
-          console.log('Error', e.message)
-        }
-      }
-    }
-  }
-}
-</script>
-
+<script src="../../../assets/js/albumdetail.js"></script>
 <style scoped>
 .brnaLogo{
     width: 120px;

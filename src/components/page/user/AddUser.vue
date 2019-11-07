@@ -121,27 +121,44 @@ export default {
         'upload_dir': 'user_avatar',
         'extension': ''
       },
-      updatas: {
-
+      updatt: {
+        'upload_dir': 'user_avatar',
+        'extension': 'jpeg'
       },
+      updatas: {},
       imgs: '',
       urls: ''
     }
   },
   created () {
-
+    this.imgupurl()
   },
   methods: {
+    async imgupurl () {
+      try {
+        let dt = await axiosapi.avatarupload(this.updatt)
+        if (dt.status === 200 || dt.status === 201) {
+          this.urls = dt.data.host
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    },
     handleAvatarSuccess (res, file) {
       this.imageUrl = URL.createObjectURL(file.raw)
     },
     async beforeAvatarUpload (file) {
       const isJPG = file.type === 'image/jpeg'
+      const isPNG = file.type === 'image/png'
+      const isGIF = file.type === 'image/gif'
+      if (isJPG || isPNG || isGIF) {
+        console.log('符合')
+      } else {
+        this.$message.error('图片格式不符合')
+        return
+      }
+
       const isLt2M = file.size / 1024 / 1024 < 2
-      this.urls = 'https://cmcr-public.oss-cn-beijing.aliyuncs.com'
-      // if (!isJPG) {
-      //   this.$message.error('上传头像图片只能是 JPG 格式!')
-      // }
       if (!isLt2M) {
         this.$message.error('上传头像图片大小不能超过 2MB!')
       }
@@ -158,12 +175,11 @@ export default {
       } catch (e) {
         console.log(e)
       }
-      return isJPG && isLt2M
+      return isJPG && isLt2M && isPNG && isGIF
     },
     async onSubmit () {
       try {
         let dt = await axiosapi.useradd(this.form)
-        console.log(dt)
         if (dt.status === 200 || dt.status === 201) {
           this.$router.push('UserManage')
         }

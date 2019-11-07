@@ -75,7 +75,7 @@
             prop="is_vip"
             label="用户类型">
             <template slot-scope="scope">
-              <span> {{ scope.row.is_vip == true ?  '高级会员' :   '普通会员' }}</span>
+              <span> {{ scope.row.vip_type == 'VIP' ?  '高级会员' :   '普通会员' }}</span>
             </template>
           </el-table-column>
           <el-table-column
@@ -131,10 +131,10 @@
           @size-change="handleSizeChangeg"
           @current-change="handleCurrentChangeg"
           :current-page="currentPage3"
-          :page-sizes="[10, 20, 30, 100]"
-          :page-size="100"
+          :page-sizes="[10, 20]"
+          :page-size="10"
           layout="prev, pager, next, sizes"
-          :total="400">
+          :total="count">
         </el-pagination>
       </div>
 
@@ -178,7 +178,8 @@ export default {
         name: 'admin',
         uuid: 'd42ec625-43e4-4a0d-af5b-d307f66a2e9f'
       }],
-      currentPage3: 2
+      currentPage3: 1,
+      count: 0
     }
   },
   created () {
@@ -186,9 +187,15 @@ export default {
   },
   methods: {
     async user () {
-      const dt = await axiosapi.user()
-      console.log(dt)
-      this.tableData = dt.data.results
+      try {
+        const dt = await axiosapi.user()
+        if (dt.status === 200) {
+          this.tableData = dt.data.results
+          this.count = dt.data.count
+        }
+      } catch (e) {
+        console.log(e)
+      }
     },
     detailedUser (row) {
       console.log(row)
@@ -208,7 +215,6 @@ export default {
       this.$router.push('AddUser')
     },
     async hddelete (row) {
-      console.log(row)
       try {
         let dp = await axi().delete('/ops/user/' + row.uuid)
         if (dp.status === 200) {
@@ -223,11 +229,27 @@ export default {
     schange (r) {
       console.log(r.addressd)
     },
-    handleSizeChangeg (val) {
-      console.log(`每页a ${val} 条`)
+    async handleSizeChangeg (val) {
+      try {
+        const dt = await axi().get('/ops/user/?page_size=' + val)
+        if (dt.status === 200) {
+          this.tableData = dt.data.results
+          this.count = dt.data.count
+        }
+      } catch (e) {
+        console.log(e)
+      }
     },
-    handleCurrentChangeg (val) {
-      console.log(`当前页a: ${val}`)
+    async handleCurrentChangeg (val) {
+      try {
+        const dt = await axi().get('/ops/user/?page=' + val)
+        if (dt.status === 200) {
+          this.tableData = dt.data.results
+          this.count = dt.data.count
+        }
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
 }

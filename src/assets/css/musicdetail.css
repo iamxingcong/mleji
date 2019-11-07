@@ -7,7 +7,6 @@
 
   .sq250{
     border: 1px solid #e2e2e2;
-    background:rgba(234,234,234,1);
   }
   .musicinfo{
     height: 251px;
@@ -43,15 +42,15 @@
     line-height: 50px;
   }
   #avantar{
-    width: 72px;
-    height: 72px;
+    width: 102px;
+    height: 102px;
     display: block;
-    margin: 15px auto;
-    border-radius: 72px;
+    margin: 10px auto;
+    border-radius: 102px;
     background-position: center center;
     background-size: 100% auto;
     box-shadow: 1px 1px 1px #ffffff;
-    margin-top: 30px;
+    margin-top: 20px;
   }
 .iconname{
   display: block;
@@ -96,4 +95,25 @@
 .contents{
   border-bottom: 1px solid #EBEEF5;
   border-left: 1px solid #EBEEF5;
+}
+.el-date-editor.el-input, .el-date-editor.el-input__inner {
+  width: 100% !important;
+}
+#addMultiVersion .el-checkbox,
+#addRelateVersion .el-checkbox{
+  display: block;
+  line-height: 45px;
+}
+#addMultiVersion .el-checkbox-group,
+#addRelateVersion .el-checkbox-group{
+  display: block;
+  clear: both;
+}
+
+#addMultiVersion .el-tag,
+#addRelateVersion .el-tag{
+  display: block;
+  float: left;
+  clear: both;
+  margin: 6px 5px;
 }
