@@ -42,7 +42,7 @@
           border
           :data="tableData"
           style="width: 100%">
-          <el-table-column label="专辑图片" width="180">
+          <el-table-column label="专辑图片" width="120">
             <template slot-scope="scope">
               <img :src="scope.row.cover ? scope.row.cover : img " width="100" :key="scope.row.image" height="100"/>
             </template>
@@ -50,12 +50,12 @@
           <el-table-column
             prop="label_id"
             label="ID"
-            width="180">
+           >
           </el-table-column>
           <el-table-column
             prop="name"
             label="专辑名称"
-            width="180">
+           >
           </el-table-column>
           <el-table-column
             prop="album_no"
@@ -67,7 +67,8 @@
           </el-table-column>
           <el-table-column
             prop="uuid"
-            label="操作">
+            label="操作"
+            width="145">
               <template slot-scope="scope">
                 <el-button
                   type="text"
@@ -144,8 +145,8 @@
           </el-form-item>
         </el-form>
         <div slot='footer' class='dialog-footer'>
-          <el-button @click='dialogFormVisiblea = false'>取 消</el-button>
-          <el-button type='primary' @click='addalbums'>确 定</el-button>
+          <el-button size='mini' @click='dialogFormVisiblea = false'>取 消</el-button>
+          <el-button size='mini' type='primary' @click='addalbums'>确 定</el-button>
         </div>
       </el-dialog>
     </div>
@@ -198,8 +199,8 @@
           </el-form-item>
         </el-form>
         <div slot='footer' class='dialog-footer'>
-          <el-button @click='dialogFormVisibleedit = false'>取 消</el-button>
-          <el-button type='primary' @click='editalbumConfirm'>确 定</el-button>
+          <el-button size='mini' @click='dialogFormVisibleedit = false'>取 消</el-button>
+          <el-button size='mini' type='primary' @click='editalbumConfirm'>确 定</el-button>
         </div>
       </el-dialog>
     </div>
@@ -216,8 +217,8 @@
         </span>
         <span>专辑删除后不可恢复</span>
         <span slot='footer' class='dialog-footer'>
-          <el-button @click='dialogVisible = false'>取 消</el-button>
-          <el-button type='primary' @click='deleteconfirm'>确 定</el-button>
+          <el-button size='mini' @click='dialogVisible = false'>取 消</el-button>
+          <el-button size='mini' type='primary' @click='deleteconfirm'>确 定</el-button>
         </span>
       </el-dialog>
     </div>
@@ -290,6 +291,7 @@
   display: block;
   float: right;
   width: calc(100% - 100px);
+  text-align: left;
 }
 .el-radio-button{
   float: left;

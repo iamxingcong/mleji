@@ -76,6 +76,7 @@ export default {
       catetorys: [],
       cat: [],
       imageUrl: '',
+      imageUrls: '',
       isMultiple: true,
       updata: {
         'upload_dir': 'music_path',
@@ -85,9 +86,19 @@ export default {
         'upload_dir': 'music_path',
         'extension': 'mp3'
       },
+      updattlrc: {
+        'upload_dir': 'music_lrc',
+        'extension': 'lrc'
+      },
+      updattlrcx: {
+        'upload_dir': 'music_lrc',
+        'extension': ''
+      },
       updatas: {},
+      updatass: {},
       imgs: '',
       urls: '',
+      urlss: '',
       musiclists: [],
       musiclistschecked: [],
       musiclistscheckeds: [],
@@ -354,12 +365,23 @@ export default {
     dialogFormVisibleeditclk () {
       this.dialogFormVisibleedit = true
       this.imgupurl()
+      this.imgupurls()
     },
     async imgupurl () {
       try {
         let dt = await axiosapi.avatarupload(this.updatt)
         if (dt.status === 200 || dt.status === 201) {
           this.urls = dt.data.host
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    async imgupurls () {
+      try {
+        let dt = await axiosapi.avatarupload(this.updattlrc)
+        if (dt.status === 200 || dt.status === 201) {
+          this.urlss = dt.data.host
         }
       } catch (e) {
         console.log(e)
@@ -398,6 +420,45 @@ export default {
         console.log(e)
       }
       return ismp3 && iswav && isLt2M
+    },
+    handleAvatarSuccesss (res, file) {
+      // this.imageUrl = URL.createObjectURL(file.raw)
+    },
+    async beforeAvatarUploads (file) {
+      console.log(file)
+      this.imageUrls = file.name
+      const istext = file.type === 'text/plain'
+      const islrc = file.name.substring(file.name.length - 4) === '.lrc'
+      if (istext || islrc) {
+        console.log('ok')
+      } else {
+        this.$message.error('歌词文件格式不符')
+        this.imageUrls = ''
+        return
+      }
+      const isLt2M = file.size / 1024 / 1024 < 1
+      if (!isLt2M) {
+        this.$message.error('上传歌词文件大小不能超过 1MB!')
+      }
+      try {
+        if (istext) {
+          this.updattlrcx.extension = 'text'
+        } else {
+          this.updattlrcx.extension = 'lrc'
+        }
+
+        let dt = await axiosapi.avatarupload(this.updattlrcx)
+        if (dt.status === 200 || dt.status === 201) {
+          this.updatass.OSSAccessKeyId = dt.data.OSSAccessKeyId
+          this.updatass.policy = dt.data.policy
+          this.updatass.Signature = dt.data.Signature
+          this.updatass.key = dt.data.key
+          this.formedit.lrc_path = dt.data.key
+        }
+      } catch (e) {
+        console.log(e)
+      }
+      return istext && islrc && isLt2M
     },
     musicdetailck (x) {
       this.$router.push(

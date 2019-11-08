@@ -5,6 +5,7 @@
       <span class='stitle'>版权管理系统</span>
     </div>
     <el-menu
+
       class='el-menu-vertical-demo'
       background-color='#324157'
       text-color='#bfcbd9'
@@ -27,6 +28,7 @@
         <el-menu-item index="MusicFilter">音乐列表</el-menu-item>
         <el-menu-item index="BrandLists">厂牌列表</el-menu-item>
         <el-menu-item index="AlbumFilter">专辑列表</el-menu-item>
+        <el-menu-item index='MusicLists'>曲单管理</el-menu-item>
       </el-submenu>
 
       <el-menu-item index='UserManage'>
@@ -51,22 +53,16 @@
           <i class="el-icon-s-unfold"></i>
           <span slot="title">栏目管理</span>
       </el-menu-item>
-      <el-menu-item index='MemmberDetail'>
-        <i class='el-icon-user-solid'></i>
-        <span>会员详情</span>
-      </el-menu-item>
-      <el-menu-item index='ProfitManage'>
-        <i class="el-icon-coin"></i>
-        <span slot="title">收益管理</span>
-      </el-menu-item>
-      <el-menu-item index='PermissionManage'>
-        <i class="el-icon-coordinate"></i>
-        <span slot="title">权限管理</span>
-      </el-menu-item>
-      <el-menu-item index='MusicLists'>
-        <i class='el-icon-s-grid'></i>
-        <span slot='title'>曲单管理</span>
-      </el-menu-item>
+
+      <el-submenu index="3">
+        <template slot="title">
+           <i class="el-icon-coordinate"></i>
+          <span>权限</span>
+        </template>
+        <el-menu-item index="PermissionManage">权限管理</el-menu-item>
+        <el-menu-item index="MemmberDetail">会员详情</el-menu-item>
+      </el-submenu>
+
     </el-menu>
   </div>
 </template>
@@ -95,10 +91,10 @@ export default {
   line-height: 60px;
 }
 .site_logo {
-  width: 40px;
-  height: 40px;
-  margin-left: 15px;
-  margin-top: 10px;
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  margin-top: 20px;
   margin-right: 5px;
   background-size: contain;
 }
@@ -108,7 +104,7 @@ export default {
   float: left;
 }
 .stitle {
-  font-size: 18px;
+  font-size: 1.1em;
   font-weight: 700;
 }
 

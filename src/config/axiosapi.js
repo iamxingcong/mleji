@@ -38,7 +38,7 @@ export default {
     return axi().post('/ops/label/', data)
   },
   getlabel () {
-    return axi().get('/ops/label/')
+    return axi().get('/ops/label/?ordering=-created_at')
   },
   album () {
     return axi().get('/ops/album/')

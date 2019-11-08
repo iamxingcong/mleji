@@ -115,7 +115,7 @@ export default {
       try {
         let dt = await axiosapi.applyforproject()
         if (dt.status === 200) {
-          console.log(dt.data)
+          console.log(dt.status)
         }
       } catch (e) {
         console.log(e.config)

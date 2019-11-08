@@ -8,8 +8,6 @@
       </div>
       <div class='btngroup'>
         <span class='text'>{{user}}</span>
-        <el-button type='text'>消息</el-button>
-        <el-button type='text'>账户设置</el-button>
         <el-button type='text' v-on:click="loginout">退出</el-button>
       </div>
     </el-row>
@@ -19,6 +17,23 @@
 <script>
 import Trans from '../../config/trans.js'
 import axiosapi from '@/config/axiosapi'
+
+function getCookie (cname) {
+  var name = cname + '='
+  var decodedCookie = decodeURIComponent(document.cookie)
+  var ca = decodedCookie.split(';')
+  for (var i = 0; i < ca.length; i++) {
+    var c = ca[i]
+    while (c.charAt(0) === '') {
+      c = c.substring(1)
+    }
+    if (c.indexOf(name) === 0) {
+      return c.substring(name.length, c.length)
+    }
+  }
+  return ''
+}
+
 export default {
   name: 'Header',
   components: {
@@ -31,7 +46,7 @@ export default {
     }
   },
   created () {
-    this.user = this.$route.query.name
+    this.user = getCookie('user')
     Trans.$on('logindata', this.lgdt)
   },
   methods: {

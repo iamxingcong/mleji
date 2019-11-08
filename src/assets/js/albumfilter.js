@@ -153,7 +153,6 @@ export default {
           console.log('错误')
         }
       } catch (e) {
-        // console.log(e)
         if (e.response) {
           this.dialogVisible = false
           this.$message.error(e.response.data.detail)
@@ -167,7 +166,7 @@ export default {
     handleCheckAllChange (val) {
       // this.checkedCities = val ? cityOptions : []
       this.isIndeterminate = false
-      console.log(val)
+      console.table(val)
       this.checkedCities = val ? this.labeluids : []
       if (val) {
         this.tags = this.labeluids
@@ -177,7 +176,6 @@ export default {
     },
     handleCheckedLabelsChange (value) {
       this.tags = value
-      console.log(value)
       let checkedCount = value.length
       this.checkAll = checkedCount === this.cities.length
       this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length

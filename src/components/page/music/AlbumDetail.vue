@@ -25,7 +25,7 @@
           <el-table-column
             prop="uuid"
             label="ID"
-            width="180">
+           >
           </el-table-column>
           <el-table-column
             prop="name"
@@ -50,6 +50,7 @@
           <el-table-column
             prop="namee"
             label="操作"
+            width="150"
           >
            <template slot-scope="scope">
                 <el-button

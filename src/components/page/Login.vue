@@ -114,7 +114,8 @@ export default {
       try {
         let dt = await axiosapi.login(this.form)
         if (dt.status === 200) {
-          this.$router.push({path: 'ManagePanel', query: {'name': dt.data.name}})
+          window.document.cookie = 'user=' + dt.data.name
+          this.$router.push('ManagePanel')
         }
       } catch (e) {
         if (e.response) {
@@ -139,9 +140,9 @@ export default {
     async logina () {
       try {
         let dt = await axiosapi.login(this.forma)
-
         if (dt.status === 200) {
-          this.$router.push({path: 'ManagePanel', query: {'name': dt.data.name}})
+          window.document.cookie = 'user=' + dt.data.name
+          this.$router.push('ManagePanel')
         }
       } catch (e) {
         if (e.response) {

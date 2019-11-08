@@ -42,10 +42,10 @@
           </el-checkbox-group>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="backTo">返回</el-button>
-          <el-button type="primary" @click="onSubmit">发布</el-button>
-          <el-button>预览</el-button>
-          <el-button>重置</el-button>
+          <el-button size='mini' type="primary" @click="backTo">返回</el-button>
+          <el-button size='mini' type="primary" @click="onSubmit">发布</el-button>
+          <el-button size='mini'>预览</el-button>
+          <el-button size='mini'>重置</el-button>
         </el-form-item>
       </el-form>
 

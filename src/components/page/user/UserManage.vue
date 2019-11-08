@@ -4,9 +4,6 @@
      <div class="white">
       <el-row>
         <span class="tit left">专辑名称</span>
-        <span class="right mt15 mr15">
-          <el-button size="mini">高级搜索</el-button>
-        </span>
       </el-row>
       <el-row>
         <div class="flex4">
@@ -37,8 +34,8 @@
               </el-date-picker>
           </div>
           <div class="demo-input-suffix">
-            <el-button type="primary" icon="el-icon-refresh-left">重置</el-button>
-            <el-button type="primary" icon="el-icon-search">查询</el-button>
+            <el-button size='mini'  icon="el-icon-refresh-left">重置</el-button>
+            <el-button type="primary"  size='mini' icon="el-icon-search">查询</el-button>
           </div>
         </div>
       </el-row>
@@ -48,8 +45,7 @@
         <el-row>
           <span class="tit left">用户列表</span>
           <span class="right mt15 mr15">
-            <el-button size="mini" @click="addUser">新增用户</el-button>
-            <el-button size="mini" icon="el-icon-receiving">导出</el-button>
+            <el-button size="mini" @click="addUser"  type="primary"  >新增用户</el-button>
           </span>
       </el-row>
       <div class="pd15">
@@ -140,6 +136,24 @@
 
      </div>
 
+    <div id='dialogues'>
+       <el-dialog
+        title='确认提示'
+        :visible.sync='dialogVisible'
+        :close-on-click-modal='false'
+        width='30%'>
+        <span class='fw700 cross'>
+          <i class='el-icon-warning'></i>
+            是否确定删除用户: {{ name }}
+        </span>
+        <span class='cross'>用户删除后不可恢复</span>
+        <span slot='footer' class='dialog-footer'>
+          <el-button size='mini' @click='dialogVisible = false'>取 消</el-button>
+          <el-button size='mini' type='primary' @click='deleteconfirm'>确 定</el-button>
+        </span>
+      </el-dialog>
+    </div>
+
   </div>
 </template>
 <script>
@@ -151,35 +165,29 @@ export default {
     return {
       input1: '',
       options: [{
-        value: '选项1',
-        label: '黄金糕'
+        value: 'NORMAL',
+        label: '普通'
       }, {
-        value: '选项2',
-        label: '双皮奶'
-      }, {
-        value: '选项3',
-        label: '蚵仔煎'
-      }, {
-        value: '选项4',
-        label: '龙须面'
-      }, {
-        value: '选项5',
-        label: '北京烤鸭'
+        value: 'VIP',
+        label: '高级'
       }],
       value: '',
       value1: '',
+      dialogVisible: false,
       tableData: [{
         avatar: '',
         cumulative_pay: 0,
         download_origin_count: 0,
         is_active: true,
         is_vip: false,
-        last_login: '2019-10-25T15:06:56.831853',
-        name: 'admin',
-        uuid: 'd42ec625-43e4-4a0d-af5b-d307f66a2e9f'
+        last_login: '',
+        name: '',
+        uuid: ''
       }],
       currentPage3: 1,
-      count: 0
+      count: 0,
+      uuid: '',
+      name: ''
     }
   },
   created () {
@@ -214,11 +222,17 @@ export default {
     addUser () {
       this.$router.push('AddUser')
     },
-    async hddelete (row) {
+    hddelete (x) {
+      this.uuid = x.uuid
+      this.name = x.name
+      this.dialogVisible = true
+    },
+    async deleteconfirm () {
       try {
-        let dp = await axi().delete('/ops/user/' + row.uuid)
+        let dp = await axi().delete('/ops/user/' + this.uuid)
         if (dp.status === 200) {
           this.user()
+          this.dialogVisible = false
         } else {
           console.log('错误')
         }

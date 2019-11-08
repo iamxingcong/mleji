@@ -5,9 +5,9 @@
       <span class="wd400 left">
         <el-input v-model="input" placeholder="请输入搜索关键词"></el-input>
       </span>
-      <span class="left">
-        <el-button type="primary">搜索音乐</el-button>
-        <el-button type="primary">全部音乐</el-button>
+      <span class="left mt5">
+        <el-button size='mini' type="primary">搜索音乐</el-button>
+        <el-button size='mini' type="primary">全部音乐</el-button>
       </span>
       <span class="right mt5">
         <el-button size="mini">刷新</el-button>

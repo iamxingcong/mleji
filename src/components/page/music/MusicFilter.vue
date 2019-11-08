@@ -8,7 +8,7 @@
         <el-row v-for="i in searchTotal"  :key="i.id" >
           <template v-if="i.type !== 'SPEED'">
             <span class="cktit left mr15"> {{ i.name }} </span>
-<!--
+              <!--
               <el-button
 
                 type="text"
@@ -69,8 +69,7 @@
       <el-row>
         <span class="tit left">筛选结果</span>
         <span class="right mt15 mr15">
-          <el-button size="mini">导出</el-button>
-          <el-button size="mini" @click="addmusicpop">添加音乐</el-button>
+          <el-button size="mini" @click="addmusicpop" type='primary'>添加音乐</el-button>
         </span>
       </el-row>
       <div class="pd15">
@@ -84,41 +83,44 @@
           </el-table-column>
           <el-table-column
             prop="uuid"
-            label="ID"
-            width="180">
+            label="音乐ID"
+           >
           </el-table-column>
           <el-table-column
             prop="name"
             label="音乐名称"
-            width="180">
+           >
           </el-table-column>
           <el-table-column
             prop="composer"
             label="作者"
-            width="180">
+           >
           </el-table-column>
           <el-table-column
             prop="album_name"
             label="专辑名称"
-            width="180">
+           >
           </el-table-column>
           <el-table-column
             prop="length"
             label="时长"
-            width="180">
+            width="55"
+           >
           </el-table-column>
           <el-table-column
             prop="name"
-            label="desc"
-            width="180">
+            label="音乐描述"
+           >
           </el-table-column>
           <el-table-column
             prop="track_count"
-            label="版本数">
+            label="版本数"
+            width="65">
           </el-table-column>
           <el-table-column
             prop="uuid"
-            label="操作">
+            label="操作"
+            width="105">
             <template slot-scope="scope">
                 <el-button
                   type="text"
@@ -149,32 +151,32 @@
       :close-on-click-modal='false'
       :visible.sync='dialogFormVisible'>
         <el-form :model='form'>
-          <el-col :span="11">
+          <el-col :xl="11"  :sm="22" >
             <el-form-item label='音乐名称：' :label-width='formLabelWidth'>
               <el-input v-model='form.name' autocomplete='off'></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="11">
+          <el-col :xl="11"  :sm="22" >
             <el-form-item label='音乐编号：' :label-width='formLabelWidth'>
               <el-input v-model='form.music_no' autocomplete='off'></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="11">
+          <el-col :xl="11"  :sm="22" >
             <el-form-item label='编曲作者：' :label-width='formLabelWidth'>
               <el-input v-model='form.arranged_by' autocomplete='off'></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="11">
+          <el-col :xl="11"  :sm="22" >
             <el-form-item label='曲作者：' :label-width='formLabelWidth'>
               <el-input v-model='form.composer' autocomplete='off'></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="11">
+          <el-col :xl="11"  :sm="22" >
             <el-form-item label='词作者：' :label-width='formLabelWidth'>
               <el-input v-model='form.lyricist' autocomplete='off'></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="11">
+          <el-col :xl="11"  :sm="22" >
             <el-form-item label='上传音乐文件：' :label-width='formLabelWidth'>
 
               <el-upload
@@ -202,8 +204,8 @@
           </el-col>
         </el-form>
         <div slot='footer' class='dialog-footer'>
-          <el-button @click='dialogFormVisible = false'>取 消</el-button>
-          <el-button type='primary' @click='addmusics'>确 定</el-button>
+          <el-button size='mini' @click='dialogFormVisible = false'>取 消</el-button>
+          <el-button size='mini' type='primary' @click='addmusics'>确 定</el-button>
         </div>
       </el-dialog>
     </div>

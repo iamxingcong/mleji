@@ -21,6 +21,5 @@ export default {
   created () {
     this.music = mus
     this.lt = mus[0].play
-    console.log(this.lt)
   }
 }

@@ -191,6 +191,7 @@
             <el-table-column
               prop="length"
               label="时长"
+              width="75"
             >
             </el-table-column>
             <el-table-column
@@ -201,6 +202,7 @@
             <el-table-column
               prop="uuid"
               label="操作"
+              width="105"
             >
              <template slot-scope="scope">
                <el-button
@@ -253,6 +255,7 @@
             <el-table-column
               prop="length"
               label="时长"
+              width="75"
             >
             </el-table-column>
             <el-table-column
@@ -263,6 +266,7 @@
             <el-table-column
               prop="uuid"
               label="操作"
+              width="105"
             >
           <template slot-scope="scope">
                <el-button
@@ -314,7 +318,18 @@
           </el-col>
           <el-col :span="11">
             <el-form-item label='歌词：' :label-width='formLabelWidth'>
-              <el-input v-model='formedit.arranged_by' autocomplete='off'></el-input>
+
+              <el-upload
+                class="avatar-uploader"
+                :action="urlss"
+                :data='updatass'
+                :show-file-list="false"
+                :on-success="handleAvatarSuccesss"
+                :before-upload="beforeAvatarUploads">
+                <i v-if="imageUrls"  class="avatar">{{imageUrls}}</i>
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+              </el-upload>
+
             </el-form-item>
           </el-col>
           <el-col :span="11">
@@ -323,8 +338,9 @@
                 <el-option
                   v-for="s in speed"
                   :key="s.id"
-                  :label="s.id"
+                  :label="s.name"
                   :value="s.id">
+                  {{s.name}}
                 </el-option>
               </el-select>
             </el-form-item>
@@ -401,8 +417,8 @@
         </el-form>
 
         <div slot='footer' class='dialog-footer'>
-            <el-button @click='dialogFormVisibleedit = false'>取 消</el-button>
-            <el-button type='primary' @click='editmusicconfirm'>确 定</el-button>
+            <el-button size='mini' @click='dialogFormVisibleedit = false'>取 消</el-button>
+            <el-button size='mini' type='primary' @click='editmusicconfirm'>确 定</el-button>
         </div>
       </el-dialog>
     </div>
@@ -426,8 +442,8 @@
             <el-form-item label='发行时间：' :label-width='formLabelWidth'>
             <el-date-picker
               v-model="formcomposer.release_year"
-              value-format='yyyy'
-              type="year"
+              value-format="yyyy-MM-dd"
+              type="date"
               placeholder="选择发行时间">
             </el-date-picker>
             </el-form-item>
@@ -461,8 +477,8 @@
         </el-form>
 
         <div slot='footer' class='dialog-footer'>
-            <el-button @click='dialogFormVisiblecomposer = false'>取 消</el-button>
-            <el-button type='primary' @click='composermusicconfirm'>确 定</el-button>
+            <el-button size='mini' @click='dialogFormVisiblecomposer = false'>取 消</el-button>
+            <el-button size='mini' type='primary' @click='composermusicconfirm'>确 定</el-button>
         </div>
       </el-dialog>
     </div>
@@ -514,8 +530,8 @@
         </el-form>
 
         <div slot='footer' class='dialog-footer'>
-            <el-button @click='dialogFormVisibledesc = false'>取 消</el-button>
-            <el-button type='primary' @click='descmusicconfirm'>确 定</el-button>
+            <el-button size='mini' @click='dialogFormVisibledesc = false'>取 消</el-button>
+            <el-button size='mini' type='primary' @click='descmusicconfirm'>确 定</el-button>
         </div>
       </el-dialog>
     </div>
@@ -550,8 +566,8 @@
         </el-form>
 
         <div slot='footer' class='dialog-footer'>
-            <el-button @click='daddMultiVersionPop = false'>取 消</el-button>
-            <el-button type='primary' @click='daddMultiVersionPopcfm'>确 定</el-button>
+            <el-button size='mini' @click='daddMultiVersionPop = false'>取 消</el-button>
+            <el-button size='mini' type='primary' @click='daddMultiVersionPopcfm'>确 定</el-button>
         </div>
       </el-dialog>
     </div>
@@ -586,8 +602,8 @@
         </el-form>
 
         <div slot='footer' class='dialog-footer'>
-            <el-button @click='daddRelateVersionPop = false'>取 消</el-button>
-            <el-button type='primary' @click='daddRelateVersionPopcfm'>确 定</el-button>
+            <el-button size='mini' @click='daddRelateVersionPop = false'>取 消</el-button>
+            <el-button size='mini' type='primary' @click='daddRelateVersionPopcfm'>确 定</el-button>
         </div>
       </el-dialog>
     </div>
@@ -603,8 +619,8 @@
             是否确定删除’ {{delname}}‘的版本
         </span>
         <span slot='footer' class='dialog-footer'>
-          <el-button @click='delrltdialogVisible = false'>取 消</el-button>
-          <el-button type='primary' @click='deleteconfirm'>确 定</el-button>
+          <el-button size='mini' @click='delrltdialogVisible = false'>取 消</el-button>
+          <el-button size='mini' type='primary' @click='deleteconfirm'>确 定</el-button>
         </span>
       </el-dialog>
     </div>
@@ -620,8 +636,8 @@
             是否确定删除相似作品 {{delname}}
         </span>
         <span slot='footer' class='dialog-footer'>
-          <el-button @click='delalikedialogVisible = false'>取 消</el-button>
-          <el-button type='primary' @click='deleteconfirmrlt'>确 定</el-button>
+          <el-button size='mini' @click='delalikedialogVisible = false'>取 消</el-button>
+          <el-button size='mini' type='primary' @click='deleteconfirmrlt'>确 定</el-button>
         </span>
       </el-dialog>
     </div>

@@ -23,8 +23,8 @@
               </el-date-picker>
           </div>
           <div class="demo-input-suffix">
-            <el-button type="primary" icon="el-icon-refresh-left">重置</el-button>
-            <el-button type="primary" icon="el-icon-search">查询</el-button>
+            <el-button size='mini' icon="el-icon-refresh-left">重置</el-button>
+            <el-button size='mini' type="primary" icon="el-icon-search">查询</el-button>
           </div>
         </div>
       </el-row>
@@ -34,7 +34,7 @@
         <el-row>
           <span class="tit left">曲单列表</span>
           <span class="right mt15 mr15">
-            <el-button size="mini" @click="addUser">新建曲单</el-button>
+            <el-button size="mini" type='primary' @click="addUser">新建曲单</el-button>
           </span>
       </el-row>
       <div class="pd15">
@@ -165,7 +165,6 @@ export default {
   methods: {
     async user () {
       const dt = await axiosapi.user()
-      console.log(dt)
       this.tableData = dt.data.results
     },
     detailedUser (row) {

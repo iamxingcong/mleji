@@ -54,6 +54,7 @@
           <el-input v-model='form.desc'></el-input>
         </el-form-item>
         <el-form-item label='用户密码：'>
+          <i class='wrn'>*</i>
           <el-input v-model='form.password'></el-input>
         </el-form-item>
         <el-form-item label='发票抬头：'>
@@ -80,8 +81,8 @@
           </el-switch>
         </el-form-item>
         <el-form-item>
-          <el-button type='primary' @click='onSubmit'>提交</el-button>
-          <el-button>重置</el-button>
+          <el-button size='mini' type='primary' @click='onSubmit'>提交</el-button>
+          <el-button size='mini'>重置</el-button>
         </el-form-item>
       </el-form>
 

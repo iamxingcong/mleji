@@ -11,6 +11,7 @@
   .musicinfo{
     height: 251px;
     line-height: 250px;
+    min-width: 800px;
   }
   .wdp252 .crs span:nth-child(1),
   .wdp252 .crs span:nth-child(3){

@@ -36,8 +36,8 @@
               </el-date-picker>
           </div>
           <div class="demo-input-suffix">
-            <el-button icon="el-icon-refresh-left">重置</el-button>
-            <el-button type="primary" icon="el-icon-search">查询</el-button>
+            <el-button size='mini' icon="el-icon-refresh-left">重置</el-button>
+            <el-button size='mini' type="primary" icon="el-icon-search">查询</el-button>
           </div>
         </div>
       </el-row>

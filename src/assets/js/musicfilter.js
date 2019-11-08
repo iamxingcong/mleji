@@ -175,12 +175,12 @@ export default {
       // this.imageUrl = URL.createObjectURL(file.raw)
     },
     async beforeAvatarUpload (file) {
-      console.log(file)
+      console.table(file)
       this.imageUrl = file.name
       const ismp3 = file.type === 'audio/mp3'
       const iswav = file.type === 'audio/wav'
       if (ismp3 || iswav) {
-        console.log('ok')
+        console.log('')
       } else {
         this.$message.error('音乐文件格式不符')
         this.imageUrl = ''
