@@ -28,6 +28,7 @@ import AlbumFilter from '@/components/page/music/AlbumFilter'
 import MusicDetail from '@/components/page/music/MusicDetail'
 import BrandDetail from '@/components/page/music/BrandDetail'
 import AlbumDetail from '@/components/page/music/AlbumDetail'
+import MusicListMusicDetail from '@/components/page/music/MusicListMusicDetail'
 
 import AuthorizeManage from '@/components/page/AuthorizeManage'
 import AuthorizeDetail from '@/components/page/AuthorizeDetail'
@@ -133,6 +134,10 @@ export default new Router({
         {
           path: '/MusicDetail',
           component: MusicDetail
+        },
+        {
+          path: '/MusicListMusicDetail',
+          component: MusicListMusicDetail
         },
         {
           path: '/BrandDetail',

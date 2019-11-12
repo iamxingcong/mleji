@@ -5,8 +5,8 @@
         <el-row>
           <span class="tit left">数据列表</span>
           <span class="right mt15 mr15">
-            <el-button type="primary" size="mini">添加栏目</el-button>
-            <el-button size="mini">返回</el-button>
+            <el-button type="primary" size="mini"  @click='addclm'>添加栏目</el-button>
+            <el-button size="mini" @click='backTo'>返回</el-button>
           </span>
         </el-row>
       </div>
@@ -21,24 +21,23 @@
           width="55">
           </el-table-column>
           <el-table-column
-            prop="avatar"
-            label="栏目名称"
-            width="180">
+            prop="name"
+            label="栏目名称">
           </el-table-column>
           <el-table-column
-            prop="name"
+            prop="update_at"
             label="修改时间"
             width="180">
           </el-table-column>
           <el-table-column
-            prop="is_vip"
+            prop="num"
+             width="100"
             label="公告数量（条）">
-            <template slot-scope="scope">
-              <span> {{ scope.row.is_vip == true ?  '高级会员' :   '普通会员' }}</span>
-            </template>
+
           </el-table-column>
           <el-table-column
-            prop="ia"
+            prop="is_show"
+             width="150"
             label="是否显示">
             <template slot-scope="scope">
               <el-switch
@@ -51,13 +50,10 @@
             </template>
           </el-table-column>
           <el-table-column
-            width="250"
-            prop="addresse"
+            width="190"
+            prop="id"
             label="操作">
             <template slot-scope="scope">
-               <el-button
-                type="text"
-                @click="detailedUser(scope.row)">查看</el-button>
                <el-button
                 type="text"
                 @click="edit(scope.row)">编辑</el-button>
@@ -86,33 +82,36 @@
       </div>
     </div>
 
+    <div id='addcolumn'>
+      <el-dialog title='添加栏目'
+      :close-on-click-modal='false'
+      :visible.sync='dialogFormVisible'>
+        <el-form :model='form'>
+          <el-col :span="22" >
+            <el-form-item label='栏目名称：' :label-width='formLabelWidth'>
+              <el-input v-model='form.name'  maxlength='12' autocomplete='off'></el-input>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="22">
+            <el-form-item label='栏目描述：' :label-width='formLabelWidth'>
+              <el-input
+                type='textarea'
+                :autosize='{ minRows: 3, maxRows: 4}'
+                placeholder='请输入栏目描述：'
+                maxlength='50'
+                v-model='form.desc'>
+              </el-input>
+            </el-form-item>
+          </el-col>
+        </el-form>
+        <div slot='footer' class='dialog-footer'>
+          <el-button size='mini' @click='dialogFormVisible = false'>取 消</el-button>
+          <el-button size='mini' type='primary' @click='addcolumncfm'>确 定</el-button>
+        </div>
+      </el-dialog>
+    </div>
+
   </div>
 </template>
-<script>
-export default {
-  name: 'ColumnManage',
-  data () {
-    return {
-      tableData: [{
-        avatar: '',
-        cumulative_pay: 0,
-        download_origin_count: 0,
-        is_active: true,
-        is_vip: false,
-        last_login: '2019-10-25T15:06:56.831853',
-        name: 'admin',
-        uuid: 'd42ec625-43e4-4a0d-af5b-d307f66a2e9f'
-      }],
-      currentPage3: 2
-    }
-  },
-  methods: {
-    handleSizeChangeg (val) {
-      console.log(`每页a ${val} 条`)
-    },
-    handleCurrentChangeg (val) {
-      console.log(`当前页a: ${val}`)
-    }
-  }
-}
-</script>
+<script src='../../assets/js/columnmanage.js'></script>

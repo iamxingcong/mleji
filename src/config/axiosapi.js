@@ -63,5 +63,27 @@ export default {
   },
   avatarupload (data) {
     return axi().post('/ops/upload/', data)
+  },
+  playlist () {
+    return axi().get('/ops/playlist/')
+  },
+  addplaylist (data) {
+    return axi().post('/ops/playlist/', data)
+  },
+  vip () {
+    return axi().get('/ops/vip/')
+  },
+  addvip (data) {
+    return axi().post('/ops/vip/', data)
+  },
+  getcolumn () {
+    return axi().get('/ops/column')
+  },
+  addcolumn (data) {
+    return axi().post('/ops/column', data)
+  },
+  message () {
+    return axi().get('/ops/message')
   }
+
 }

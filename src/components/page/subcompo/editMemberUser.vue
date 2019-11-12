@@ -1,9 +1,9 @@
 <template>
   <el-dialog
-    title="编辑"
+    title="编辑会员权限"
     :visible.sync="visible"
     :dshow="dshow"
-    width="780px"
+    width="880px"
     :modal="true"
     :close-on-click-modal="false"
     :destroy-on-close="true"
@@ -17,46 +17,47 @@
       </el-row>
       <el-row>
         <el-form-item label="是否可以试听：" :label-width="formLabelWidth">
-          <el-select v-model="form.region" placeholder="是">
-            <el-option label="是" value="shanghai"></el-option>
-            <el-option label="否" value="beijing"></el-option>
+          <el-select v-model="form.is_preview">
+            <el-option label="是" :value="true"></el-option>
+            <el-option label="否" :value="false"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="试听次数：" :label-width="formLabelWidth">
-          <el-input v-model="form.date1" autocomplete="off"></el-input>
+          <el-input v-model="form.preview_count" type='number' autocomplete="off"></el-input>
         </el-form-item>
       </el-row>
 
       <el-row>
         <el-form-item label="是否可以下载：" :label-width="formLabelWidth">
-          <el-select v-model="form.region" placeholder="是">
-            <el-option label="是" value="shanghai"></el-option>
-            <el-option label="否" value="beijing"></el-option>
+          <el-select v-model="form.is_download_preview" >
+            <el-option label="是" :value="true"></el-option>
+            <el-option label="否" :value="false"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="下载次数：" :label-width="formLabelWidth">
-          <el-input v-model="form.date1" autocomplete="off"></el-input>
+          <el-input v-model="form.download_preview_count"  type='number' autocomplete="off"></el-input>
         </el-form-item>
       </el-row>
 
       <el-row>
         <el-form-item label="是否可以下单：" :label-width="formLabelWidth">
-          <el-select v-model="form.region" placeholder="是">
-            <el-option label="是" value="shanghai"></el-option>
-            <el-option label="否" value="beijing"></el-option>
+          <el-select v-model="form.is_order" placeholder="是">
+            <el-option label="是" :value="true"></el-option>
+            <el-option label="否" :value="false"></el-option>
           </el-select>
-        </el-form-item>
-        <el-form-item label="下单次数：" :label-width="formLabelWidth">
-          <el-input v-model="form.date1" autocomplete="off"></el-input>
         </el-form-item>
       </el-row>
 
       <el-row>
-        <el-form-item label="是否可以下单：" :label-width="formLabelWidth">
-          <el-select v-model="form.order" placeholder="是">
-            <el-option label="是" value="shanghai"></el-option>
-            <el-option label="否" value="beijing"></el-option>
+        <el-form-item label="是否可以下载高清：" :label-width="formLabelWidth">
+          <el-select v-model="form.is_download_origin">
+            <el-option label="是" :value="true"></el-option>
+            <el-option label="否" :value="false"></el-option>
           </el-select>
+        </el-form-item>
+
+        <el-form-item label="下载高清次数：" :label-width="formLabelWidth">
+          <el-input v-model="form.download_origin_count"  type='number' autocomplete="off"></el-input>
         </el-form-item>
       </el-row>
       <el-row class="widtl">
@@ -71,51 +72,66 @@
           </el-form-item>
       </el-row>
     </el-form>
+
     <span slot="footer" class="dialog-footer">
-      <el-button @click="cancels">取 消</el-button>
-      <el-button type="primary" @click="confirmed">确 定 {{dshow}} </el-button>
+      <el-button size='mini' @click="cancels">取 消</el-button>
+      <el-button size='mini' type="primary" @click="confirmed">确 定 </el-button>
     </span>
   </el-dialog>
 </template>
 <script>
+import axi from '@/config/axi'
 export default {
   name: 'editMemberUser',
   data () {
     return {
-      form: {
-        name: '',
-        region: 'shanghai',
-        order: 'beijing',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
-      },
-      formLabelWidth: '120px',
-      visible: this.dshow
+      form: {},
+      formLabelWidth: '150px',
+      visible: this.dshow,
+      detail: []
     }
   },
   props: {
     dshow: {
       type: Boolean,
       default: false
-    }
+    },
+    editid: Number
   },
   watch: {
     dshow () {
       this.visible = this.dshow
-      console.log(this.dshow + ', dshow, child')
+    },
+    editid () {
+      this.getvip(this.editid)
     }
   },
   methods: {
+    async getvip (x) {
+      try {
+        let dt = await axi().get('/ops/vip/' + x)
+        if (dt.status === 200 || dt.status === 201) {
+          this.form = dt.data
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    },
     handleClose (done) {
       this.$emit('update:dshow', false)
     },
-    confirmed () {
+    async confirmed () {
       // this.dialogVisible = false
       console.log(this.form)
+      try {
+        let dt = await axi().put('/ops/vip/' + this.editid, this.form)
+        if (dt.status === 200 || dt.status === 201) {
+          this.$emit('update:dshow', false)
+          this.$parent.vip()
+        }
+      } catch (e) {
+        console.log(e)
+      }
     },
     cancels () {
       this.$emit('update:dshow', false)

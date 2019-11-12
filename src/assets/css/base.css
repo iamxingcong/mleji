@@ -230,3 +230,6 @@ body .el-table th.gutter{
   clear: both;
   line-height: 35px;
 }
+.el-submenu .el-menu-item {
+  max-width: 160px !important;
+}

@@ -5,7 +5,7 @@
       <el-row>
         <span class="tit left">音乐信息</span>
         <span class="right mt15 mr15">
-          <el-button size="mini">上传歌词</el-button>
+          <el-button size="mini" @click='updatelyrics'>上传歌词</el-button>
           <el-button size="mini" @click="dialogFormVisibleeditclk">编辑音乐信息</el-button>
         </span>
       </el-row>
@@ -268,7 +268,7 @@
               label="操作"
               width="105"
             >
-          <template slot-scope="scope">
+            <template slot-scope="scope">
                <el-button
                 type="text"
                 @click="musicdetailck(scope.row.uuid)">查看</el-button>
@@ -291,12 +291,12 @@
       :close-on-click-modal='false'
       :visible.sync='dialogFormVisibleedit'>
         <el-form :model='formedit'>
-          <el-col :span="11">
+          <el-col :sm="22" :md="22" :lg="11" :xl="11">
             <el-form-item label='音乐名称：' :label-width='formLabelWidth'>
               <el-input v-model='formedit.name' autocomplete='off'></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="11">
+          <el-col :sm="22" :md="22" :lg="11" :xl="11">
             <el-form-item label='上传音乐文件：' :label-width='formLabelWidth'>
               <el-upload
                 class="avatar-uploader"
@@ -311,12 +311,12 @@
 
             </el-form-item>
           </el-col>
-          <el-col :span="11">
+          <el-col :sm="22" :md="22" :lg="11" :xl="11">
             <el-form-item label='文件格式：' :label-width='formLabelWidth'>
               <el-input v-model="formedit.format" >mp3</el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="11">
+          <el-col :sm="22" :md="22" :lg="11" :xl="11">
             <el-form-item label='歌词：' :label-width='formLabelWidth'>
 
               <el-upload
@@ -332,7 +332,7 @@
 
             </el-form-item>
           </el-col>
-          <el-col :span="11">
+          <el-col :sm="22" :md="22" :lg="11" :xl="11">
             <el-form-item label='速度：' :label-width='formLabelWidth'>
             <el-select v-model="formedit.tempo_notes_id" clearable  placeholder="速度">
                 <el-option
@@ -345,7 +345,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="11">
+          <el-col :sm="22" :md="22" :lg="11" :xl="11">
             <el-form-item label='Open Key:' :label-width='formLabelWidth'>
               <el-select  v-model='formedit.opening_key'>
                 <el-option value="C">C</el-option>
@@ -374,7 +374,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="11">
+          <el-col :sm="22" :md="22" :lg="11" :xl="11">
             <el-form-item label='End Key:' :label-width='formLabelWidth'>
               <el-select   v-model='formedit.closing_key'>
                 <el-option value="C">C</el-option>
@@ -403,12 +403,12 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="11">
+          <el-col :sm="22" :md="22" :lg="11" :xl="11">
             <el-form-item label='Tempo Open:' :label-width='formLabelWidth'>
               <el-input v-model='formedit.tempo_open_id' autocomplete='off'></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="11">
+          <el-col :sm="22" :md="22" :lg="11" :xl="11">
             <el-form-item label='Tempo End:' :label-width='formLabelWidth'>
               <el-input v-model='formedit.tempo_end_id' autocomplete='off'></el-input>
             </el-form-item>
@@ -423,22 +423,48 @@
       </el-dialog>
     </div>
 
+    <div id='uloadLyrics'>
+      <el-dialog title='上传歌词'
+      :close-on-click-modal='false'
+      :visible.sync='updatelyricsvisible'>
+        <el-form :model='formeditr'>
+
+         <el-upload
+            class="avatar-uploader"
+            :action="urlss"
+            :data='updatass'
+            :show-file-list="false"
+            :on-success="handleAvatarSuccesssl"
+            :before-upload="beforeAvatarUploadsl">
+            <i v-if="imageUrls"  class="avatar">{{imageUrls}}</i>
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
+
+        </el-form>
+
+        <div slot='footer' class='dialog-footer'>
+            <el-button size='mini' @click='updatelyricsvisible = false'>取 消</el-button>
+            <el-button size='mini' type='primary' @click='updatelyricscfm'>确 定</el-button>
+        </div>
+      </el-dialog>
+    </div>
+
     <div id='composeredit'>
       <el-dialog title='编辑创作人信息'
       :close-on-click-modal='false'
       :visible.sync='dialogFormVisiblecomposer'>
         <el-form :model='formcomposer'>
-          <el-col :span="11">
+          <el-col :sm="22" :md="22" :lg="11" :xl="11">
             <el-form-item label='原出版商：' :label-width='formLabelWidth'>
               <el-input v-model='formcomposer.publisher' autocomplete='off'></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="11">
+          <el-col :sm="22" :md="22" :lg="11" :xl="11">
             <el-form-item label='代理出版商：' :label-width='formLabelWidth'>
               <el-input v-model='formcomposer.agent_publisher' autocomplete='off'></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="11">
+          <el-col :sm="22" :md="22" :lg="11" :xl="11">
             <el-form-item label='发行时间：' :label-width='formLabelWidth'>
             <el-date-picker
               v-model="formcomposer.release_year"
@@ -448,27 +474,27 @@
             </el-date-picker>
             </el-form-item>
           </el-col>
-          <el-col :span="11">
+          <el-col :sm="22" :md="22" :lg="11" :xl="11">
             <el-form-item label='原曲作者：' :label-width='formLabelWidth'>
               <el-input v-model='formcomposer.composer' autocomplete='off'></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="11">
+          <el-col :sm="22" :md="22" :lg="11" :xl="11">
             <el-form-item label='原词作者：' :label-width='formLabelWidth'>
               <el-input v-model='formcomposer.lyricist' autocomplete='off'></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="11">
+          <el-col :sm="22" :md="22" :lg="11" :xl="11">
             <el-form-item label='编曲作者：' :label-width='formLabelWidth'>
               <el-input v-model='formcomposer.arranged_by' autocomplete='off'></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="11">
+          <el-col :sm="22" :md="22" :lg="11" :xl="11">
             <el-form-item label='主要表演者：' :label-width='formLabelWidth'>
               <el-input v-model='formcomposer.factoid' autocomplete='off'></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="11">
+          <el-col :sm="22" :md="22" :lg="11" :xl="11">
             <el-form-item label='录制地点：' :label-width='formLabelWidth'>
               <el-input v-model='formcomposer.place_of_recording' autocomplete='off'></el-input>
             </el-form-item>

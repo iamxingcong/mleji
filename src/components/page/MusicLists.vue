@@ -34,7 +34,7 @@
         <el-row>
           <span class="tit left">曲单列表</span>
           <span class="right mt15 mr15">
-            <el-button size="mini" type='primary' @click="addUser">新建曲单</el-button>
+            <el-button size="mini" type='primary' @click="addplaylists">新建曲单</el-button>
           </span>
       </el-row>
       <div class="pd15">
@@ -47,7 +47,7 @@
           width="55">
           </el-table-column>
           <el-table-column
-            prop="avatar"
+            prop="uuid"
             label="ID"
             width="180">
           </el-table-column>
@@ -57,29 +57,32 @@
             width="180">
           </el-table-column>
           <el-table-column
-            prop="download_origin_count"
+            prop="desc"
             label="单曲描述">
           </el-table-column>
           <el-table-column
-            prop="cumulative_pay"
+            prop="music_count"
             label="作品数">
           </el-table-column>
           <el-table-column
-            prop="last_login"
+            prop="categories"
             label="标签">
           </el-table-column>
            <el-table-column
-            prop="last_login"
+            prop="is_recommend"
             label="显示位置">
+            <template slot-scope="scope">
+              <span> {{ scope.row.is_recommend ?  '推荐页' :   '' }}</span>
+            </template>
           </el-table-column>
           <el-table-column
-            prop="ia"
+            prop="is_active"
             label="状态">
             <template slot-scope="scope">
               <el-switch
                   active-color="#5B7BFA"
                   inactive-color="#dadde5"
-                  v-model="scope.row.addressd"
+                  v-model="scope.row.is_active"
                   @change="schange(scope.row)"
               >
               </el-switch>
@@ -107,95 +110,98 @@
       <div class="paginations">
         <el-pagination
           background
-          @size-change="handleSizeChangeg"
-          @current-change="handleCurrentChangeg"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
           :current-page="currentPage3"
-          :page-sizes="[10, 20, 30, 100]"
+          :page-sizes="[10, 20]"
           :page-size="100"
           layout="prev, pager, next, sizes"
-          :total="400">
+          :total="count">
         </el-pagination>
       </div>
 
      </div>
 
+    <div id='addplaylist'>
+      <el-dialog title='添加歌单：'
+      :close-on-click-modal='false'
+      :visible.sync='dialogFormVisible'>
+        <el-form :model='form'>
+          <el-form-item label='歌单名称：' :label-width='formLabelWidth'>
+            <el-input v-model='form.name' placeholder="请输入歌单名称：" maxlength='12' autocomplete='off'></el-input>
+          </el-form-item>
+          <el-form-item label='歌单描述：' :label-width='formLabelWidth'>
+            <el-input
+            maxlength='50'
+              type='textarea'
+              :autosize='{ minRows: 3, maxRows: 4}'
+              placeholder='请输入厂牌介绍'
+              v-model='form.desc'>
+            </el-input>
+          </el-form-item>
+           <el-form-item label='封面：' :label-width='formLabelWidth'>
+
+            <el-upload
+              class="avatar-uploader"
+              :action="urls"
+              :data='updata'
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess"
+              :before-upload="beforeAvatarUpload">
+              <img v-if="imageUrl" :src="imageUrl" class="avatar">
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+
+          </el-form-item>
+          <el-form-item label='作品数：' :label-width='formLabelWidth'>
+            <el-input v-model='form.music_count' placeholder="请输入作品数" type='number' maxlength='12' autocomplete='off'></el-input>
+          </el-form-item>
+
+          <el-form-item label='是否曲单推荐页显示:'  :label-width='formLabelWidth'>
+            <el-switch
+              v-model='form.is_recommend'
+              active-color='#13ce66'
+              inactive-color='#e2e2e2'>
+            </el-switch>
+          </el-form-item>
+
+          <el-form-item label='账号状态：' :label-width='formLabelWidth'>
+            <el-switch
+              v-model='form.is_active'
+              active-color='#13ce66'
+              inactive-color='#e2e2e2'>
+            </el-switch>
+          </el-form-item>
+        </el-form>
+
+        <div slot='footer' class='dialog-footer'>
+          <el-button size='mini' @click='dialogFormVisible = false'>取 消</el-button>
+          <el-button size='mini' type='primary' @click='addplay'>确 定</el-button>
+        </div>
+      </el-dialog>
+    </div>
+
+    <div id='dialogues'>
+       <el-dialog
+        title='确认提示'
+        :visible.sync='dialogVisible'
+        :close-on-click-modal='false'
+        width='30%'>
+        <span class='fw700 cross'>
+          <i class='el-icon-warning'></i>
+            是否确定删除曲单: {{ uuid }}
+        </span>
+        <span class='cross'>曲单删除后不可恢复</span>
+        <span slot='footer' class='dialog-footer'>
+          <el-button size='mini' @click='dialogVisible = false'>取 消</el-button>
+          <el-button size='mini' type='primary' @click='deleteconfirm'>确 定</el-button>
+        </span>
+      </el-dialog>
+    </div>
+
   </div>
 </template>
-<script>
-import axiosapi from '@/config/axiosapi'
-export default {
-  name: 'MusicLists',
-  data () {
-    return {
-      input1: '',
-      options: [{
-        value: '选项1',
-        label: '黄金糕'
-      }, {
-        value: '选项2',
-        label: '双皮奶'
-      }, {
-        value: '选项3',
-        label: '蚵仔煎'
-      }, {
-        value: '选项4',
-        label: '龙须面'
-      }, {
-        value: '选项5',
-        label: '北京烤鸭'
-      }],
-      value: '',
-      value1: '',
-      tableData: [{
-        avatar: '',
-        cumulative_pay: 0,
-        download_origin_count: 0,
-        is_active: true,
-        is_vip: false,
-        last_login: '2019-10-25T15:06:56.831853',
-        name: 'admin',
-        uuid: 'd42ec625-43e4-4a0d-af5b-d307f66a2e9f'
-      }],
-      currentPage3: 2
-    }
-  },
-  created () {
-    this.user()
-  },
-  methods: {
-    async user () {
-      const dt = await axiosapi.user()
-      this.tableData = dt.data.results
-    },
-    detailedUser (row) {
-      console.log(row)
-      this.$router.push({
-        path: 'UserDetail',
-        query: {'uuid': row}
-      })
-    },
-    edit (row) {
-      console.log(row)
-      this.$router.push('UserEdit')
-    },
-    addUser () {
-      this.$router.push('AddUser')
-    },
-    hddelete (row) {
-      console.log(row)
-    },
-    schange (r) {
-      console.log(r.addressd)
-    },
-    handleSizeChangeg (val) {
-      console.log(`每页a ${val} 条`)
-    },
-    handleCurrentChangeg (val) {
-      console.log(`当前页a: ${val}`)
-    }
-  }
-}
-</script>
+<script src="../../assets/js/musiclist.js"></script>
 <style scoped>
   .white{
     padding-bottom: 15px;

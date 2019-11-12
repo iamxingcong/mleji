@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    <div class="ranks left">
+    <div class="ranks left mr13">
       <el-row>
         <span class="titles left">播放排行</span>
 
@@ -37,13 +37,13 @@
       </el-row>
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane label="总计" name="first">
-          <MusicList />
+          <MusicListDetail />
         </el-tab-pane>
         <el-tab-pane label="昨天" name="second">
-          <MusicList />
+          <MusicListDetail />
         </el-tab-pane>
         <el-tab-pane label="今天" name="third">
-          <MusicList />
+          <MusicListDetail />
         </el-tab-pane>
 
       </el-tabs>
@@ -52,7 +52,7 @@
       </div>
     </div>
 
-    <div class="ranks right">
+    <div class="ranks left">
       <el-row>
         <span class="titles left">下载排行</span>
 
@@ -103,7 +103,7 @@
   </div>
 </template>
 <script>
-import MusicList from './subcompo/MusicList.vue'
+import MusicListDetail from './subcompo/MusicListDetail.vue'
 import DownloadList from './subcompo/DownloadList.vue'
 import axiosapi from '@/config/axiosapi'
 var stactic = [
@@ -129,7 +129,7 @@ export default {
     }
   },
   components: {
-    MusicList,
+    MusicListDetail,
     DownloadList
   },
   created () {

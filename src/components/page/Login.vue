@@ -101,13 +101,6 @@ export default {
   },
   created () {
     this.loginout()
-    var that = this
-    document.onkeydown = function (e) {
-      var key = window.event.keyCode
-      if (key === 13) {
-        that.login()
-      }
-    }
   },
   methods: {
     async login () {

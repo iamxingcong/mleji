@@ -74,39 +74,12 @@
             :total="400">
           </el-pagination>
         </div>
-
-        <div class="membernews">
-          <span class="title">会员动态</span>
-          <div class="single crs">
-            <i class="logop"  :style='{ backgroundImage: `url(${img})` }'></i>
-            <span class="tts">
-              xxx同学，创建了ffff,
-              <a href="#">点击查看项目详情</a>
-            </span>
-            <span class="time">
-                2019-10-09 12:30:24
-            </span>
-          </div>
-
-          <div class="single crs">
-            <i class="logop"  :style='{ backgroundImage: `url(${img})` }'></i>
-            <span class="tts">
-              xxx同学，创建了ffff,
-              <a href="#">点击查看项目详情</a>
-            </span>
-            <span class="time">
-                2019-10-09 12:30:24
-            </span>
-          </div>
-          <el-button size="small" round>查看更多</el-button>
-        </div>
     </div>
 
   </div>
 </template>
 <script>
-import axiosapi from '@/config/axiosapi'
-
+import axi from '@/config/axi'
 export default {
   name: 'MemmberDetail',
   data () {
@@ -135,11 +108,20 @@ export default {
   },
   created () {
     this.uprofile()
+    this.users()
   },
   methods: {
     async uprofile () {
       try {
-        let dx = await axiosapi.userprofile()
+        let dx = await axi().get('/ops/vip/' + this.$route.query.id)
+        console.log(dx.status)
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    async users () {
+      try {
+        let dx = await axi().get('/ops/vip/' + this.$route.query.id + '/users/')
         console.log(dx.status)
       } catch (e) {
         console.log(e)

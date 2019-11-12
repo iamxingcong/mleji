@@ -14,6 +14,7 @@ export default {
       delrltdialogVisible: false,
       daddRelateVersionPop: false,
       delalikedialogVisible: false,
+      updatelyricsvisible: false,
       formLabelWidth: '150px',
       formedit: {
         name: '',
@@ -44,6 +45,7 @@ export default {
       },
       formaddversion: {},
       formaddrelate: {},
+      formeditr: {},
       addversionsearch: '',
       addrelatesearch: '',
       tableDatae: [{
@@ -145,7 +147,7 @@ export default {
   },
   methods: {
     yearchosee (v) {
-      alert(this.formcomposer.release_year)
+      console.log(this.formcomposer.release_year)
     },
     async musicdetail () {
       try {
@@ -386,6 +388,62 @@ export default {
       } catch (e) {
         console.log(e)
       }
+    },
+    updatelyrics () {
+      this.updatelyricsvisible = true
+      this.imgupurls()
+    },
+    async updatelyricscfm () {
+      try {
+        let dt = await axi().patch('/ops/music/' + this.$route.query.uuid, this.formeditr)
+        if (dt.status === 200) {
+          this.musicdetail()
+          this.updatelyricsvisible = false
+        } else {
+          console.log('错误')
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    handleAvatarSuccesssl (res, file) {
+      // this.imageUrl = URL.createObjectURL(file.raw)
+    },
+    async beforeAvatarUploadsl (file) {
+      console.log(file)
+      this.imageUrls = file.name
+      const istext = file.type === 'text/plain'
+      const islrc = file.name.substring(file.name.length - 4) === '.lrc'
+      if (istext || islrc) {
+        console.log('ok')
+      } else {
+        this.$message.error('歌词文件格式不符')
+        this.imageUrls = ''
+        return
+      }
+      const isLt2M = file.size / 1024 / 1024 < 1
+      if (!isLt2M) {
+        this.$message.error('上传歌词文件大小不能超过 1MB!')
+      }
+      try {
+        if (istext) {
+          this.updattlrcx.extension = 'text'
+        } else {
+          this.updattlrcx.extension = 'lrc'
+        }
+
+        let dt = await axiosapi.avatarupload(this.updattlrcx)
+        if (dt.status === 200 || dt.status === 201) {
+          this.updatass.OSSAccessKeyId = dt.data.OSSAccessKeyId
+          this.updatass.policy = dt.data.policy
+          this.updatass.Signature = dt.data.Signature
+          this.updatass.key = dt.data.key
+          this.formeditr.lrc_path = dt.data.key
+        }
+      } catch (e) {
+        console.log(e)
+      }
+      return istext && islrc && isLt2M
     },
     handleAvatarSuccess (res, file) {
       // this.imageUrl = URL.createObjectURL(file.raw)

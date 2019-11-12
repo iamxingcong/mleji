@@ -54,14 +54,10 @@
           <span slot="title">栏目管理</span>
       </el-menu-item>
 
-      <el-submenu index="3">
-        <template slot="title">
-           <i class="el-icon-coordinate"></i>
-          <span>权限</span>
-        </template>
-        <el-menu-item index="PermissionManage">权限管理</el-menu-item>
-        <el-menu-item index="MemmberDetail">会员详情</el-menu-item>
-      </el-submenu>
+      <el-menu-item index="PermissionManage">
+        <i class="el-icon-coordinate"></i>
+          <span slot="title"> 权限管理</span>
+      </el-menu-item>
 
     </el-menu>
   </div>

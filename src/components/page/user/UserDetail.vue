@@ -341,64 +341,11 @@ export default {
   data () {
     return {
       img: require('../../../assets/icons/logo.png'),
-      tableData: [{
-        date: '2016-05-03',
-        namea: '上海',
-        nameb: '普陀区',
-        namec: '上海市普陀区金沙江路 1518 弄',
-        named: 200333,
-        namee: 'sfsff',
-        namef: 'sfd搜搜放松放松',
-        nameg: 'sfd搜搜放松放松'
-      }],
-      tableDatab: [{
-        date: '2016-05-03',
-        namea: '上海',
-        nameb: '普陀区',
-        namec: '上海市普陀区金沙江路 1518 弄'
-      }],
-      tableDatae: [{
-        date: '2016-05-03',
-        namea: '上海',
-        nameb: '普陀区',
-        namec: '上海市普陀区金沙江路 1518 弄',
-        named: 200333,
-        namee: 'sfsff',
-        namef: 'sfd搜搜放松放松',
-        nameg: 'operates'
-      }],
-      tableDataf: [{
-        date: '2016-05-03',
-        namea: '上海',
-        nameb: '普陀区',
-        namec: '上海市普陀区金沙江路 1518 弄',
-        named: 200333,
-        namee: 'sfsff'
-      }],
-      tableDatag: [{
-        image: '哈哈发放',
-        namea: '上海',
-        nameb: '普陀区',
-        namec: '上海市普陀区金沙江路 1518 弄',
-        named: 200333,
-        namee: 'sfsff'
-      },
-      {
-        image: '哈哈发放',
-        namea: '上海',
-        nameb: '普陀区',
-        namec: '上海市普陀区金沙江路 1518 弄',
-        named: 200333,
-        namee: 'sfsff'
-      },
-      {
-        image: '哈哈发放',
-        namea: '上海',
-        nameb: '普陀区',
-        namec: '上海市普陀区金沙江路 1518 弄',
-        named: 200333,
-        namee: 'sfsff'
-      }],
+      tableData: [{ }],
+      tableDatab: [{}],
+      tableDatae: [{}],
+      tableDataf: [{}],
+      tableDatag: [{}],
       currentPage5: 1,
       inputa: '',
       inputb: '',
