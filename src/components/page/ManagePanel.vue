@@ -19,7 +19,7 @@
 <script>
 
 </script>
-<script src="./../../assets/js/managepanel.js"></script>
+<script src="../../assets/js/managepanel.js"></script>
 <style scoped>
   .el-header{
     box-shadow: 0px 2px 2px #e2e2e2;

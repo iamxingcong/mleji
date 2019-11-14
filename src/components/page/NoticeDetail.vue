@@ -2,7 +2,7 @@
   <div id='NoticeDetail'>
     <div class="detail">
       <el-row>
-        <span class="tit left">通知详情</span>
+        <span class="tit left"> 通知详情 </span>
         <span class="right mt15 mr15">
           <el-button size="mini" @click="backTo">返回</el-button>
         </span>
@@ -10,22 +10,40 @@
     </div>
     <div class="detail minh400">
       <div class="title">
-        放假标题
+        {{ detail.title }}
       </div>
       <div class="subtitle">
-          2029-09-09 23:33:32
+          {{ detail.updated_at }}
       </div>
       <div class="content">
-          dfsf爱的方式付大付付付付付付付付付付付付付付付阿斯蒂芬
+          {{ detail.content }}
       </div>
     </div>
 
   </div>
 </template>
 <script>
+import axi from '@/config/axi'
+
 export default {
   name: 'NoticeDetail',
+  data () {
+    return {
+      detail: {}
+    }
+  },
+  created () {
+    this.msgdetail()
+  },
   methods: {
+    async msgdetail () {
+      try {
+        let ls = await axi().get('/ops/message/' + this.$route.query.id)
+        this.detail = ls.data
+      } catch (e) {
+        console.log(e)
+      }
+    },
     backTo () {
       this.$router.go(-1)
     }

@@ -108,7 +108,7 @@ export default {
         let dt = await axiosapi.login(this.form)
         if (dt.status === 200) {
           window.document.cookie = 'user=' + dt.data.name
-          this.$router.push('ManagePanel')
+          this.$router.push('DataManage')
         }
       } catch (e) {
         if (e.response) {
@@ -135,23 +135,14 @@ export default {
         let dt = await axiosapi.login(this.forma)
         if (dt.status === 200) {
           window.document.cookie = 'user=' + dt.data.name
-          this.$router.push('ManagePanel')
+          this.$router.push('DataManage')
         }
       } catch (e) {
         if (e.response) {
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx
-          console.log(e.response.data)
-          console.log(e.response.status)
-          console.log(e.response.headers)
           this.$message.error(e.response.data.detail)
         } else if (e.request) {
-          // The request was made but no response was received
-          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-          // http.ClientRequest in node.js
           console.log(e.request)
         } else {
-          // Something happened in setting up the request that triggered an Error
           console.log('Error', e.message)
         }
         console.log(e.config)
@@ -159,8 +150,7 @@ export default {
     },
     async loginout () {
       try {
-        // var hd = await axiosapi.loginout()
-        // console.log(hd.headers)
+        await axiosapi.loginout()
       } catch (e) {
         console.log(e)
       }

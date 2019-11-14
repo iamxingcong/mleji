@@ -41,10 +41,6 @@
         <span slot="title">请求管理 </span>
       </el-menu-item>
 
-      <el-menu-item index='AuthorizeManage'>
-        <i class="el-icon-s-check"></i>
-        <span slot="title">授权管理</span>
-      </el-menu-item>
       <el-menu-item index='NoticeManage'>
         <i class="el-icon-s-comment"></i>
         <span slot="title">通知管理</span>
@@ -73,7 +69,7 @@ export default {
   },
   methods: {
     defaultpg: function () {
-      this.$router.push('ManagePanel')
+      this.$router.push('DataManage')
     },
     select: function (index) {
       console.log(index)

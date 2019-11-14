@@ -5,22 +5,6 @@ export default {
   data () {
     return {
       input1: '',
-      options: [{
-        value: '选项1',
-        label: '黄金糕'
-      }, {
-        value: '选项2',
-        label: '双皮奶'
-      }, {
-        value: '选项3',
-        label: '蚵仔煎'
-      }, {
-        value: '选项4',
-        label: '龙须面'
-      }, {
-        value: '选项5',
-        label: '北京烤鸭'
-      }],
       value: '',
       value1: '',
       count: 0,
@@ -28,16 +12,7 @@ export default {
       dialogVisible: false,
       formLabelWidth: '150px',
       form: {},
-      tableData: [{
-        avatar: '',
-        cumulative_pay: 0,
-        download_origin_count: 0,
-        is_active: true,
-        is_vip: false,
-        last_login: '2019-10-25T15:06:56.831853',
-        name: 'admin',
-        uuid: 'd42ec625-43e4-4a0d-af5b-d307f66a2e9f'
-      }],
+      tableData: [],
       currentPage3: 2,
       imageUrl: '',
       updata: {
@@ -138,14 +113,17 @@ export default {
       this.dialogVisible = true
     },
     async schange (r) {
-      console.log(r)
       this.uuid = r.uuid
+      let ls
       try {
-        let ls = await axi().put('/ops/playlist/' + this.uuid + '/?is_active=' + r.is_active)
+        if (r.is_active !== true) {
+          ls = await axi().put('/ops/playlist/' + this.uuid + '/inactive')
+        } else {
+          ls = await axi().put('/ops/playlist/' + this.uuid + '/active')
+        }
         if (ls.status === 200) {
           this.play()
         }
-
       } catch (e) {
         console.log(e)
       }

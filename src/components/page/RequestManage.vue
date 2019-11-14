@@ -13,37 +13,45 @@
           style="width: 100%"
         >
           <el-table-column
-            prop="image"
+            prop="uuid"
             label="音乐ID"
             width="180">
           </el-table-column>
           <el-table-column
-            prop="namea"
+            prop="user_name"
             label="用户名称"
           >
           </el-table-column>
           <el-table-column
-            prop="nameb"
+            prop="created_at"
             label="请求时间"
           >
           </el-table-column>
           <el-table-column
-            prop="namec"
+            prop="company_name"
             label="公司名称"
           >
           </el-table-column>
           <el-table-column
-            prop="named"
+            prop="phone"
             label="手机号码"
           >
           </el-table-column>
           <el-table-column
-            prop="namee"
+            prop="email"
             label="邮箱地址"
           >
           </el-table-column>
+           <el-table-column
+            prop="status"
+            label="状态"
+          >
+            <template slot-scope="scope">
+              {{ scope.row.status | optfil(scope.row.status) }}
+            </template>
+          </el-table-column>
           <el-table-column
-            prop="namef"
+            prop="uuid"
             label="操作"
             width="250"
           >
@@ -53,12 +61,14 @@
                 @click="RequestDetail(scope.row)">查看</el-button>
                <el-button
                 type="text"
-                @click="edit(scope.row)">编辑</el-button>
+                v-if='scope.row.status === "WAITING"'
+                @click="agree(scope.row)">通过</el-button>
                <el-button
                 type="text"
-                @click="hddelete(scope.row)"
+                 v-if='scope.row.status === "WAITING"'
+                @click="refuse(scope.row)"
                >
-                删除
+                拒绝
                </el-button>
             </template>
           </el-table-column>
@@ -70,76 +80,17 @@
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="currentPage4"
-          :page-sizes="[10, 20, 30, 100]"
-          :page-size="100"
+          :page-sizes="[10, 20]"
+          :page-size="10"
           layout="prev, pager, next, sizes"
-          :total="400">
+          :total="count">
         </el-pagination>
       </div>
     </div>
 
   </div>
 </template>
-<script>
-import axiosapi from '@/config/axiosapi'
-export default {
-  name: 'RequestManage',
-  data () {
-    return {
-      tableDatab: [{
-        image: '哈哈发放',
-        namea: '上海',
-        nameb: '普陀区',
-        namec: '上海市普陀区金沙江路 1518 弄',
-        named: 200333,
-        namee: 'sfsff',
-        namef: 'sffdsf3'
-      },
-      {
-        image: '哈哈发放',
-        namea: '上海',
-        nameb: '普陀区',
-        namec: '上海市普陀区金沙江路 1518 弄',
-        named: 200333,
-        namee: 'sfsff',
-        namef: 'sffdsf3'
-      }],
-      currentPage4: 1
-    }
-  },
-  created () {
-    this.applyforproject()
-  },
-  methods: {
-    async applyforproject () {
-      try {
-        let dt = await axiosapi.applyforproject()
-        if (dt.status === 200) {
-          console.log(dt.status)
-        }
-      } catch (e) {
-        console.log(e.config)
-      }
-    },
-    RequestDetail (row) {
-      console.log(row)
-      this.$router.push('RequestDetail')
-    },
-    edit (row) {
-      console.log(row)
-      this.$router.push('UserEdit')
-    },
-    hddelete (row) {
-      console.log(row)
-    },
-    handleSizeChange (val) {
-      console.log(`每页 ${val} 条`)
-    },
-    handleCurrentChange (val) {
-      console.log(`当前页: ${val}`)
-    }
-  }
-}
+<script src='../../assets/js/requestmanage.js'>
 </script>
 <style scoped>
 .paginations{

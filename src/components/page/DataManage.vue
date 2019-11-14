@@ -15,10 +15,39 @@
     </el-row>
 
     <div id="Statics">
-        <div class="single" v-for="( i, index ) in statics" :key="index" :class="i.class">
-          <span class="title"> {{ i.name }} </span>
-          <span class="number"> {{ i.number }} </span>
-        </div>
+      <div class="single ca">
+        <span class="title"> 用户数量  </span>
+        <span class="number"> {{ tt.vip_user_count }} </span>
+      </div>
+      <div class="single cb">
+        <span class="title"> vip用户数量  </span>
+        <span class="number"> {{ tt.vip_user_count }} </span>
+      </div>
+      <div class="single cc">
+        <span class="title"> 音乐数量  </span>
+        <span class="number"> {{ tt.music_count }} </span>
+      </div>
+      <div class="single ce">
+        <span class="title"> 昨日访问人数  </span>
+        <span class="number"> {{ tt.yesterday_visit_count }} </span>
+      </div>
+      <div class="single ce">
+        <span class="title"> 总收益  </span>
+        <span class="number"> {{ tt.total_income }} </span>
+      </div>
+
+      <div class="single cf">
+        <span class="title"> 总订单数量  </span>
+        <span class="number"> {{ tt.order_count }} </span>
+      </div><div class="single ca">
+        <span class="title"> 昨日收益  </span>
+        <span class="number"> {{ tt.yesterday_income }} </span>
+      </div>
+      <div class="single cg">
+        <span class="title"> 昨日订单数量  </span>
+        <span class="number"> {{ tt.yesterday_order_count }} </span>
+      </div>
+
     </div>
 
     <div class="ranks left mr13">
@@ -83,7 +112,7 @@
       </div>
     </div>
 
-    <div id="pieChart">
+    <!-- <div id="pieChart">
       <el-row>
         <span class="tit left">用户选择最多的5个标签</span>
         <div  class="f10 right rbtn">
@@ -99,60 +128,8 @@
           <el-button size="small" round>下载全部关键词数据</el-button>
         </div>
       </el-row>
-    </div>
+    </div> -->
   </div>
 </template>
-<script>
-import MusicListDetail from './subcompo/MusicListDetail.vue'
-import DownloadList from './subcompo/DownloadList.vue'
-import axiosapi from '@/config/axiosapi'
-var stactic = [
-  {'name': '用户数量', 'number': 200, 'class': 'ca'},
-  {'name': 'vip用户数量', 'number': 15, 'class': 'cb'},
-  {'name': 'vip用户数量', 'number': 15, 'class': 'cc'},
-  {'name': 'vip用户数量', 'number': 15, 'class': 'cd'},
-  {'name': 'vip用户数量', 'number': 15, 'class': 'ce'},
-  {'name': 'vip用户数量', 'number': 15, 'class': 'cf'},
-  {'name': 'vip用户数量', 'number': 15, 'class': 'cg'},
-  {'name': 'vip用户数量', 'number': 15, 'class': 'ch'}
-]
-export default {
-  name: 'DataManage',
-  data () {
-    return {
-      input: '',
-      statics: [],
-      activeName: 'first',
-      activeNames: 'first',
-      times: '',
-      timesd: ''
-    }
-  },
-  components: {
-    MusicListDetail,
-    DownloadList
-  },
-  created () {
-    this.statics = stactic
-    // this.datapanel()
-  },
-  methods: {
-    handleClick (tab, event) {
-      console.log(tab, event)
-    },
-    handleClickd (tab, event) {
-      console.log(tab, event)
-    },
-    async datapanel () {
-      try {
-        const pn = await axiosapi.datapanel()
-        console.log(pn)
-      } catch (e) {
-        console.log(e)
-      }
-    }
-  }
-}
-
-</script>
+<script src='../../assets/js/datamanage.js'></script>
 <style scoped src='../../assets/css/datamanage.css'></style>

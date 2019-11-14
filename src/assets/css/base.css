@@ -120,6 +120,7 @@
   clear:both;
   margin-bottom: 35px;
   text-align: right;
+  padding-bottom: 30px;
 }
 .whitewraps{
   background-color:  #ffffff;
@@ -201,10 +202,6 @@ body .el-table th.gutter{
 .login_wrap .el-tabs__header {
   padding: 15px 50px 0px 50px !important;
 }
-.el-form-item__content .el-input,
-.el-form-item__content .avatar-uploader {
-  z-index: 2003;
-}
 
 .el-dialog__footer{
   display: block;
@@ -232,4 +229,7 @@ body .el-table th.gutter{
 }
 .el-submenu .el-menu-item {
   max-width: 160px !important;
+}
+.mr13{
+  margin-right: 13px;
 }

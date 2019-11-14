@@ -39,6 +39,7 @@ import PermissionManage from '@/components/page/PermissionManage'
 import NoticeManage from '@/components/page/NoticeManage'
 import NoticeDetail from '@/components/page/NoticeDetail'
 import NoticeCreate from '@/components/page/NoticeCreate'
+import NoticeEdit from '@/components/page/NoticeEdit'
 
 import ColumnManage from '@/components/page/ColumnManage'
 import MemmberDetail from '@/components/page/MemmberDetail'
@@ -80,7 +81,7 @@ export default new Router({
       name: '',
       children: [
         {
-          path: '',
+          path: '/home',
           component: home
         },
         {
@@ -178,6 +179,10 @@ export default new Router({
         {
           path: '/NoticeCreate',
           component: NoticeCreate
+        },
+        {
+          path: '/NoticeEdit',
+          component: NoticeEdit
         },
         {
           path: '/ColumnManage',

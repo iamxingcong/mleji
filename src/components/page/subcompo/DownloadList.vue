@@ -14,15 +14,7 @@
 </template>
 <script>
 var mus = [
-  { 'name': 'going home', 'play': 78 },
-  { 'name': 'go to work', 'play': 75 },
-  { 'name': 'go to work', 'play': 22 },
-  { 'name': 'go to work', 'play': 20 },
-  { 'name': 'go to work', 'play': 23 },
-  { 'name': 'go to work', 'play': 13 },
-  { 'name': 'go to work', 'play': 3 },
-  { 'name': 'ready off work, every day', 'play': 0 }
-
+  { 'name': 'going home', 'play': 78 }
 ]
 export default {
   name: 'DownloadList',

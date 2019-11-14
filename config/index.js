@@ -11,7 +11,7 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-        '/ops': {
+      '/ops': {
         target: 'http://dspeaklow.wangge0101.cn',
         changeOrigin: true,
         pathRewrite: {

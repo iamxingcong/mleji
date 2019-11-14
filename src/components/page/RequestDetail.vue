@@ -2,7 +2,7 @@
   <div id='RequestDetail'>
     <div class="detail">
       <el-row>
-        <span class="tit left">项目详情</span>
+        <span class="tit left">请求详情</span>
         <span class="right mt15 mr15">
           <el-button size="mini" @click="backTo">返回</el-button>
         </span>
@@ -10,26 +10,42 @@
     </div>
     <div class="detail minh400">
       <div class="title">
-        项目标题
+        {{ detail.vip_name }}
       </div>
       <div class="subtitle">
-          2029-09-09 23:33:32
+          {{ detail.created_at }}
       </div>
       <div class="content">
-          dfsf爱的方式付大付付付付付付付付付付付付付付付阿斯蒂芬
+          {{ detail.content }}
       </div>
     </div>
   </div>
 </template>
 <script>
+import axi from '@/config/axi'
 export default {
   name: 'RequestDetail',
   data () {
     return {
-
+      detail: {},
+      uuid: 0
     }
   },
+  created () {
+    this.uuid = this.$route.query.uuid
+    this.applydt(this.$route.query.uuid)
+  },
   methods: {
+    async applydt (x) {
+      try {
+        let ls = await axi().get('/ops/apply_for_vip/' + x)
+        if (ls.status === 200) {
+          this.detail = ls.data
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    },
     backTo () {
       this.$router.go(-1)
     }

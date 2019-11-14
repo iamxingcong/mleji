@@ -62,42 +62,42 @@
             border
             style="width: 100%">
             <el-table-column
-              prop="date"
+              prop="cumulative_pay"
               label="消费金额"
             >
             </el-table-column>
             <el-table-column
-              prop="namea"
+              prop="download_origin_count"
               label="剩余下载次数"
             >
             </el-table-column>
             <el-table-column
-              prop="nameb"
+              prop="last_login"
               label="上次登录"
             >
             </el-table-column>
             <el-table-column
-              prop="namec"
+              prop="login_count"
               label="登录次数"
             >
             </el-table-column>
             <el-table-column
-              prop="named"
+              prop="order_count"
               label="订单数量"
             >
             </el-table-column>
             <el-table-column
-              prop="namee"
+              prop="download_count"
               label="累计下载"
             >
             </el-table-column>
             <el-table-column
-              prop="namef"
+              prop="play_count"
               label="累计播放"
             >
             </el-table-column>
             <el-table-column
-              prop="nameg"
+              prop="project_count"
               label="累计创建项目"
             >
             </el-table-column>
@@ -221,10 +221,10 @@
           @size-change="handleSizeChangeg"
           @current-change="handleCurrentChangeg"
           :current-page="currentPage3"
-          :page-sizes="[10, 20, 30, 100]"
-          :page-size="100"
+          :page-sizes="[10, 20]"
+          :page-size="10"
           layout="prev, pager, next, sizes"
-          :total="400">
+          :total="4">
         </el-pagination>
       </div>
 
@@ -275,10 +275,10 @@
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="currentPage4"
-          :page-sizes="[10, 20, 30, 100]"
-          :page-size="100"
+          :page-sizes="[10, 20]"
+          :page-size="10"
           layout="prev, pager, next, sizes"
-          :total="400">
+          :total="4">
         </el-pagination>
       </div>
 
@@ -324,109 +324,15 @@
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="currentPage4"
-          :page-sizes="[10, 20, 30, 100]"
-          :page-size="100"
+          :page-sizes="[10, 20]"
+          :page-size="10"
           layout="prev, pager, next, sizes"
-          :total="400">
+          :total="4">
         </el-pagination>
       </div>
 
     </div>
   </div>
 </template>
-<script>
-import axi from '@/config/axi'
-export default {
-  name: 'UserDetail',
-  data () {
-    return {
-      img: require('../../../assets/icons/logo.png'),
-      tableData: [{ }],
-      tableDatab: [{}],
-      tableDatae: [{}],
-      tableDataf: [{}],
-      tableDatag: [{}],
-      currentPage5: 1,
-      inputa: '',
-      inputb: '',
-      inputc: '',
-      inputd: '',
-      inpute: '',
-      inputf: '',
-      currentPage3: 2,
-      currentPage4: 1,
-      uuid: '',
-      udata: {}
-    }
-  },
-  created () {
-    this.uuid = this.$route.query.uuid
-    this.detail()
-    this.userproject()
-    this.userorder()
-  },
-  methods: {
-    async detail () {
-      try {
-        let dt = await axi().get('/ops/user/' + this.uuid)
-        console.log(dt.data)
-        if (dt.status === 200) {
-          this.udata = dt.data
-        } else {
-          console.log('错误')
-        }
-      } catch (e) {
-        console.log(e)
-      }
-    },
-    async userproject () {
-      try {
-        let dp = await axi().get('/ops/user/' + this.uuid + '/project/')
-        console.log(dp.data)
-        if (dp.status === 200) {
-          // console.log(dp.data)
-        } else {
-          console.log('错误')
-        }
-      } catch (e) {
-        console.log(e)
-      }
-    },
-    async userorder () {
-      try {
-        let dr = await axi().get('/ops/user/' + this.uuid + '/order/')
-        console.log(dr.data)
-        if (dr.status === 200) {
-          // console.log(dp.data)
-        } else {
-          console.log('错误')
-        }
-      } catch (e) {
-        console.log(e)
-      }
-    },
-    handleSizeChangeg (val) {
-      console.log(`每页a ${val} 条`)
-    },
-    handleCurrentChangeg (val) {
-      console.log(`当前页a: ${val}`)
-    },
-    handleSizeChange (val) {
-      console.log(`每页a ${val} 条`)
-    },
-    handleCurrentChange (val) {
-      console.log(`当前页a: ${val}`)
-    },
-    backTo () {
-      this.$router.go(-1)
-    },
-    edituser () {
-      this.$router.push({
-        path: 'UserEdit',
-        query: {'uuid': this.uuid}
-      })
-    }
-  }
-}
-</script>
+<script src='../../../assets/js/userdetail.js'></script>
 <style scoped src='../../../assets/css/musicdetail.css'></style>

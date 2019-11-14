@@ -25,7 +25,7 @@
             label="栏目名称">
           </el-table-column>
           <el-table-column
-            prop="update_at"
+            prop="updated_at"
             label="修改时间"
             width="180">
           </el-table-column>
@@ -43,7 +43,7 @@
               <el-switch
                   active-color="#5B7BFA"
                   inactive-color="#dadde5"
-                  v-model="scope.row.addressd"
+                  v-model="scope.row.is_show"
                   @change="schange(scope.row)"
               >
               </el-switch>
@@ -74,10 +74,10 @@
           @size-change="handleSizeChangeg"
           @current-change="handleCurrentChangeg"
           :current-page="currentPage3"
-          :page-sizes="[10, 20, 30, 100]"
-          :page-size="100"
+          :page-sizes="[10, 20]"
+          :page-size="10"
           layout="prev, pager, next, sizes"
-          :total="400">
+          :total="count">
         </el-pagination>
       </div>
     </div>
@@ -89,7 +89,7 @@
         <el-form :model='form'>
           <el-col :span="22" >
             <el-form-item label='栏目名称：' :label-width='formLabelWidth'>
-              <el-input v-model='form.name'  maxlength='12' autocomplete='off'></el-input>
+              <el-input v-model='form.name'  maxlength='12' placeholder="请输入栏目名称" autocomplete='off'></el-input>
             </el-form-item>
           </el-col>
 
@@ -108,6 +108,54 @@
         <div slot='footer' class='dialog-footer'>
           <el-button size='mini' @click='dialogFormVisible = false'>取 消</el-button>
           <el-button size='mini' type='primary' @click='addcolumncfm'>确 定</el-button>
+        </div>
+      </el-dialog>
+    </div>
+
+    <div id='dialogues'>
+       <el-dialog
+        title='确认提示'
+        :visible.sync='dialogVisible'
+        :close-on-click-modal='false'
+        width='30%'>
+        <span class='fw700 cross'>
+          <i class='el-icon-warning'></i>
+            是否删除栏目: {{name}}
+        </span>
+        <span class='cross'>删除后不可恢复</span>
+        <span slot='footer' class='dialog-footer'>
+          <el-button size='mini' @click='dialogVisible = false'>取 消</el-button>
+          <el-button size='mini' type='primary' @click='deleteconfirm'>确 定</el-button>
+        </span>
+      </el-dialog>
+    </div>
+
+    <div id='editcolumn'>
+      <el-dialog title='添加栏目'
+      :close-on-click-modal='false'
+      :visible.sync='dialogFormVisibleedit'>
+        <el-form :model='form'>
+          <el-col :span="22" >
+            <el-form-item label='栏目名称：' :label-width='formLabelWidth'>
+              <el-input v-model='formedit.name'  maxlength='12' placeholder="请输入栏目名称" autocomplete='off'></el-input>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="22">
+            <el-form-item label='栏目描述：' :label-width='formLabelWidth'>
+              <el-input
+                type='textarea'
+                :autosize='{ minRows: 3, maxRows: 4}'
+                placeholder='请输入栏目描述：'
+                maxlength='50'
+                v-model='formedit.desc'>
+              </el-input>
+            </el-form-item>
+          </el-col>
+        </el-form>
+        <div slot='footer' class='dialog-footer'>
+          <el-button size='mini' @click='dialogFormVisibleedit = false'>取 消</el-button>
+          <el-button size='mini' type='primary' @click='editcolumncfm'>确 定</el-button>
         </div>
       </el-dialog>
     </div>

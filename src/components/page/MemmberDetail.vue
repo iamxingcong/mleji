@@ -3,8 +3,10 @@
     <div class="white">
       <div class="brnaLogo"  :style='{ backgroundImage: `url(${img})` }'></div>
       <div class="logotitle">
-        会员详情（普通会员）
+        {{ detail.name }}
+        ({{ detail.type === 'VIP' ? '高级会员' : '普通会员'}})
       </div>
+      <span class='desc'> {{detail.desc}} </span>
     </div>
 
     <div class="white mt15 pt15">
@@ -14,37 +16,51 @@
           style="width: 100%"
         >
           <el-table-column
-            prop="image"
-            label="音乐ID"
+            prop="user_name"
+            label="用户名称"
             width="180">
           </el-table-column>
           <el-table-column
-            prop="namea"
-            label="用户名称"
+            prop="download_origin_count"
+            label="剩余下载数"
           >
           </el-table-column>
           <el-table-column
-            prop="nameb"
-            label="请求时间"
+            prop="order_count"
+            label="订单数"
           >
           </el-table-column>
           <el-table-column
-            prop="namec"
-            label="项目名称"
+            prop="project_count"
+            label="创建项目数"
           >
           </el-table-column>
           <el-table-column
-            prop="named"
-            label="手机号码"
+            prop="created_at"
+            label="注册时间"
           >
+          <template slot-scope="scope">
+            {{ scope.row.created_at.substr(0, 10)}}
+          </template>
           </el-table-column>
           <el-table-column
-            prop="namee"
-            label="邮箱地址"
+            prop="created_at"
+            label="创建会员时间"
           >
+            <template slot-scope="scope">
+              {{ scope.row.created_at.substr(0, 10)}}
+            </template>
           </el-table-column>
           <el-table-column
-            prop="namef"
+            prop="expire_time"
+            label="会员到期时间"
+          >
+          <template slot-scope="scope">
+            {{ scope.row.expire_time.substr(0, 10)}}
+          </template>
+          </el-table-column>
+          <el-table-column
+            prop="user_id"
             label="操作"
             width="250"
           >
@@ -52,12 +68,12 @@
                <el-button
                 type="text"
                 @click="RequestDetail(scope.row)">用户详情</el-button>
-               <el-button
+               <!-- <el-button
                 type="text"
                 @click="hddelete(scope.row)"
                >
                 删除
-               </el-button>
+               </el-button> -->
             </template>
           </el-table-column>
         </el-table>
@@ -68,80 +84,35 @@
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
             :current-page="currentPage4"
-            :page-sizes="[10, 20, 30, 100]"
-            :page-size="100"
+            :page-sizes="[10, 20]"
+            :page-size="10"
             layout="prev, pager, next, sizes"
-            :total="400">
+            :total="count">
           </el-pagination>
         </div>
     </div>
 
+    <div id='dialogues'>
+       <el-dialog
+        title='确认提示'
+        :visible.sync='dialogVisible'
+        :close-on-click-modal='false'
+        width='30%'>
+        <span class='fw700 cross'>
+          <i class='el-icon-warning'></i>
+            是否确定删除用户: {{ name }}
+        </span>
+        <span class='cross'>用户删除后不可恢复</span>
+        <span slot='footer' class='dialog-footer'>
+          <el-button size='mini' @click='dialogVisible = false'>取 消</el-button>
+          <el-button size='mini' type='primary' @click='deleteconfirm'>确 定</el-button>
+        </span>
+      </el-dialog>
+    </div>
+
   </div>
 </template>
-<script>
-import axi from '@/config/axi'
-export default {
-  name: 'MemmberDetail',
-  data () {
-    return {
-      img: require('../../assets/icons/logo.png'),
-      tableDatab: [{
-        image: '哈哈发放',
-        namea: '上海',
-        nameb: '普陀区',
-        namec: '上海市普陀区金沙江路 1518 弄',
-        named: 200333,
-        namee: 'sfsff',
-        namef: 'sffdsf3'
-      },
-      {
-        image: '哈哈发放',
-        namea: '上海',
-        nameb: '普陀区',
-        namec: '上海市普陀区金沙江路 1518 弄',
-        named: 200333,
-        namee: 'sfsff',
-        namef: 'sffdsf3'
-      }],
-      currentPage4: 1
-    }
-  },
-  created () {
-    this.uprofile()
-    this.users()
-  },
-  methods: {
-    async uprofile () {
-      try {
-        let dx = await axi().get('/ops/vip/' + this.$route.query.id)
-        console.log(dx.status)
-      } catch (e) {
-        console.log(e)
-      }
-    },
-    async users () {
-      try {
-        let dx = await axi().get('/ops/vip/' + this.$route.query.id + '/users/')
-        console.log(dx.status)
-      } catch (e) {
-        console.log(e)
-      }
-    },
-    RequestDetail (row) {
-      console.log(row)
-    },
-    hddelete (row) {
-      console.log(row)
-    },
-    handleSizeChange (val) {
-      console.log(`每页 ${val} 条`)
-    },
-    handleCurrentChange (val) {
-      console.log(`当前页: ${val}`)
-    }
-  }
-}
-</script>
+<script src='../../assets/js/memberdetail.js'></script>
 <style scoped>
 .white{
   padding: 0px 15px;
@@ -215,5 +186,12 @@ a{
   padding-top: 15px;
   padding-bottom: 5px;
   border-top: 1px solid #e2e2e2;
+}
+.desc{
+    line-height: 40px;
+    width: calc(100% - 135px);
+    display: block;
+    float: right;
+    text-align: left;
 }
 </style>

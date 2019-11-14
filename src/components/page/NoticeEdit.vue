@@ -51,7 +51,6 @@
           </el-checkbox-group>
         </el-form-item>
         <el-form-item>
-          <el-button size='mini' type="primary" @click="onSubmit">发布</el-button>
           <el-button size='mini' type="primary" @click='save'>保存</el-button>
           <el-button size='mini' @click='resets'>重置</el-button>
           <el-button size='mini' @click="backTo">返回</el-button>
@@ -62,7 +61,7 @@
 
   </div>
 </template>
-<script src='../../assets/js/noticecreate.js'></script>
+<script src='../../assets/js/noticeedit.js'></script>
 <style scoped>
 .tips{
   margin-top: 20px;

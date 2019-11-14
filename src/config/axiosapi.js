@@ -83,7 +83,16 @@ export default {
     return axi().post('/ops/column', data)
   },
   message () {
-    return axi().get('/ops/message')
+    return axi().get('/ops/message?ordering=-updated_at')
+  },
+  addmessage (data) {
+    return axi().post('/ops/message', data)
+  },
+  columnsearch () {
+    return axi().get('/ops/column_search')
+  },
+  panel () {
+    return axi().get('/ops/data/panel')
   }
 
 }
